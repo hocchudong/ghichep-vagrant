@@ -1,0 +1,38 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+ENV['VAGRANT_NO_PARALLEL'] = 'yes'
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
+
+Vagrant.configure(2) do |config|
+
+  #config.vm.provision "shell", path: "bootstrap.sh"
+
+  NodeCountCentos = 2
+
+  # server Centos
+  (1..NodeCountCentos).each do |i|
+    config.vm.define "kworker#{i}" do |centosnode|
+      centosnode.vm.box = "centos/7"
+      centosnode.vm.hostname = "kworker#{i}.hcdlab.local"
+      centosnode.vm.network "private_network", ip: "172.16.16.10#{i}"
+			
+			
+      centosnode.vm.provider :virtualbox do |v|
+        v.name    = "ubuntuvm#{i}"
+        v.memory  = 1024
+        v.cpus    = 1
+      end
+
+      centosnode.vm.provider :libvirt do |v|
+        v.nested  = true
+        v.memory  = 1024
+        v.cpus    = 1
+      end
+			# centosnode.vm.provision "shell", path: "bootstrap_kworker.sh"
+			centosnode.vm.provision "shell", path: "boostrap_centos7.sh"
+    end
+  end
+
+
+end
