@@ -11,7 +11,7 @@ Vagrant.configure(2) do |config|
   #config.vm.provision "shell", path: "bootstrap.sh"
 
   # VM MGNT
-  config.vm.define "mgmt0101" do |mgmt01|
+  config.vm.define "mgmt01" do |mgmt01|
     mgmt01.vm.provider "libvirt" do |v|
       v.memory = 2048
       v.cpus = 2
