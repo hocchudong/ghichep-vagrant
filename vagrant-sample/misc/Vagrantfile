@@ -17,8 +17,8 @@ Vagrant.configure(2) do |config|
       v.cpus = 2
     end 
     mgmt01.vm.box = BOX_IMAGE_MNGT
-	  mgmt01.vm.box_check_update  = false
-		mgmt01.vm.hostname = "mgmt01"
+    mgmt01.vm.box_check_update  = false
+    mgmt01.vm.hostname = "mgmt01"
     mgmt01.vm.network :private_network, ip: "10.0.0.2"
     mgmt01.vm.provision "shell", path: "boostrap_centos7.sh"
   end
@@ -30,8 +30,8 @@ Vagrant.configure(2) do |config|
       v.cpus = 1
     end
     node01.vm.box = BOX_IMAGE_NODE
-		node01.vm.box_check_update  = false
-		node01.vm.hostname = "node01"
+    node01.vm.box_check_update  = false
+    node01.vm.hostname = "node01"
     node01.vm.network :private_network, ip: "10.0.0.5"
     node01.vm.provision "shell", path: "bootstrap_ubuntu20.sh"
   end
