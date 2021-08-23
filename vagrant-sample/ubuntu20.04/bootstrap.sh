@@ -11,5 +11,6 @@ echo "[TASK 2] Set root password"
 echo -e "admin\nadmin" | passwd root >/dev/null 2>&1
 
 # Install package
-echo "[TASK 3] Install net-tool"
-apt install -qq -y net-tool >/dev/null 2>&1
+echo "[TASK 3] Install net-tools"
+apt update -qq -y >/dev/null 2>&1
+apt install -qq -y net-tools >/dev/null 2>&1
