@@ -11,25 +11,29 @@ Vagrant.configure(2) do |config|
   #config.vm.provision "shell", path: "bootstrap.sh"
 
   # VM MGNT
-  config.vm.define "mgmt01" do |mgmt|
-    mgmt.vm.provider "libvirt" do |v|
+  config.vm.define "mgmt0101" do |mgmt01|
+    mgmt01.vm.provider "libvirt" do |v|
       v.memory = 2048
       v.cpus = 2
     end 
-    mgmt.vm.box = BOX_IMAGE_MNGT
-    mgmt.vm.network :private_network, ip: "10.0.0.2"
-    mgmt.vm.provision "shell", path: "boostrap_centos7.sh"
+    mgmt01.vm.box = BOX_IMAGE_MNGT
+	  mgmt01.vm.box_check_update  = false
+		mgmt01.vm.hostname = "mgmt01"
+    mgmt01.vm.network :private_network, ip: "10.0.0.2"
+    mgmt01.vm.provision "shell", path: "boostrap_centos7.sh"
   end
 
-  # VM NODE1 
-  config.vm.define "node1" do |node1|
-    node1.vm.provider "libvirt" do |v|
+  # VM NODE01 
+  config.vm.define "node01" do |node01|
+    node01.vm.provider "libvirt" do |v|
       v.memory = 1024
       v.cpus = 1
     end
-    node1.vm.box = BOX_IMAGE_NODE
-    node1.vm.network :private_network, ip: "10.0.0.5"
-    node1.vm.provision "shell", path: "bootstrap_ubuntu20.sh"
+    node01.vm.box = BOX_IMAGE_NODE
+		node01.vm.box_check_update  = false
+		node01.vm.hostname = "node01"
+    node01.vm.network :private_network, ip: "10.0.0.5"
+    node01.vm.provision "shell", path: "bootstrap_ubuntu20.sh"
   end
 
 end
