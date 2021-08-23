@@ -1,0 +1,25 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+ENV['VAGRANT_NO_PARALLEL'] = 'yes'
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
+
+Vagrant.configure(2) do |config|
+  
+	config.vm.provision "shell", path: "bootstrap.sh"
+
+  NodeCount = 1
+
+  (1..NodeCount).each do |i|
+    config.vm.define "centosvm0#{i}" do |node|
+      node.vm.box = "centos/7"
+      node.vm.hostname = "centosvm0#{i}.example.com"
+      node.vm.network "private_network", ip: "172.16.16.10#{i}"
+      node.vm.provider "libvirt" do |v|
+        v.name = "centosvm0#{i}"
+        v.memory = 2048
+        v.cpus = 1
+      end
+    end
+  end
+end
