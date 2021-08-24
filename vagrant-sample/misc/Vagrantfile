@@ -15,8 +15,8 @@ Vagrant.configure(2) do |config|
     mgmt01.vm.provider "libvirt" do |v|
       v.memory = 2048
       v.cpus = 2
-			v.storage :file, :size => '20G' #them o cung thu 2
-			# v.graphics_ip = '0.0.0.0'
+      v.storage :file, :size => '20G' #them o cung thu 2
+      # v.graphics_ip = '0.0.0.0'
     end 
     mgmt01.vm.box = BOX_IMAGE_CENTOS7
     mgmt01.vm.box_check_update  = false
@@ -31,7 +31,7 @@ Vagrant.configure(2) do |config|
       v.memory = 1024
       v.cpus = 1
       v.storage :file, :size => '20G' #them o cung thu 2
-			# v.graphics_ip = '0.0.0.0'
+      # v.graphics_ip = '0.0.0.0'
     end
     node01.vm.box = BOX_IMAGE_UBUNTU20
     node01.vm.box_check_update  = false
@@ -46,7 +46,7 @@ Vagrant.configure(2) do |config|
       v.memory = 1024
       v.cpus = 1
       v.storage :file, :size => '20G' #them o cung thu 2
-			# v.graphics_ip = '0.0.0.0'
+      # v.graphics_ip = '0.0.0.0'
     end
     node02.vm.box = BOX_IMAGE_UBUNTU20
     node02.vm.box_check_update  = false
@@ -60,8 +60,8 @@ Vagrant.configure(2) do |config|
     node03.vm.provider "libvirt" do |v|
       v.memory = 1024
       v.cpus = 1
-			v.storage :file, :size => '20G' #them o cung thu 2
-			# v.graphics_ip = '0.0.0.0'
+      v.storage :file, :size => '20G' #them o cung thu 2
+      # v.graphics_ip = '0.0.0.0'
     end
     node03.vm.box = BOX_IMAGE_CENTOS7
     node03.vm.box_check_update  = false
