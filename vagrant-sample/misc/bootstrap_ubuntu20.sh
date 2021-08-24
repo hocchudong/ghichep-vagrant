@@ -8,7 +8,7 @@ systemctl reload sshd
 
 # Set Root password
 echo "[TASK 2] Set root password"
-echo -e "admin\nadmin" | passwd root >/dev/null 2>&1
+echo -e "hcdadmin\nhcdadmin" | passwd root >/dev/null 2>&1
 
 # Install package
 echo "[TASK 3] Install net-tools"

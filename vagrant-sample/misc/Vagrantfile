@@ -24,6 +24,10 @@ Vagrant.configure(2) do |config|
     mgmt01.vm.hostname = "mgmt01"
 		mgmt01.vm.network :private_network, ip: "10.0.0.2"
     mgmt01.vm.provision "shell", path: "boostrap_centos7.sh"
+		
+    mgmt01.vm.provision "shell",
+    run: "always",
+    inline: "yum install net-tools -y"
   end
 
   # VM NODE01 
