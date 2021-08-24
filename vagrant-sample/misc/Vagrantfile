@@ -15,11 +15,13 @@ Vagrant.configure(2) do |config|
     mgmt01.vm.provider "libvirt" do |v|
       v.memory = 2048
       v.cpus = 2
+			v.storage :file, :size => '20G' #them o cung thu 2
+			# v.graphics_ip = '0.0.0.0'
     end 
     mgmt01.vm.box = BOX_IMAGE_CENTOS7
     mgmt01.vm.box_check_update  = false
     mgmt01.vm.hostname = "mgmt01"
-    mgmt01.vm.network :private_network, ip: "10.0.0.2"
+		mgmt01.vm.network :private_network, ip: "10.0.0.2"
     mgmt01.vm.provision "shell", path: "boostrap_centos7.sh"
   end
 
@@ -28,6 +30,8 @@ Vagrant.configure(2) do |config|
     node01.vm.provider "libvirt" do |v|
       v.memory = 1024
       v.cpus = 1
+      v.storage :file, :size => '20G' #them o cung thu 2
+			# v.graphics_ip = '0.0.0.0'
     end
     node01.vm.box = BOX_IMAGE_UBUNTU20
     node01.vm.box_check_update  = false
@@ -41,6 +45,8 @@ Vagrant.configure(2) do |config|
     node02.vm.provider "libvirt" do |v|
       v.memory = 1024
       v.cpus = 1
+      v.storage :file, :size => '20G' #them o cung thu 2
+			# v.graphics_ip = '0.0.0.0'
     end
     node02.vm.box = BOX_IMAGE_UBUNTU20
     node02.vm.box_check_update  = false
@@ -54,6 +60,8 @@ Vagrant.configure(2) do |config|
     node03.vm.provider "libvirt" do |v|
       v.memory = 1024
       v.cpus = 1
+			v.storage :file, :size => '20G' #them o cung thu 2
+			# v.graphics_ip = '0.0.0.0'
     end
     node03.vm.box = BOX_IMAGE_CENTOS7
     node03.vm.box_check_update  = false
