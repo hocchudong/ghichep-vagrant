@@ -17,6 +17,7 @@ Vagrant.configure(2) do |config|
       v.cpus = 2
       v.storage :file, :size => '20G' #them o cung thu 2
       # v.graphics_ip = '0.0.0.0'
+			# vm.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "pool-list virsh"  de lay ten cua pool.
     end 
     mgmt01.vm.box = BOX_IMAGE_CENTOS7
     mgmt01.vm.box_check_update  = false
@@ -31,6 +32,7 @@ Vagrant.configure(2) do |config|
       v.memory = 1024
       v.cpus = 1
       v.storage :file, :size => '20G' #them o cung thu 2
+			# vm.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "pool-list virsh"  de lay ten cua pool.			
       # v.graphics_ip = '0.0.0.0'
     end
     node01.vm.box = BOX_IMAGE_UBUNTU20
@@ -46,6 +48,7 @@ Vagrant.configure(2) do |config|
       v.memory = 1024
       v.cpus = 1
       v.storage :file, :size => '20G' #them o cung thu 2
+			# vm.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "pool-list virsh"  de lay ten cua pool.
       # v.graphics_ip = '0.0.0.0'
     end
     node02.vm.box = BOX_IMAGE_UBUNTU20
@@ -61,6 +64,7 @@ Vagrant.configure(2) do |config|
       v.memory = 1024
       v.cpus = 1
       v.storage :file, :size => '20G' #them o cung thu 2
+			# vm.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "pool-list virsh"  de lay ten cua pool.
       # v.graphics_ip = '0.0.0.0'
     end
     node03.vm.box = BOX_IMAGE_CENTOS7
