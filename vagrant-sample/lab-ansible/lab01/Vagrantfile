@@ -3,9 +3,11 @@
 
 ENV['VAGRANT_NO_PARALLEL'] = 'yes'
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
+BOX_IMAGE_CENTOS7 = "centos/7"
+BOX_IMAGE_UBUNTU20= "generic/ubuntu2004"
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "centos/7"
+  config.vm.box = BOX_IMAGE_CENTOS7
 
   config.vm.provision "shell", path: "bootstrap.sh"
   config.ssh.insert_key = false
