@@ -1,0 +1,18 @@
+# App servers
+[app]
+10.0.0.4
+10.0.0.5
+
+# DB servers
+[db]
+10.0.0.6
+
+# Group has all the servers
+[multi:children]
+app
+db
+
+# Variables for all the servers
+[multi:vars]
+ansible_user=vagrant
+ansible_private_key_file=~/.vagrant.d/insecure_private_key
