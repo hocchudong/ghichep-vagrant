@@ -14,25 +14,51 @@ Vagrant.configure("2") do |config|
 
   # config.vm.synced_folder ".", "/vagrant", disabled: true
 
-  config.vm.provider "libvrit" do |v|
-    v.memory = 1024
-		v.linked_clone = true
+  # VM app01 
+  config.vm.define "app01" do |app01|
+    app01.vm.provider "libvirt" do |v|
+      v.memory = 1024
+      v.cpus = 1
+      # v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.			
+      # v.graphics_ip = '0.0.0.0'
+    end
+    app01.vm.box = BOX_IMAGE_UBUNTU20
+    app01.vm.box_check_update  = false
+    app01.vm.hostname = "app01"
+    app01.vm.network :private_network, ip: "10.0.0.4"
+    app01.vm.provision "shell", path: "bootstrap.sh"
   end
 
-  # App server 1
-  config.vm.define "app1" do |app|
-    app.vm.hostname = "orc-app1.test"
-    app.vm.network :private_network, ip: "10.0.0.4"
+  # VM app02 
+  config.vm.define "app02" do |app02|
+    app02.vm.provider "libvirt" do |v|
+      v.memory = 2048
+      v.cpus = 2
+      v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.			
+      # v.graphics_ip = '0.0.0.0'
+    end
+    app02.vm.box = BOX_IMAGE_UBUNTU20
+    app02.vm.box_check_update  = false
+    app02.vm.hostname = "app02"
+    app02.vm.network :private_network, ip: "10.0.0.5"
+    app02.vm.provision "shell", path: "bootstrap.sh"
   end
 
-  # App server 2
-  config.vm.define "app2" do |app|
-    app.vm.hostname = "orc-app2.test"
-    app.vm.network :private_network, ip: "10.0.0.5"
+  # VM db01 
+  config.vm.define "db01" do |db01|
+    db01.vm.provider "libvirt" do |v|
+      v.memory = 4096
+      v.cpus = 4
+      v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.			
+      # v.graphics_ip = '0.0.0.0'
+    end
+    db01.vm.box = BOX_IMAGE_UBUNTU20
+    db01.vm.box_check_update  = false
+    db01.vm.hostname = "db01"
+    db01.vm.network :private_network, ip: "10.0.0.6"
+    db01.vm.provision "shell", path: "bootstrap_ubuntu20.sh"
   end
 
-  # DB server
-  config.vm.define "db" do |db|
     db.vm.hostname = "orc-db.test"
     db.vm.network :private_network, ip: "10.0.0.6"
   end
