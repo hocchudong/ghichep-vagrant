@@ -7,7 +7,7 @@ BOX_IMAGE_CENTOS7 = "centos/7"
 BOX_IMAGE_UBUNTU20= "generic/ubuntu2004"
 
 Vagrant.configure("2") do |config|
-  config.vm.box = BOX_IMAGE_CENTOS7
+  config.vm.box = BOX_IMAGE_UBUNTU20
 
   config.vm.provision "shell", path: "bootstrap.sh"
   config.ssh.insert_key = false
@@ -22,11 +22,11 @@ Vagrant.configure("2") do |config|
       # v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.			
       # v.graphics_ip = '0.0.0.0'
     end
-    app01.vm.box = BOX_IMAGE_CENTOS7
+    app01.vm.box = BOX_IMAGE_UBUNTU20
     app01.vm.box_check_update  = false
     app01.vm.hostname = "app01"
     app01.vm.network :private_network, ip: "10.0.0.4"
-    app01.vm.provision "shell", path: "bootstrap.sh"
+    app01.vm.provision "shell", path: "bootstrap_ubuntu20.sh"
   end
 
   # VM app02 
@@ -37,11 +37,11 @@ Vagrant.configure("2") do |config|
       v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.			
       # v.graphics_ip = '0.0.0.0'
     end
-    app02.vm.box = BOX_IMAGE_CENTOS7
+    app02.vm.box = BOX_IMAGE_UBUNTU20
     app02.vm.box_check_update  = false
     app02.vm.hostname = "app02"
     app02.vm.network :private_network, ip: "10.0.0.5"
-    app02.vm.provision "shell", path: "bootstrap.sh"
+    app02.vm.provision "shell", path: "bootstrap_ubuntu20.sh"
   end
 
   # VM db01 
@@ -52,10 +52,10 @@ Vagrant.configure("2") do |config|
       v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.			
       # v.graphics_ip = '0.0.0.0'
     end
-    db01.vm.box = BOX_IMAGE_CENTOS7
+    db01.vm.box = BOX_IMAGE_UBUNTU20
     db01.vm.box_check_update  = false
     db01.vm.hostname = "db01"
     db01.vm.network :private_network, ip: "10.0.0.6"
-    db01.vm.provision "shell", path: "bootstrap.sh"
+    db01.vm.provision "shell", path: "bootstrap_ubuntu20.sh"
   end
 end

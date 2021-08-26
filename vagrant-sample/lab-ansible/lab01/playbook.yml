@@ -1,0 +1,7 @@
+---
+- name: "Cai dat VIM"
+  become: True
+  hosts: all
+  
+  tasks: 
+  - name: "Cai dat VIM"
