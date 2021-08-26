@@ -9,6 +9,8 @@ ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
 Vagrant.configure(2) do |config|
 
   config.vm.provision "shell", path: "bootstrap.sh"
+  config.ssh.insert_key = false
+
   NodeCount = 2
 
   (1..NodeCount).each do |i|

@@ -7,6 +7,7 @@ ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
 Vagrant.configure(2) do |config|
   
 	config.vm.provision "shell", path: "bootstrap.sh"
+	config.ssh.insert_key = false
 
   NodeCount = 1
 
@@ -15,11 +16,17 @@ Vagrant.configure(2) do |config|
       node.vm.box = "centos/7"
       node.vm.hostname = "centosvm0#{i}.example.com"
       node.vm.network "private_network", ip: "172.16.16.10#{i}"
+      
       node.vm.provider "libvirt" do |v|
         v.name = "centosvm0#{i}"
         v.memory = 2048
         v.cpus = 1
       end
+			
+      node.vm.provision "shell",
+      run: "always",
+      inline: "yum install net-tools -y"
+			
     end
   end
 end
