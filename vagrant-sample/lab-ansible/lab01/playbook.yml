@@ -1,0 +1,26 @@
+---
+- name: "Cai dat goi phan mem cho DB"
+  become: True
+  hosts: db
+  tasks: 
+  - name: "Cai dat WEB"
+    apt: 
+      name: apache2
+      state: present
+      update_cache: yes
+      cache_valid_time: 3600
+  
+- name: "Cai dat goi phan mem APP"
+  become: True
+  hosts: app
+  tasks: 
+  - name: "Cai dat VIM"
+    apt: 
+      pkg: 
+      - vim
+      - curl
+      - nginx 
+      state: present
+      update_cache: yes
+      cache_valid_time: 3600
+  
