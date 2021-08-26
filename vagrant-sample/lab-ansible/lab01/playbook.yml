@@ -5,3 +5,10 @@
   
   tasks: 
   - name: "Cai dat VIM"
+    apt: 
+      name: vim
+      state: present
+      update_cache: yes
+      cache_valid_time: 3600
+  
+  
