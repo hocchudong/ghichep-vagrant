@@ -1,0 +1,29 @@
+---
+# This is a simple playbook with two plays
+- name: first play
+  hosts: app
+  become: True
+  tasks:
+  - name: first task first play
+    apt:
+      name: apache2
+      update_cache: yes
+      state: present
+  - name: second task first play
+    service:
+      name: apache2
+      enabled: true
+
+- name: second play
+  hosts: db
+  become: True
+  tasks:
+  - name: first task second play
+    apt:
+      name: mariadb-server
+      update_cache: yes
+      state: present
+  - name: second task second play
+    service:
+      name: mariadb
+      enabled: true
