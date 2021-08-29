@@ -21,25 +21,25 @@ Vagrant.configure("2") do |config|
   # config.vm.synced_folder ".", "/vagrant", disabled: true
 
   # VM Devstack 
-  config.vm.define "app01" do |app01|
-    app01.vm.box = BOX_IMAGE
-    app01.vm.box_check_update  = false
-    app01.vm.hostname = "app01"
+  config.vm.define "devstack01" do |devstack01|
+    devstack01.vm.box = BOX_IMAGE
+    devstack01.vm.box_check_update  = false
+    devstack01.vm.hostname = "devstack01"
 
-    app01.vm.network "private_network", ip: "172.16.16.101"
-    app01.vm.network "public_network", :dev => "vlan2341", :mode => 'bridge', :type => "bridge", :ip => "172.16.70.189"
-    app01.vm.provision "shell",
+    devstack01.vm.network "private_network", ip: "172.16.16.101"
+    devstack01.vm.network "public_network", :dev => "vlan2341", :mode => 'bridge', :type => "bridge", :ip => "172.16.70.189"
+    devstack01.vm.provision "shell",
     run: "always",
     inline: "route add default gw 172.16.70.1"
     ##
     
     # delete default gw on eth0
-    app01.vm.provision "shell",
+    devstack01.vm.provision "shell",
     run: "always",
     inline: "ip route del default via 192.168.121.1 || true"
 		
-    # app01.vm.provision "shell", path: PATH_SHELL
-		app01.vm.provider "libvirt" do |v|
+    # devstack01.vm.provision "shell", path: PATH_SHELL
+		devstack01.vm.provider "libvirt" do |v|
       v.memory = 8192
       v.cpus = 4
       # v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.			
