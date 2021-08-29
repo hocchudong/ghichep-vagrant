@@ -1,0 +1,38 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+ENV['VAGRANT_NO_PARALLEL'] = 'yes'
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
+
+# Bo 2 dong duoi neu su dung he dieu hanh khac va mo comment 02 dong tiep theo.
+# BOX_IMAGE = "centos/7"
+# PATH_SHELL = "boostrap_centos7.sh"
+
+# Mo comment 2 dong duoi de su dung he dieu hanh la Ubuntu 20.04 va comment 02 dong truoc do.
+BOX_IMAGE= "generic/ubuntu2004"
+PATH_SHELL = "bootstrap_ubuntu20.sh"
+
+Vagrant.configure("2") do |config|
+  config.vm.box = BOX_IMAGE
+
+  config.vm.provision "shell", path: PATH_SHELL
+  config.ssh.insert_key = false
+
+  # config.vm.synced_folder ".", "/vagrant", disabled: true
+
+  # VM Devstack 
+  config.vm.define "app01" do |app01|
+    app01.vm.provider "libvirt" do |v|
+      v.memory = 1024
+      v.cpus = 1
+      # v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.			
+      # v.graphics_ip = '0.0.0.0'
+    end
+    app01.vm.box = BOX_IMAGE
+    app01.vm.box_check_update  = false
+    app01.vm.hostname = "app01"
+    app01.vm.network :private_network, ip: "10.0.0.4"
+    # app01.vm.provision "shell", path: PATH_SHELL
+  end
+
+end

@@ -1,0 +1,1 @@
+# File vagrant mẫu
