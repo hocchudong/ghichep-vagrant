@@ -4,22 +4,84 @@
 
 ## Tạo VM
 
+- Tạo VM Ubuntu20.04
+- Khai báo thêm các cấu hình sau
+
+	```
+	apt-get update
+	apt-get upgrade
+	apt-get install iptables -y
+	apt-get install arptables -y
+	apt-get install ebtables -y
+
+	update-alternatives --set iptables /usr/sbin/iptables-legacy || true
+	update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy || true
+	update-alternatives --set arptables /usr/sbin/arptables-legacy || true
+	update-alternatives --set ebtables /usr/sbin/ebtables-legacy || true
+	```
+
 ## Thực hiện cài devstack
+
+- 
 
 - Tạo user
 
-```
-sudo useradd -s /bin/bash -d /opt/stack -m stack
+	```
+	sudo useradd -s /bin/bash -d /opt/stack -m stack
+	echo "stack ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/stack
+	sudo chown stack:stack -R /opt/stack
+	sudo -u stack -i
+	```
 
-echo "stack ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/stack
+- Tải devstack
 
-sudo chown stack:stack -R /opt/stack
+	```
+	git clone https://opendev.org/openstack/devstack
 
-sudo -u stack -i (stack 계정으로 전환하기. 그 전에는 ubuntu라는 계정으로 되어 있음)
+	cd devstack
 
-git clone https://opendev.org/openstack/devstack
+	git checkout stable/wallaby
+	```
+	
+- Tạo file local.conf
 
-cd devstack
+	```
 
-git checkout stable/wallaby
-```
+	[[local|localrc]]
+	HOST_IP=172.16.70.189
+	FORCE=yes
+	ADMIN_PASSWORD=secret
+	DATABASE_PASSWORD=$ADMIN_PASSWORD
+	RABBIT_PASSWORD=$ADMIN_PASSWORD
+	SERVICE_PASSWORD=$ADMIN_PASSWORD
+
+	disable_service etcd3
+
+	## Neutron options
+	Q_USE_SECGROUP=True
+	FLOATING_RANGE="172.16.16.0/24"
+	IPV4_ADDRS_SAFE_TO_USE="10.0.0.0/22"
+	Q_FLOATING_ALLOCATION_POOL=start=172.16.16.150,end=172.16.16.200
+	PUBLIC_NETWORK_GATEWAY="172.16.16.1"
+	PUBLIC_INTERFACE=eth1
+	IP_VERSION=4
+
+
+	# Open vSwitch provider networking configuration
+	Q_USE_PROVIDERNET_FOR_PUBLIC=True
+	OVS_PHYSICAL_BRIDGE=br-ex
+	PUBLIC_BRIDGE=br-ex
+	OVS_BRIDGE_MAPPINGS=public:br-ex
+
+	Q_ASSIGN_GATEWAY_TO_PUBLIC_BRIDGE=FALSE
+
+	# End of external network configuration
+
+	### Tuy chinh cau hinh cho neutron
+	[[post-config|/etc/neutron/dhcp_agent.ini]]
+	[DEFAULT]
+	enable_isolated_metadata = True
+
+	```
+----
+Note
