@@ -25,22 +25,22 @@ Vagrant.configure("2") do |config|
     app01.vm.box = BOX_IMAGE
     app01.vm.box_check_update  = false
     app01.vm.hostname = "app01"
-		
-		app01.vm.network "private_network", ip: "172.16.16.10#{i}"
-		# app01.vm.network "public_network", :dev => "vlan2341", :mode => 'bridge', :type => "bridge"
 
-		# Bo cac dong comment sau de dat IP tinh
-		##
-		app01.vm.network "public_network", :dev => "vlan2341", :mode => 'bridge', :type => "bridge", :ip => "172.16.70.189"
-		app01.vm.provision "shell",
-		run: "always",
-		inline: "route add default gw 172.16.70.1"
-		##
-
-		# delete default gw on eth0
-		app01.vm.provision "shell",
-		run: "always",
-		inline: "ip route del default via 192.168.121.1 || true"
+    app01.vm.network "private_network", ip: "172.16.16.10#{i}"
+    # app01.vm.network "public_network", :dev => "vlan2341", :mode => 'bridge', :type => "bridge"
+    
+    # Bo cac dong comment sau de dat IP tinh
+    ##
+    app01.vm.network "public_network", :dev => "vlan2341", :mode => 'bridge', :type => "bridge", :ip => "172.16.70.189"
+    app01.vm.provision "shell",
+    run: "always",
+    inline: "route add default gw 172.16.70.1"
+    ##
+    
+    # delete default gw on eth0
+    app01.vm.provision "shell",
+    run: "always",
+    inline: "ip route del default via 192.168.121.1 || true"
 		
     # app01.vm.provision "shell", path: PATH_SHELL
 		app01.vm.provider "libvirt" do |v|
