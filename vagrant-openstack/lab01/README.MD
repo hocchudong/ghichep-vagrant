@@ -8,8 +8,8 @@
 - Khai báo thêm các cấu hình sau
 
 	```
-	apt-get update
-	apt-get upgrade
+	apt-get update -y
+	apt-get upgrade -y
 	apt-get install iptables -y
 	apt-get install arptables -y
 	apt-get install ebtables -y
@@ -48,9 +48,9 @@
 	```
 
 	[[local|localrc]]
-	HOST_IP=172.16.70.189
+	HOST_IP=172.16.70.188
 	FORCE=yes
-	ADMIN_PASSWORD=secret
+	ADMIN_PASSWORD=Welcome123
 	DATABASE_PASSWORD=$ADMIN_PASSWORD
 	RABBIT_PASSWORD=$ADMIN_PASSWORD
 	SERVICE_PASSWORD=$ADMIN_PASSWORD
