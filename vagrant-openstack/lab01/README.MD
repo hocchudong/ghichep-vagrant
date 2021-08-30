@@ -18,6 +18,10 @@
 	update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy || true
 	update-alternatives --set arptables /usr/sbin/arptables-legacy || true
 	update-alternatives --set ebtables /usr/sbin/ebtables-legacy || true
+	
+	sudo apt remove python3-simplejson -y 
+
+  sudo apt remove python3-pyasn1-modules -y 
 	```
 
 ## Thực hiện cài devstack
@@ -84,4 +88,15 @@
 
 	```
 ----
+
+## Lưu ý
+
+- Gỡ các gói trên ubuntu 20.04
+
+```
+sudo apt remove python3-simplejson -y 
+
+sudo apt remove python3-pyasn1-modules -y 
+```
+
 Note
