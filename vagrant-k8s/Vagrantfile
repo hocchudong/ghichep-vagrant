@@ -8,7 +8,7 @@ BOX_IMAGE_UBUNTU20= "generic/ubuntu2004"
 
 Vagrant.configure(2) do |config|
 
-  config.vm.provision "shell", path: "bootstrap_ubuntu20"
+  config.vm.provision "shell", path: "bootstrap_ubuntu20.sh"
   config.ssh.insert_key = false
 
   # VM master 
