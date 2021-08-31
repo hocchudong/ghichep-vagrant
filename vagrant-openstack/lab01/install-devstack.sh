@@ -52,5 +52,5 @@ sudo -u stack sh -c 'cd /opt/stack && git clone -b stable/wallaby https://opende
 # enable_isolated_metadata = True' > /opt/stack/devstack/local.conf
 
 echo "[TASK 5] PHAN QUYEN CHO CHU MUC CAI DEVSTACK"
-sudo -u stack sh -c 'cp /vagrant/local-sample.conf /opt/stack/devstack/local.conf'
+sudo -u stack sh -c 'cp /tmp/local.conf /opt/stack/devstack'
 sudo -u stack sh -c 'cd /opt/stack/devstack && ./stack.sh'

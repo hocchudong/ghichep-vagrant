@@ -19,6 +19,7 @@ Vagrant.configure("2") do |config|
   config.ssh.insert_key = false
 
   # config.vm.synced_folder ".", "/vagrant", disabled: true
+	config.vm.provision "file", source: "local-sample.conf", destination: "/tmp/local.conf"
 
   # VM Devstack 
   config.vm.define "devstack01" do |devstack01|
