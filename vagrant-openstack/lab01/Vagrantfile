@@ -9,8 +9,8 @@ ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
 # PATH_SHELL = "boostrap_centos7.sh"
 
 # Mo comment 2 dong duoi de su dung he dieu hanh la Ubuntu 20.04 va comment 02 dong truoc do.
-BOX_IMAGE= "generic/ubuntu2004"
-PATH_SHELL = "bootstrap_ubuntu20.sh"
+BOX_IMAGE= "generic/ubuntu1804"
+PATH_SHELL = "bootstrap.sh"
 
 Vagrant.configure("2") do |config|
   config.vm.box = BOX_IMAGE
@@ -38,7 +38,7 @@ Vagrant.configure("2") do |config|
     run: "always",
     inline: "ip route del default via 192.168.121.1 || true"
 		
-    # devstack01.vm.provision "shell", path: PATH_SHELL
+    devstack01.vm.provision "shell", path: install-devstack.sh
 		devstack01.vm.provider "libvirt" do |v|
       v.memory = 8192
       v.cpus = 4
