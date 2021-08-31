@@ -57,3 +57,7 @@ enable_isolated_metadata = True' > /opt/stack/devstack/local.conf
 
 echo "[TASK 5] PHAN QUYEN CHO CHU MUC CAI DEVSTACK"
 sudo chown stack:stack -R /opt/stack
+
+su - stack
+cd devstack
+./stack.sh
