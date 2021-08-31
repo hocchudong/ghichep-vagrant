@@ -15,6 +15,8 @@ echo "[TASK 3] Install net-tools"
 apt update -qq -y >/dev/null 2>&1
 apt install -qq -y net-tools >/dev/null 2>&1
 
+sudo useradd -s /bin/bash -d /opt/stack -m stack
+
 apt-get install sudo -y 
 echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
