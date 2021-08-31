@@ -1,0 +1,29 @@
+---
+# Vi du ve playbook co nhieu play
+- name: Play thu nhat
+  hosts: app
+  become: True
+  tasks:
+  - name: Task 01 cua play thu nhat
+    apt:
+      name: apache2
+      update_cache: yes
+      state: present
+  - name: Task 02 cua play thu nhat
+    service:
+      name: apache2
+      enabled: true
+
+- name: Play thu hai
+  hosts: db
+  become: True
+  tasks:
+  - name: Task 01 cua play thu hai
+    apt:
+      name: mariadb-server
+      update_cache: yes
+      state: present
+  - name: Task 02 cua play thu hai
+    service:
+      name: mariadb
+      enabled: true

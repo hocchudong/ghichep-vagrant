@@ -5,12 +5,12 @@ ENV['VAGRANT_NO_PARALLEL'] = 'yes'
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
 
 # Bo 2 dong duoi neu su dung he dieu hanh khac va mo comment 02 dong tiep theo.
-BOX_IMAGE = "centos/7"
-PATH_SHELL = "boostrap_centos7.sh"
+# BOX_IMAGE = "centos/7"
+# PATH_SHELL = "boostrap_centos7.sh"
 
 # Mo comment 2 dong duoi de su dung he dieu hanh la Ubuntu 20.04 va comment 02 dong truoc do.
-# BOX_IMAGE= "generic/ubuntu2004"
-# PATH_SHELL = "bootstrap_ubuntu20.sh"
+BOX_IMAGE= "generic/ubuntu2004"
+PATH_SHELL = "bootstrap_ubuntu20.sh"
 
 Vagrant.configure("2") do |config|
   config.vm.box = BOX_IMAGE

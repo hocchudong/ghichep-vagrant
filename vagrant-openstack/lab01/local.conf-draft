@@ -1,0 +1,25 @@
+[[local|localrc]]
+HOST_IP=172.16.70.189
+ADMIN_PASSWORD=Welcome123
+DATABASE_PASSWORD=$ADMIN_PASSWORD
+RABBIT_PASSWORD=$ADMIN_PASSWORD
+SERVICE_PASSWORD=$ADMIN_PASSWORD
+
+LOGFILE=$DEST/logs/stack.sh.log
+LOGDAYS=2
+
+#Neutron
+enable_service q-agt
+enable_service q-dhcp
+enable_service q-meta
+enable_service q-qos
+enable_service q-svc
+
+IP_VERSION=4
+
+disable_service tempest
+
+### Tuy chinh cau hinh cho neutron
+[[post-config|/etc/neutron/dhcp_agent.ini]]
+[DEFAULT]
+enable_isolated_metadata = True
