@@ -14,3 +14,22 @@ echo -e "hcdadmin\nhcdadmin" | passwd root >/dev/null 2>&1
 echo "[TASK 3] Install net-tools"
 apt update -qq -y >/dev/null 2>&1
 apt install -qq -y net-tools >/dev/null 2>&1
+
+apt-get install sudo -y 
+echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+
+apt-get install iptables -y  >/dev/null 2>&1
+apt-get install arptables -y  >/dev/null 2>&1
+apt-get install ebtables -y  >/dev/null 2>&1
+
+update-alternatives --set iptables /usr/sbin/iptables-legacy || true
+update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy || true
+update-alternatives --set arptables /usr/sbin/arptables-legacy || true
+update-alternatives --set ebtables /usr/sbin/ebtables-legacy || true
+
+sudo apt remove python3-simplejson -y   >/dev/null 2>&1
+
+sudo apt remove python3-pyasn1-modules -y  >/dev/null 2>&1
+
+touch cong.txt

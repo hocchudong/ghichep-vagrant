@@ -8,6 +8,12 @@
 - Khai báo thêm các cấu hình sau
 
 	```
+	sudo useradd -s /bin/bash -d /opt/stack -m stack
+
+  sudo su
+  apt-get install sudo -y || yum install -y sudo
+  echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
 	apt-get update -y
 	apt-get upgrade -y
 	apt-get install iptables -y
@@ -80,6 +86,8 @@
 	Q_ASSIGN_GATEWAY_TO_PUBLIC_BRIDGE=FALSE
 
 	# End of external network configuration
+
+  disable_service tempest
 
 	### Tuy chinh cau hinh cho neutron
 	[[post-config|/etc/neutron/dhcp_agent.ini]]
