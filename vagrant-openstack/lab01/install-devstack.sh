@@ -5,19 +5,19 @@
 # Versão: 1.0 - 18/07/21                             #
 ######################################################
 
-# Atualização do sistema convidado
-sudo apt update -y
-sudo apt upgrade -y
-sudo apt dist-upgrade -y
-
-# Criação do usuário stack e sua inserção no sudoers
+echo "[TASK 1] UPDATE OS"
+sudo apt update -y  >/dev/null 2>&1
+sudo apt upgrade -y  >/dev/null 2>&1
+sudo apt dist-upgrade -y  >/dev/null 2>&1
+ 
+echo "[TASK 2] TAO USER STACK"
 sudo useradd -s /bin/bash -d /opt/stack -m stack
 sudo echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/stack
 
-# Clone do repositório Devstack
-sudo git clone -bstable/wallaby https://opendev.org/openstack/devstack /opt/stack/devstack
+echo "[TASK 3] TAO USER STACK"
+sudo git clone -b stable/wallaby https://opendev.org/openstack/devstack /opt/stack/devstack  >/dev/null 2>&1
 
-# Criação do arquivo local.conf dentro repositório baixado
+echo "[TASK 4] TAO FILE LOCAL.CONF"
 sudo echo '[[local|localrc]]
 HOST_IP=172.16.70.189
 FORCE=yes
@@ -55,5 +55,5 @@ disable_service tempest
 [DEFAULT]
 enable_isolated_metadata = True' > /opt/stack/devstack/local.conf
 
-# Mudando dono e grupo do diretório stack recursivamente para stack 
+echo "[TASK 5] PHAN QUYEN CHO CHU MUC CAI DEVSTACK"
 sudo chown stack:stack -R /opt/stack
