@@ -15,15 +15,7 @@ echo "[TASK 3] Install net-tools"
 apt update -qq -y >/dev/null 2>&1
 apt install -qq -y net-tools >/dev/null 2>&1
 
-echo "[TASK 4] Add user STACK"
-useradd -s /bin/bash -d /opt/stack -m stack
-echo "stack ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/stack
-# Permission of `stack` directory is 0700 on CentOS 8, but it cause an
-# error in a sanity check for the permission while running devstack
-# installatino.
-chmod 755 /opt/stack
-
-echo "[TASK 5] Install Iptables"
+echo "[TASK 4] Install Iptables"
 apt-get install iptables -y  >/dev/null 2>&1
 apt-get install arptables -y  >/dev/null 2>&1
 apt-get install ebtables -y  >/dev/null 2>&1
@@ -33,11 +25,8 @@ update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy || true
 update-alternatives --set arptables /usr/sbin/arptables-legacy || true
 update-alternatives --set ebtables /usr/sbin/ebtables-legacy || true
 
-echo "[TASK 6] Remove package"
+echo "[TASK 5] Remove package"
+sudo apt remove python3-simplejson python3-pyasn1-modules -y   >/dev/null 2>&1
 
-sudo apt remove python3-simplejson -y   >/dev/null 2>&1
-sudo apt remove python3-pyasn1-modules -y  >/dev/null 2>&1
-
-echo "[TASK 7]Create file test"
-
+echo "[TASK 6]Create file test"
 touch cong.txt
