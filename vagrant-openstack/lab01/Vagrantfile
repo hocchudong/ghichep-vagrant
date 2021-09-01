@@ -45,7 +45,6 @@ Vagrant.configure("2") do |config|
       
       echo "BUILDING DEVSTACK... THIS TAKES AWHILE..."
       su - stack -c './devstack/stack.sh'
-
     SHELL
 
   end
