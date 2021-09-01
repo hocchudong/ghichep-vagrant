@@ -12,6 +12,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "shell", path: PATH_SHELL
   config.vm.provision "file", source: "local-sample.conf", destination: "/tmp/local.conf"
+  config.vm.provision "file", source: "cirros-0.5.2-x86_64-disk.img", destination: "/tmp/cirros-0.5.2-x86_64-disk.img"
   config.ssh.insert_key = false
 	
   # VM Devstack 
