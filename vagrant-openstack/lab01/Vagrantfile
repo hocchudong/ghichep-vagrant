@@ -1,6 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-
+# wget http://download.cirros-cloud.net/0.5.2/cirros-0.5.2-x86_64-disk.img
 ENV['VAGRANT_NO_PARALLEL'] = 'yes'
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
 
@@ -12,6 +12,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "shell", path: PATH_SHELL
   config.vm.provision "file", source: "local-sample.conf", destination: "/tmp/local.conf"
+  config.vm.provision "file", source: "cirros-0.5.2-x86_64-disk.img", destination: "/tmp/cirros-0.5.2-x86_64-disk.img"
   config.ssh.insert_key = false
 	
   # VM Devstack 
@@ -39,9 +40,9 @@ Vagrant.configure("2") do |config|
       su - stack -c 'git clone https://opendev.org/openstack/devstack/'
       su - stack -c 'cd devstack && git checkout stable/wallaby'
       
-      echo "COPY LOCAL.CONF..."
+      echo "COPY LOCAL.CONF, DOWNLOAD IMAGE..."
       sudo -u stack sh -c 'cp /tmp/local.conf /opt/stack/devstack'
-      sudo -u stack sh -c 'wget http://download.cirros-cloud.net/0.5.2/cirros-0.5.2-x86_64-disk.img /opt/stack/devstack/files'
+      sudo -u stack sh -c 'cp /tmp/cirros-0.5.2-x86_64-disk.img /opt/stack/devstack/files'
       
       echo "BUILDING DEVSTACK... THIS TAKES AWHILE..."
       su - stack -c './devstack/stack.sh'
