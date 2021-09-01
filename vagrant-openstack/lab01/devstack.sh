@@ -12,4 +12,4 @@ sudo -u stack sh -c 'cp /tmp/local.conf /opt/stack/devstack'
 sudo -u stack sh -c 'cp /tmp/cirros-0.5.2-x86_64-disk.img /opt/stack/devstack/files'
 
 echo "BUILDING DEVSTACK... THIS TAKES AWHILE..."
-su - stack -c './devstack/stack.sh'
+# su - stack -c './devstack/stack.sh'
