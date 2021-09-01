@@ -4,11 +4,6 @@
 ENV['VAGRANT_NO_PARALLEL'] = 'yes'
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
 
-# Bo 2 dong duoi neu su dung he dieu hanh khac va mo comment 02 dong tiep theo.
-# BOX_IMAGE = "centos/7"
-# PATH_SHELL = "boostrap_centos7.sh"
-
-# Mo comment 2 dong duoi de su dung he dieu hanh la Ubuntu 20.04 va comment 02 dong truoc do.
 BOX_IMAGE= "generic/ubuntu1804"
 PATH_SHELL = "bootstrap.sh"
 
@@ -19,7 +14,7 @@ Vagrant.configure("2") do |config|
   config.ssh.insert_key = false
 
   # config.vm.synced_folder ".", "/vagrant", disabled: true
-	config.vm.provision "file", source: "local-sample.conf", destination: "/tmp/local.conf"
+	
 
   # VM Devstack 
   config.vm.define "devstack01" do |devstack01|
@@ -29,8 +24,6 @@ Vagrant.configure("2") do |config|
 
     devstack01.vm.network "private_network", ip: "172.16.16.101"
     devstack01.vm.network "public_network", :dev => "vlan2341", :mode => 'bridge', :type => "bridge", :ip => "172.16.70.189"
-		
-    devstack01.vm.provision "shell", path: "install-devstack.sh"
 		devstack01.vm.provider "libvirt" do |v|
       v.memory = 8192
       v.cpus = 4
@@ -39,6 +32,17 @@ Vagrant.configure("2") do |config|
       v.storage :file, :size => '90G' #them o cung thu 2			
       # v.graphics_ip = '0.0.0.0'
     end
-  end
+  
+	end
+	
+	config.vm.provision "file", source: "local-sample.conf", destination: "/tmp/local.conf"
+  config.vm.provision "shell", inline: <<-SHELL
+	  sudo apt update -y  >/dev/null 2>&1
+    useradd -s /bin/bash -d /opt/stack -m stack
+    echo "stack ALL=(ALL) NOPASSWD: ALL" | tee /etc/sudoers.d/stack
+    sudo -u stack sh -c 'cd /opt/stack && git clone -b stable/wallaby https://opendev.org/openstack/devstack /opt/stack/devstack  >/dev/null 2>&1'
+    sudo -u stack sh -c 'cp /tmp/local.conf /opt/stack/devstack'
+    sudo -u stack sh -c 'cd /opt/stack/devstack && ./stack.sh'
+  SHELL
 
 end
