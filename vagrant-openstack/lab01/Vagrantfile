@@ -29,7 +29,7 @@ Vagrant.configure("2") do |config|
       v.storage :file, :size => '90G' #them o cung thu 2			
       # v.graphics_ip = '0.0.0.0'
     end
-    #devstack01.vm.provision "shell", path: "devstack.sh"
+    devstack01.vm.provision "shell", path: "devstack.sh"
   
 	end
 	  
