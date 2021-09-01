@@ -40,7 +40,7 @@ Vagrant.configure("2") do |config|
     chown -R stack:stack devstack
     sudo -u stack sh -c 'cd /opt/stack && git clone -b stable/wallaby https://opendev.org/openstack/devstack /opt/stack/devstack  >/dev/null 2>&1'
     sudo -u stack sh -c 'cp /tmp/local.conf /opt/stack/devstack'
-    sudo -u stack sh -c 'cd /opt/stack/devstack && ./stack.sh'
+    # sudo -u stack sh -c 'cd /opt/stack/devstack && ./stack.sh'
   SHELL
 
 end
