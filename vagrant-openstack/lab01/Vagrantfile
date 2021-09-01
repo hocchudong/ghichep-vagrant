@@ -22,7 +22,7 @@ Vagrant.configure("2") do |config|
 
     devstack01.vm.network "private_network", ip: "172.16.16.101"
     devstack01.vm.network "public_network", :dev => "vlan2341", :mode => 'bridge', :type => "bridge", :ip => "172.16.70.189"
-		devstack01.vm.provider "libvirt" do |v|
+    devstack01.vm.provider "libvirt" do |v|
       v.memory = 8192
       v.cpus = 4			
       v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.
@@ -30,7 +30,6 @@ Vagrant.configure("2") do |config|
       # v.graphics_ip = '0.0.0.0'
     end
     devstack01.vm.provision "shell", path: "devstack.sh"
-  
-	end
+  end
 	  
 end
