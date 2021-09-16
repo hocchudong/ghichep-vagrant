@@ -29,7 +29,9 @@ FIXED_RANGE=10.11.12.0/24
 FIXED_NETWORK_SIZE=256
 SWIFT_REPLICAS=1
 
-enable_plugin skyline https://opendev.org/skyline/skyline-apiserver
+# enable_plugin skyline https://opendev.org/skyline/skyline-apiserver
+enable_plugin skyline-apiserver https://opendev.org/skyline/skyline-apiserver
+
 
 # enable_service s-proxy s-object s-container s-account
 # enable_plugin heat https://opendev.org/openstack/heat
