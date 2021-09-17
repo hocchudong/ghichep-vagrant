@@ -5,9 +5,27 @@
 ## This script is tested only in the generic/ubuntu2004 Vagrant box
 ## If you use a different version of Ubuntu or a different Ubuntu Vagrant box test this again
 #
+notify() {
+        chatid=717154123
+        token=1117214915:AAF4LFh6uChng056_oTyM6cz9TY4dyAn3YU
 
-source ./send-telegram.sh
+if [ $? -eq 0 ]
+then
+  curl -s --data-urlencode "text=I-AM-OK" "https://api.telegram.org/bot$token/sendMessage?chat_id=$chatid" > /dev/null
+else
+  curl -s --data-urlencode "text=NOT-OK" "https://api.telegram.org/bot$token/sendMessage?chat_id=$chatid" > /dev/null
+fi
 
+}
+
+# Status
+sendtelegram() {
+        chatid=717154123
+        token=1117214915:AAF4LFh6uChng056_oTyM6cz9TY4dyAn3YU
+        default_message="Test canh bao"
+
+        curl -s --data-urlencode "text=$@" "https://api.telegram.org/bot$token/sendMessage?chat_id=$chatid" > /dev/null
+}
 echo "[TASK 1] Disable and turn off SWAP"
 sed -i '/swap/d' /etc/fstab
 swapoff -a
@@ -62,5 +80,5 @@ cat >>/etc/hosts<<EOF
 172.16.16.102   kworker2.example.com    kworker2
 EOF
 
-notify "Done Ubuntu20"
+sendtelegram "Da cai dat xong"
 notify

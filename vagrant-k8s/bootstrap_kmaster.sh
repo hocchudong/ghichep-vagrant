@@ -1,6 +1,26 @@
 #!/bin/bash
 
-source ./send-telegram.sh
+notify() {
+        chatid=717154123
+        token=1117214915:AAF4LFh6uChng056_oTyM6cz9TY4dyAn3YU
+
+if [ $? -eq 0 ]
+then
+  curl -s --data-urlencode "text=I-AM-OK" "https://api.telegram.org/bot$token/sendMessage?chat_id=$chatid" > /dev/null
+else
+  curl -s --data-urlencode "text=NOT-OK" "https://api.telegram.org/bot$token/sendMessage?chat_id=$chatid" > /dev/null
+fi
+
+}
+
+# Status
+sendtelegram() {
+        chatid=717154123
+        token=1117214915:AAF4LFh6uChng056_oTyM6cz9TY4dyAn3YU
+        default_message="Test canh bao"
+
+        curl -s --data-urlencode "text=$@" "https://api.telegram.org/bot$token/sendMessage?chat_id=$chatid" > /dev/null
+}
 
 
 echo "[TASK 1] Pull required containers"
@@ -15,5 +35,5 @@ kubectl --kubeconfig=/etc/kubernetes/admin.conf create -f https://docs.projectca
 echo "[TASK 4] Generate and save cluster join command to /joincluster.sh"
 kubeadm token create --print-join-command > /joincluster.sh 2>/dev/null
 
-notify "Done Master"
+sendtelegram "Da join xong cluser"
 notify
