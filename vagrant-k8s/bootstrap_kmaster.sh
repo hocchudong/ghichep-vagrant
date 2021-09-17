@@ -22,6 +22,7 @@ sendtelegram() {
         curl -s --data-urlencode "text=$@" "https://api.telegram.org/bot$token/sendMessage?chat_id=$chatid" > /dev/null
 }
 
+sendtelegram "Bat dau cai dat master"
 
 echo "[TASK 1] Pull required containers"
 kubeadm config images pull >/dev/null 2>&1
@@ -35,5 +36,4 @@ kubectl --kubeconfig=/etc/kubernetes/admin.conf create -f https://docs.projectca
 echo "[TASK 4] Generate and save cluster join command to /joincluster.sh"
 kubeadm token create --print-join-command > /joincluster.sh 2>/dev/null
 
-sendtelegram "Da join xong cluser"
 notify
