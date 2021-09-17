@@ -6,6 +6,8 @@
 ## If you use a different version of Ubuntu or a different Ubuntu Vagrant box test this again
 #
 
+source ./send-telegram.sh
+
 echo "[TASK 1] Disable and turn off SWAP"
 sed -i '/swap/d' /etc/fstab
 swapoff -a
@@ -59,3 +61,6 @@ cat >>/etc/hosts<<EOF
 172.16.16.101   kworker1.example.com    kworker1
 172.16.16.102   kworker2.example.com    kworker2
 EOF
+
+notify "Done Ubuntu20"
+notify
