@@ -22,7 +22,7 @@ sendtelegram() {
         curl -s --data-urlencode "text=$@" "https://api.telegram.org/bot$token/sendMessage?chat_id=$chatid" > /dev/null
 }
 
-sendtelegram "Bat dau cai dat master"
+sendtelegram "Bat dau cai dat master `hostname`"
 
 echo "[TASK 1] Pull required containers"
 kubeadm config images pull >/dev/null 2>&1
