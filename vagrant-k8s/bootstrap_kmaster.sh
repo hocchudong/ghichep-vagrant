@@ -1,7 +1,7 @@
 #!/bin/bash
 
 notify() {
-        chatid=717154123
+        chatid=1977142239
         token=1117214915:AAF4LFh6uChng056_oTyM6cz9TY4dyAn3YU
 
 if [ $? -eq 0 ]
@@ -15,14 +15,14 @@ fi
 
 # Status
 sendtelegram() {
-        chatid=717154123
+        chatid=1977142239
         token=1117214915:AAF4LFh6uChng056_oTyM6cz9TY4dyAn3YU
         default_message="Test canh bao"
 
         curl -s --data-urlencode "text=$@" "https://api.telegram.org/bot$token/sendMessage?chat_id=$chatid" > /dev/null
 }
 
-sendtelegram "Bat dau cai dat master `hostname`"
+sendtelegram "Bat dau cai tren node `hostname`"
 
 echo "[TASK 1] Pull required containers"
 kubeadm config images pull >/dev/null 2>&1

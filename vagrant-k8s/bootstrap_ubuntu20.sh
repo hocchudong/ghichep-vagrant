@@ -6,7 +6,7 @@
 ## If you use a different version of Ubuntu or a different Ubuntu Vagrant box test this again
 #
 notify() {
-        chatid=717154123
+        chatid=1977142239
         token=1117214915:AAF4LFh6uChng056_oTyM6cz9TY4dyAn3YU
 
 if [ $? -eq 0 ]
@@ -20,14 +20,14 @@ fi
 
 # Status
 sendtelegram() {
-        chatid=717154123
+        chatid=1977142239
         token=1117214915:AAF4LFh6uChng056_oTyM6cz9TY4dyAn3YU
         default_message="Test canh bao"
 
         curl -s --data-urlencode "text=$@" "https://api.telegram.org/bot$token/sendMessage?chat_id=$chatid" > /dev/null
 }
 
-sendtelegram "Setup co ban"
+sendtelegram "Setup co ban tren node `hostname`"
 
 echo "[TASK 1] Disable and turn off SWAP"
 sed -i '/swap/d' /etc/fstab

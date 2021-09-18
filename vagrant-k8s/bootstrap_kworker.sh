@@ -1,7 +1,7 @@
 #!/bin/bash
 
 notify() {
-        chatid=717154123
+        chatid=1977142239
         token=1117214915:AAF4LFh6uChng056_oTyM6cz9TY4dyAn3YU
         default_message="Test canh bao"
 
@@ -16,7 +16,7 @@ fi
 
 # Status
 sendtelegram() {
-        chatid=717154123
+        chatid=1977142239
         token=1117214915:AAF4LFh6uChng056_oTyM6cz9TY4dyAn3YU
         curl -s --data-urlencode "text=$@" "https://api.telegram.org/bot$token/sendMessage?chat_id=$chatid" > /dev/null
 }
