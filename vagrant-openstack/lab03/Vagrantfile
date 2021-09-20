@@ -1,0 +1,36 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+# wget http://download.cirros-cloud.net/0.5.2/cirros-0.5.2-x86_64-disk.img
+ENV['VAGRANT_NO_PARALLEL'] = 'yes'
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
+
+BOX_IMAGE= "generic/ubuntu1804"
+PATH_SHELL = "bootstrap_ubuntu20.sh"
+
+Vagrant.configure("2") do |config|
+  config.vm.box = BOX_IMAGE
+
+  config.vm.provision "shell", path: PATH_SHELL
+
+  config.ssh.insert_key = false
+	
+  # VM Devstack 
+  config.vm.define "aiokolla" do |aiokolla|
+    aiokolla.vm.box = BOX_IMAGE
+    aiokolla.vm.box_check_update  = false
+    aiokolla.vm.hostname = "aiokolla"
+
+    aiokolla.vm.network "private_network", ip: "172.16.16.188"
+    aiokolla.vm.network "public_network", :dev => "vlan2341", :mode => 'bridge', :type => "bridge", :ip => "172.16.70.188"
+    aiokolla.vm.provider "libvirt" do |v|
+      v.memory = 8192
+      v.cpus = 4			
+      v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.
+      v.storage :file, :size => '90G' #them o cung thu 2			
+      # v.graphics_ip = '0.0.0.0'
+    end
+    # aiokolla.vm.provision "shell", path: "install-devstack.sh"
+
+  end
+	  
+end
