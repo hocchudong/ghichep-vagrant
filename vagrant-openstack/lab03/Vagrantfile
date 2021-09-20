@@ -4,7 +4,7 @@
 ENV['VAGRANT_NO_PARALLEL'] = 'yes'
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
 
-BOX_IMAGE= "generic/ubuntu1804"
+BOX_IMAGE= "generic/ubuntu2004"
 PATH_SHELL = "bootstrap_ubuntu20.sh"
 
 Vagrant.configure("2") do |config|
