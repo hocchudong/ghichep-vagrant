@@ -1,4 +1,27 @@
 #!/bin/bash
+notify() {
+        chatid=1977142239
+        token=1117214915:AAF4LFh6uChng056_oTyM6cz9TY4dyAn3YU
+
+if [ $? -eq 0 ]
+then
+  curl -s --data-urlencode "text=I-AM-OK" "https://api.telegram.org/bot$token/sendMessage?chat_id=$chatid" > /dev/null
+else
+  curl -s --data-urlencode "text=NOT-OK" "https://api.telegram.org/bot$token/sendMessage?chat_id=$chatid" > /dev/null
+fi
+
+}
+
+# Status
+sendtelegram() {
+        chatid=1977142239
+        token=1117214915:AAF4LFh6uChng056_oTyM6cz9TY4dyAn3YU
+        default_message="Test canh bao"
+
+        curl -s --data-urlencode "text=$@" "https://api.telegram.org/bot$token/sendMessage?chat_id=$chatid" > /dev/null
+}
+
+sendtelegram "Setup co ban tren node `hostname`"
 
 # Enable ssh password authentication
 echo "[TASK 1] Enable ssh password authentication"
@@ -30,5 +53,5 @@ update-alternatives --set ebtables /usr/sbin/ebtables-legacy || true
 echo "[TASK 5] Remove package"
 sudo apt remove python3-simplejson python3-pyasn1-modules -y   >/dev/null 2>&1
 
-echo "[TASK 6]Create file test"
-touch cong.txt
+sendtelegram "Da cai dat xong"
+notify
