@@ -27,7 +27,6 @@ sendtelegram() {
 
 sendtelegram "Pre Install kolla-enviroment on `hostname`"
 
-
 sudo echo "172.16.70.188 aiokolla" > /etc/hosts
 sudo pvcreate /dev/vdb
 sudo vgcreate cinder-volumes /dev/vdb
@@ -38,7 +37,6 @@ sudo apt-get install python3-pip -y
 sudo apt-get install python3-dev libffi-dev gcc libssl-dev -y
 
 sudo pip3 install -U pip
-
 sudo pip3 install -U 'ansible<2.10'
 # ln -svf /usr/bin/python3 /usr/bin/python
 sudo pip3 install -U docker
@@ -49,7 +47,6 @@ sudo chown $USER:$USER /etc/kolla
 
 cp -r /usr/local/share/kolla-ansible/etc_examples/kolla/* /etc/kolla 
 cp /usr/local/share/kolla-ansible/ansible/inventory/* .
-
 
 sudo sed -i '/export ERL_EPMD_ADDRESS/d' /usr/local/share/kolla-ansible/ansible/roles/rabbitmq/templates/rabbitmq-env.conf.j2
 
