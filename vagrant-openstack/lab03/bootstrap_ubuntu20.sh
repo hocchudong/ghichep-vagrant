@@ -34,15 +34,19 @@ echo "[TASK 2] Set root password"
 echo -e "hcdadmin\nhcdadmin" | passwd root >/dev/null 2>&1
 
 # Install package
-echo "[TASK 3] Install net-tools"
+echo "[TASK 3] Install package"
 apt update -qq -y >/dev/null 2>&1
-apt dist-upgrade -y -qq -y >/dev/null 2>&1
+# apt dist-upgrade -y -qq -y >/dev/null 2>&1
 apt install -qq -y net-tools >/dev/null 2>&1
 apt install -qq -y python3-dev libffi-dev gcc libssl-dev  >/dev/null 2>&1
+
 apt install -qq -y python3-pip >/dev/null 2>&1
+pip3 install -U pip  >/dev/null 2>&1
 
+echo "[TASK 4] Install package"
+timedatectl set-timezone Asia/Ho_Chi_Minh
 
-echo "[TASK 4] Install Iptables"
+echo "[TASK 5] Install Iptables"
 apt-get install iptables -y  >/dev/null 2>&1
 apt-get install arptables -y  >/dev/null 2>&1
 apt-get install ebtables -y  >/dev/null 2>&1
@@ -52,8 +56,13 @@ update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy || true
 update-alternatives --set arptables /usr/sbin/arptables-legacy || true
 update-alternatives --set ebtables /usr/sbin/ebtables-legacy || true
 
-echo "[TASK 5] Remove package"
-sudo apt remove python3-simplejson python3-pyasn1-modules -y   >/dev/null 2>&1
+echo "[TASK 6] Set hostname"
+echo "172.16.70.188 `hostname`" > /etc/hosts
+
+echo "[TASK 7] Tao LVM"
+pvcreate /dev/vdb
+vgcreate cinder-volumes /dev/vdb
+
 
 sendtelegram "Da cai dat xong"
 notify
