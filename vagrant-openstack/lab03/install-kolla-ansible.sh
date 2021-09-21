@@ -29,28 +29,20 @@ sendtelegram "Pre Install kolla-enviroment on `hostname`"
 
 
 echo "172.16.70.188 aiokolla" > /etc/hosts
+sudo pvcreate /dev/vdb
+sudo vgcreate cinder-volumes /dev/vdb
 
 sudo apt update  -y
 sudo apt upgrade -y
-
-
 sudo apt-get install python3-pip -y
-
-
 sudo apt-get install python3-dev libffi-dev gcc libssl-dev -y
 
 sudo pip3 install -U pip
 
-pvcreate /dev/vdb
-vgcreate cinder-volumes /dev/vdb
-
-
 sudo pip3 install -U 'ansible<2.10'
-
 # ln -svf /usr/bin/python3 /usr/bin/python
-pip3 install -U docker
-
-pip3 install kolla-ansible==11.0.0 
+sudo pip3 install -U docker
+sudo pip3 install kolla-ansible==11.0.0 
 
 sudo mkdir -p /etc/kolla 
 sudo chown $USER:$USER /etc/kolla 
