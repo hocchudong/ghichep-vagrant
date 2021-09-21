@@ -43,7 +43,7 @@ apt install -qq -y python3-dev libffi-dev gcc libssl-dev  >/dev/null 2>&1
 apt install -qq -y python3-pip >/dev/null 2>&1
 pip3 install -U pip  >/dev/null 2>&1
 
-echo "[TASK 4] Install package"
+echo "[TASK 4] Config timezone"
 timedatectl set-timezone Asia/Ho_Chi_Minh
 
 echo "[TASK 5] Install Iptables"
