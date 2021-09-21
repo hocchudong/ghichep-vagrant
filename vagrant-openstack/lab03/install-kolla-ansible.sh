@@ -28,7 +28,7 @@ sendtelegram() {
 sendtelegram "Pre Install kolla-enviroment on `hostname`"
 
 
-echo "172.16.70.188 aiokolla" > /etc/hosts
+sudo echo "172.16.70.188 aiokolla" > /etc/hosts
 sudo pvcreate /dev/vdb
 sudo vgcreate cinder-volumes /dev/vdb
 
