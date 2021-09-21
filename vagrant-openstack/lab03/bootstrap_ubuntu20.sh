@@ -37,7 +37,8 @@ echo -e "hcdadmin\nhcdadmin" | passwd root >/dev/null 2>&1
 echo "[TASK 3] Install net-tools"
 apt update -qq -y >/dev/null 2>&1
 apt install -qq -y net-tools >/dev/null 2>&1
-apt install python3-dev libffi-dev gcc libssl-dev  >/dev/null 2>&1
+apt install -qq -y python3-dev libffi-dev gcc libssl-dev  >/dev/null 2>&1
+apt install -qq -y python3-pip >/dev/null 2>&1
 
 
 echo "[TASK 4] Install Iptables"
