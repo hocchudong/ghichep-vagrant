@@ -27,20 +27,24 @@ sendtelegram() {
 
 sendtelegram "Pre Install kolla-enviroment on `hostname`"
 
+echo "[TASK 1] Thiet lap hostname"
 sudo echo "172.16.70.188 aiokolla" > /etc/hosts
-sudo pvcreate /dev/vdb
-sudo vgcreate cinder-volumes /dev/vdb
+sudo pvcreate /dev/vdb >/dev/null 2>&1
+sudo vgcreate cinder-volumes /dev/vdb >/dev/null 2>&1
 
-sudo apt update  -y
-sudo apt upgrade -y
-sudo apt-get install python3-pip -y
-sudo apt-get install python3-dev libffi-dev gcc libssl-dev -y
+echo "[TASK 2] Cai dat cac goi can thiet"
+sudo apt update -qq -y >/dev/null 2>&1
+sudo apt upgrade  -qq -y >/dev/null 2>&1
+sudo apt install python3-pip -qq -y >/dev/null 2>&1
+sudo apt install python3-dev libffi-dev gcc libssl-dev -qq -y >/dev/null 2>&1
 
-sudo pip3 install -U pip
-sudo pip3 install -U 'ansible<2.10'
+sudo pip3 install -U pip >/dev/null 2>&1
+sudo pip3 install -U 'ansible<2.10' >/dev/null 2>&1
 # ln -svf /usr/bin/python3 /usr/bin/python
-sudo pip3 install -U docker
-sudo pip3 install kolla-ansible==11.0.0 
+sudo pip3 install -U docker >/dev/null 2>&1
+
+echo "[TASK 3] Cai dat Kolla-Ansible"
+sudo pip3 install kolla-ansible==11.0.0  >/dev/null 2>&1
 
 sudo mkdir -p /etc/kolla 
 sudo chown $USER:$USER /etc/kolla 
@@ -48,6 +52,8 @@ sudo chown $USER:$USER /etc/kolla
 cp -r /usr/local/share/kolla-ansible/etc_examples/kolla/* /etc/kolla 
 cp /usr/local/share/kolla-ansible/ansible/inventory/* .
 
+
+echo "[TASK 4] Cau hinh Kolla-Ansible"
 sudo sed -i '/export ERL_EPMD_ADDRESS/d' /usr/local/share/kolla-ansible/ansible/roles/rabbitmq/templates/rabbitmq-env.conf.j2
 
 sudo sed -i 's/^#openstack_release: .*$/openstack_release: "victoria"/g'  /etc/kolla/globals.yml
