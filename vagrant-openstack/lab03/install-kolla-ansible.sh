@@ -48,14 +48,10 @@ sudo mkdir -p /etc/kolla
 sudo chown $USER:$USER /etc/kolla 
 
 cp -r /usr/local/share/kolla-ansible/etc_examples/kolla/* /etc/kolla 
-
 cp /usr/local/share/kolla-ansible/ansible/inventory/* .
 
 
 sudo sed -i '/export ERL_EPMD_ADDRESS/d' /usr/local/share/kolla-ansible/ansible/roles/rabbitmq/templates/rabbitmq-env.conf.j2
-
-
-cat /etc/kolla/globals.yml | egrep -v '^#|^$'
 
 sudo sed -i 's/^#openstack_release: .*$/openstack_release: "victoria"/g'  /etc/kolla/globals.yml
 sudo sed -i 's/^#kolla_base_distro: .*$/kolla_base_distro: "ubuntu"/g'  /etc/kolla/globals.yml
@@ -70,12 +66,12 @@ sudo sed -i 's/^#network_interface: .*/network_interface: "eth2"/g' /etc/kolla/g
 sudo sed -i 's/^#neutron_external_interface: .*/neutron_external_interface: "eth1"/g' /etc/kolla/globals.yml
 
 
-sed -i 's/localhost/aiokolla/g' /root/all-in-one 
+sudo sed -i 's/localhost/aiokolla/g' ~/all-in-one 
 
 kolla-genpwd
 
-sed -i 's/^keystone_admin_password.*/keystone_admin_password: Welcome123/' /etc/kolla/passwords.yml
+sudo sed -i 's/^keystone_admin_password.*/keystone_admin_password: Welcome123/' /etc/kolla/passwords.yml
 
-sendtelegram "Da cai dat xong"
+sendtelegram "Da cai dat xong moi truong cho Kolla-Ansible"
 
 notify
