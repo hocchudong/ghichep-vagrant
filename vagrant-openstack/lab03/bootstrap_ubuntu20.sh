@@ -56,5 +56,5 @@ update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy || true
 update-alternatives --set arptables /usr/sbin/arptables-legacy || true
 update-alternatives --set ebtables /usr/sbin/ebtables-legacy || true
 
-sendtelegram "Da cai dat xong"
+sendtelegram "Da cai dat xong Ubuntu co ban"
 notify

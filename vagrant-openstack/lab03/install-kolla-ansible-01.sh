@@ -25,7 +25,7 @@ sendtelegram() {
         curl -s --data-urlencode "text=$@" "https://api.telegram.org/bot$token/sendMessage?chat_id=$chatid" > /dev/null
 }
 
-sendtelegram "Pre Install kolla-enviroment on `hostname`"
+sendtelegram "Chuan bi moi truong cho kolla-ansible tren `hostname`"
 
 echo "[TASK 1] Thiet lap hostname"
 sudo echo "172.16.70.188 aiokolla" > /etc/hosts
@@ -75,6 +75,6 @@ kolla-genpwd
 
 sudo sed -i 's/^keystone_admin_password.*/keystone_admin_password: Welcome123/' /etc/kolla/passwords.yml
 
-sendtelegram "Da cai dat xong moi truong cho Kolla-Ansible"
+sendtelegram "Da cai dat xong moi truong co ban de cai kolla-ansible"
 
 notify

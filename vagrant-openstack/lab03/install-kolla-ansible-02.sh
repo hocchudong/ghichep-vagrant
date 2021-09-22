@@ -70,5 +70,5 @@ echo "######### post-deploy##########" >> loginstall.txt
 
 kolla-ansible post-deploy 2>&1 | tee -a loginstall.txt
 
-sendtelegram "Da cai dat xong kolla-ansible"
+sendtelegram "Da cai dat xong kolla-ansible, truy cap vao de su dung"
 notify
