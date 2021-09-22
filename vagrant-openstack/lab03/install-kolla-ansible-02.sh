@@ -26,10 +26,13 @@ sendtelegram() {
 }
 
 sendtelegram "Bat dau cai dat kolla-ansible tren `hostname`"
+touch loginstall.txt
 
 echo "[TASK 1]Kolla-ansible bootstrap-servers"
+echo "######### bootstrap-servers ##########" >> loginstall.txt
 sendtelegram "[TASK 1]Kolla-ansible bootstrap-servers"
-kolla-ansible -i all-in-one bootstrap-servers
+
+kolla-ansible -i all-in-one bootstrap-servers 2>&1 | tee -a loginstall.txt
 
 if [ $? -ne 0 ]; then
   echo "Bootstrap servers failed"
@@ -39,7 +42,8 @@ fi
 echo "[TASK 2] Running kolla-ansible -i all-in-one prechecks"
 sendtelegram "[TASK 2] Running kolla-ansible -i all-in-one prechecks"
 
-kolla-ansible -i all-in-one prechecks
+kolla-ansible -i all-in-one prechecks 2>&1 | tee -a loginstall.txt
+echo "######### Prechecks ##########" >> loginstall.txt
 
 if [ $? -ne 0 ]; then
   echo "Prechecks failed"
@@ -47,9 +51,12 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "[TASK 3] Running kolla-ansible -i all-in-one deploy"
-sendtelegram "[TASK 3] Running kolla-ansible -i all-in-one deploy"
+sendtelegram "[TASK 3] Running kolla-ansible -i all-in-one deploy" 2>&1 | tee -a loginstall.txt
 
-kolla-ansible -i all-in-one deploy
+echo "######### deploy ##########" >> loginstall.txt
+
+
+kolla-ansible -i all-in-one deploy 2>&1 | tee -a loginstall.txt
 
 if [ $? -ne 0 ]; then
   echo "Deploy failed"
@@ -59,7 +66,9 @@ fi
 echo "[TASK 4] Running sudo kolla-ansible -i all-in-one post-deploy"
 sendtelegram "[TASK 4] Running sudo kolla-ansible -i all-in-one post-deploy"
 
-kolla-ansible post-deploy
+echo "######### post-deploy##########" >> loginstall.txt
+
+kolla-ansible post-deploy 2>&1 | tee -a loginstall.txt
 
 sendtelegram "Da cai dat xong kolla-ansible"
 notify
