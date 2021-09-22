@@ -69,7 +69,7 @@ sudo sed -i 's/^#network_interface: .*/network_interface: "eth2"/g' /etc/kolla/g
 sudo sed -i 's/^#neutron_external_interface: .*/neutron_external_interface: "eth1"/g' /etc/kolla/globals.yml
 
 
-sudo sed -i 's/localhost/aiokolla/g' ~/all-in-one 
+sudo sed -i 's/localhost/aiokolla/g' all-in-one 
 
 kolla-genpwd
 
