@@ -28,7 +28,7 @@ function repo(){
      echo >>/etc/apt/apt.conf.d/99verify-peer.conf "Acquire { https::Verify-Peer false }"
      cp /etc/apt/sources.list /etc/apt/sources.list.bka
 
-cat << EOF > /etc/apt/sources.lis
+cat << EOF > /etc/apt/sources.list
 deb https://172.16.70.131/repository/u20proxy focal main restricted
 deb https://172.16.70.131/repository/u20proxy focal-updates main restricted
 deb https://172.16.70.131/repository/u20proxy focal universe
@@ -47,6 +47,10 @@ EOF
 
 
 sendtelegram "Setup co ban tren node `hostname`"
+
+sendtelegram "Khai bao repo node `hostname`"
+
+repo
 
 # Enable ssh password authentication
 echo "[TASK 1] Enable ssh password authentication"
