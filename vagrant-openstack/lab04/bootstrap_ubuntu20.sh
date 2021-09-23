@@ -65,7 +65,7 @@ echo -e "hcdadmin\nhcdadmin" | passwd root >/dev/null 2>&1
 # Install package
 echo "[TASK 3] Install package"
 apt update -qq -y >/dev/null 2>&1
-# apt dist-upgrade -y -qq -y >/dev/null 2>&1
+apt dist-upgrade -y -qq -y >/dev/null 2>&1
 apt install -qq -y net-tools git curl vim byobu crudini >/dev/null 2>&1
 
 echo "[TASK 4] Config timezone"
