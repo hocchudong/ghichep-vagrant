@@ -1,5 +1,7 @@
 #!/bin/bash
-notify() {
+
+## Khai bao cac ham
+function notify() {
         chatid=1977142239
         token=1117214915:AAF4LFh6uChng056_oTyM6cz9TY4dyAn3YU
 
@@ -13,13 +15,36 @@ fi
 }
 
 # Status
-sendtelegram() {
+function sendtelegram() {
         chatid=1977142239
         token=1117214915:AAF4LFh6uChng056_oTyM6cz9TY4dyAn3YU
         default_message="Test canh bao"
 
         curl -s --data-urlencode "text=$@" "https://api.telegram.org/bot$token/sendMessage?chat_id=$chatid" > /dev/null
 }
+
+function repo(){
+     touch /etc/apt/apt.conf.d/99verify-peer.conf
+     echo >>/etc/apt/apt.conf.d/99verify-peer.conf "Acquire { https::Verify-Peer false }"
+     cp /etc/apt/sources.list /etc/apt/sources.list.bka
+
+cat << EOF > /etc/apt/sources.lis
+deb https://172.16.70.131/repository/u20proxy focal main restricted
+deb https://172.16.70.131/repository/u20proxy focal-updates main restricted
+deb https://172.16.70.131/repository/u20proxy focal universe
+deb https://172.16.70.131/repository/u20proxy focal-updates universe
+deb https://172.16.70.131/repository/u20proxy focal multiverse
+deb https://172.16.70.131/repository/u20proxy focal-updates multiverse
+deb https://172.16.70.131/repository/u20proxy focal-backports main restricted universe multiverse
+deb https://172.16.70.131/repository/u20proxy focal-security main restricted
+deb https://172.16.70.131/repository/u20proxy focal-security universe
+deb https://172.16.70.131/repository/u20proxy focal-security multiverse
+EOF
+
+    apt clean
+    apt-get update
+}
+
 
 sendtelegram "Setup co ban tren node `hostname`"
 
