@@ -1,5 +1,8 @@
 #!/bin/bash
 
+DATE_EXEC="$(date "+%d/%m/%Y %H:%M")"
+TIME_START=`date +%s.%N`
+
 ## Khai bao cac ham
 function notify() {
         chatid=1977142239
@@ -88,5 +91,9 @@ EOF
 
 sysctl -p /etc/sysctl.conf
 
-sendtelegram "Da cai dat xong Ubuntu co ban"
+echo "Da hoan thanh script $0, thoi gian thuc hien:  $DATE_EXEC"
+echo "Tong thoi gian thuc hien $0: $TIME_TOTAL giay"
+
+sendtelegram "Da hoan thanh script $0, thoi gian thuc hien:  $DATE_EXEC"
+sendtelegram "Tong thoi gian thuc hien script $0: $TIME_TOTAL giay"
 notify
