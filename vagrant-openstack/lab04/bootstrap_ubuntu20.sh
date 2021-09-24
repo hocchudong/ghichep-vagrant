@@ -48,9 +48,7 @@ EOF
     apt-get update
 }
 
-
 sendtelegram "Setup co ban tren node `hostname`"
-
 sendtelegram "Khai bao repo node `hostname`"
 
 repo
@@ -79,10 +77,10 @@ apt-get install iptables -y  >/dev/null 2>&1
 apt-get install arptables -y  >/dev/null 2>&1
 apt-get install ebtables -y  >/dev/null 2>&1
 
-update-alternatives --set iptables /usr/sbin/iptables-legacy || true
-update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy || true
-update-alternatives --set arptables /usr/sbin/arptables-legacy || true
-update-alternatives --set ebtables /usr/sbin/ebtables-legacy || true
+# update-alternatives --set iptables /usr/sbin/iptables-legacy || true
+# update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy || true
+# update-alternatives --set arptables /usr/sbin/arptables-legacy || true
+# update-alternatives --set ebtables /usr/sbin/ebtables-legacy || true
 
 cat > /etc/sysctl.conf << EOF
 net.bridge.bridge-nf-call-iptables=1
