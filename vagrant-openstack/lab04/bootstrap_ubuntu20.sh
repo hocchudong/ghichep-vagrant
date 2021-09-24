@@ -50,7 +50,6 @@ EOF
 
 sendtelegram "Setup co ban tren node `hostname`"
 sendtelegram "Khai bao repo node `hostname`"
-
 repo
 
 # Enable ssh password authentication
@@ -88,6 +87,11 @@ net.bridge.bridge-nf-call-ip6tables=1
 EOF
 
 sysctl -p /etc/sysctl.conf
+
+TIME_END=`date +%s.%N`
+TIME_TOTAL_TEMP=$( echo "$TIME_END - $TIME_START" | bc -l )
+TIME_TOTAL=$(cut -c-4 <<< "$TIME_TOTAL_TEMP")
+
 
 echo "Da hoan thanh script $0, thoi gian thuc hien:  $DATE_EXEC"
 echo "Tong thoi gian thuc hien $0: $TIME_TOTAL giay"
