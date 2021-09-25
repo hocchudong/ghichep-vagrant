@@ -51,30 +51,32 @@ EOF
 
 sendtelegram "Thuc hien script $0 tren `hostname`"
 sendtelegram "Setup co ban tren node `hostname`"
-sendtelegram "Khai bao repo node `hostname`"
 
+echo "[TASK 1]Khai bao repo node `hostname`"
+
+sendtelegram "Khai bao repo node `hostname`"
 repo
 
 # Enable ssh password authentication
-echo "[TASK 1] Enable ssh password authentication"
+echo "[TASK 2] Enable ssh password authentication"
 sed -i 's/^PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
 sed -i 's/.*PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
 systemctl reload sshd
 
 # Set Root password
-echo "[TASK 2] Set root password"
+echo "[TASK 3] Set root password"
 echo -e "hcdadmin\nhcdadmin" | passwd root >/dev/null 2>&1
 
 # Install package
-echo "[TASK 3] Install package"
+echo "[TASK 4] Install package"
 apt update -qq -y >/dev/null 2>&1
 apt dist-upgrade -y -qq -y >/dev/null 2>&1
 apt install -qq -y net-tools git curl vim byobu crudini >/dev/null 2>&1
 
-echo "[TASK 4] Config timezone"
+echo "[TASK 5] Config timezone"
 timedatectl set-timezone Asia/Ho_Chi_Minh
 
-echo "[TASK 5] Install Iptables"
+echo "[TASK 6] Install Iptables"
 apt-get install iptables -y  >/dev/null 2>&1
 apt-get install arptables -y  >/dev/null 2>&1
 apt-get install ebtables -y  >/dev/null 2>&1
@@ -88,7 +90,6 @@ cat > /etc/sysctl.conf << EOF
 net.bridge.bridge-nf-call-iptables=1
 net.bridge.bridge-nf-call-ip6tables=1
 EOF
-
 sysctl -p /etc/sysctl.conf
 
 TIME_END=`date +%s.%N`
