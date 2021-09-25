@@ -95,9 +95,9 @@ TIME_END=`date +%s.%N`
 TIME_TOTAL_TEMP=$( echo "$TIME_END - $TIME_START" | bc -l )
 TIME_TOTAL=$(cut -c-6 <<< "$TIME_TOTAL_TEMP")
 
-echo "Da thuc hien script $0, vao luc: $DATE_EXEC"
-echo "Tong thoi gian thuc hien $0: $TIME_TOTAL giay"
+echo "Da thuc hien script $0 tren `hostname`, vao luc: $DATE_EXEC"
+echo "Tong thoi gian thuc hien $0 tren `hostname`: $TIME_TOTAL giay"
 
 sendtelegram "Da thuc hien script $0, vao luc: $DATE_EXEC"
-sendtelegram "Tong thoi gian thuc hien script $0: $TIME_TOTAL giay"
+sendtelegram "Tong thoi gian thuc hien $0 tren `hostname`: $TIME_TOTAL giay"
 notify
