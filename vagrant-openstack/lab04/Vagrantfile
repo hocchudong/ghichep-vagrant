@@ -1,0 +1,68 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+# wget http://download.cirros-cloud.net/0.5.2/cirros-0.5.2-x86_64-disk.img
+ENV['VAGRANT_NO_PARALLEL'] = 'yes'
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
+
+BOX_IMAGE= "generic/ubuntu2004"
+PATH_SHELL = "bootstrap_ubuntu20.sh"
+
+Vagrant.configure("2") do |config|
+  config.vm.box = BOX_IMAGE
+
+  config.vm.provision "shell", path: PATH_SHELL
+
+  config.ssh.insert_key = false
+	
+  # VM CTL01 
+  config.vm.define "ctl01" do |ctl01|
+    ctl01.vm.box = BOX_IMAGE
+    ctl01.vm.box_check_update  = false
+    ctl01.vm.hostname = "ctl01"
+    ctl01.vm.network "private_network", ip: "172.16.16.90"
+    ctl01.vm.network "public_network", :dev => "vlan2341", :mode => 'bridge', :type => "bridge", :ip => "172.16.70.90"
+    ctl01.vm.network "public_network", :dev => "vlan2342", :mode => 'bridge', :type => "bridge", :ip => "172.16.71.90"
+    ctl01.vm.provider "libvirt" do |v|
+      v.memory = 8192
+      v.cpus = 4			
+      v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.
+      v.storage :file, :size => '90G' #them o cung thu 2			
+      # v.graphics_ip = '0.0.0.0'
+    end
+  end
+  
+  # VM COM01 
+  config.vm.define "com01" do |com01|
+    com01.vm.box = BOX_IMAGE
+    com01.vm.box_check_update  = false
+    com01.vm.hostname = "com01"
+    com01.vm.network "private_network", ip: "172.16.16.91"
+    com01.vm.network "public_network", :dev => "vlan2341", :mode => 'bridge', :type => "bridge", :ip => "172.16.70.91"
+    com01.vm.network "public_network", :dev => "vlan2342", :mode => 'bridge', :type => "bridge", :ip => "172.16.71.91"
+    com01.vm.provider "libvirt" do |v|
+      v.memory = 8192
+      v.cpus = 4			
+      v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.
+      v.storage :file, :size => '90G' #them o cung thu 2			
+      # v.graphics_ip = '0.0.0.0'
+    end	  
+  end
+
+  # VM COM02 
+  config.vm.define "com02" do |com02|
+    com02.vm.box = BOX_IMAGE
+    com02.vm.box_check_update  = false
+    com02.vm.hostname = "com02"
+    com02.vm.network "private_network", ip: "172.16.16.92"
+    com02.vm.network "public_network", :dev => "vlan2341", :mode => 'bridge', :type => "bridge", :ip => "172.16.70.92"
+    com02.vm.network "public_network", :dev => "vlan2342", :mode => 'bridge', :type => "bridge", :ip => "172.16.71.92"
+    com02.vm.provider "libvirt" do |v|
+      v.memory = 8192
+      v.cpus = 4			
+      v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.
+      v.storage :file, :size => '90G' #them o cung thu 2			
+      # v.graphics_ip = '0.0.0.0'
+    end	  
+  end
+
+end

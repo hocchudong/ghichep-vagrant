@@ -25,37 +25,36 @@ sendtelegram() {
         curl -s --data-urlencode "text=$@" "https://api.telegram.org/bot$token/sendMessage?chat_id=$chatid" > /dev/null
 }
 
-sendtelegram "Pre Install kolla-enviroment on `hostname`"
+sendtelegram "Chuan bi moi truong cho kolla-ansible tren `hostname`"
 
-
+echo "[TASK 1] Thiet lap hostname"
 sudo echo "172.16.70.188 aiokolla" > /etc/hosts
-sudo pvcreate /dev/vdb
-sudo vgcreate cinder-volumes /dev/vdb
+sudo pvcreate /dev/vdb >/dev/null 2>&1
+sudo vgcreate cinder-volumes /dev/vdb >/dev/null 2>&1
 
-sudo apt update  -y
-sudo apt upgrade -y
-sudo apt-get install python3-pip -y
-sudo apt-get install python3-dev libffi-dev gcc libssl-dev -y
+echo "[TASK 2] Cai dat cac goi can thiet"
+sudo apt update -qq -y >/dev/null 2>&1
+sudo apt upgrade  -qq -y >/dev/null 2>&1
+sudo apt install python3-pip -qq -y >/dev/null 2>&1
+sudo apt install python3-dev libffi-dev gcc libssl-dev -qq -y >/dev/null 2>&1
 
-sudo pip3 install -U pip
-
-sudo pip3 install -U 'ansible<2.10'
+sudo pip3 install -U pip >/dev/null 2>&1
+sudo pip3 install -U 'ansible<2.10' >/dev/null 2>&1
 # ln -svf /usr/bin/python3 /usr/bin/python
-sudo pip3 install -U docker
-sudo pip3 install kolla-ansible==11.0.0 
+sudo pip3 install -U docker >/dev/null 2>&1
+
+echo "[TASK 3] Cai dat Kolla-Ansible"
+sudo pip3 install kolla-ansible==11.0.0  >/dev/null 2>&1
 
 sudo mkdir -p /etc/kolla 
 sudo chown $USER:$USER /etc/kolla 
 
 cp -r /usr/local/share/kolla-ansible/etc_examples/kolla/* /etc/kolla 
-
 cp /usr/local/share/kolla-ansible/ansible/inventory/* .
 
 
+echo "[TASK 4] Cau hinh Kolla-Ansible"
 sudo sed -i '/export ERL_EPMD_ADDRESS/d' /usr/local/share/kolla-ansible/ansible/roles/rabbitmq/templates/rabbitmq-env.conf.j2
-
-
-cat /etc/kolla/globals.yml | egrep -v '^#|^$'
 
 sudo sed -i 's/^#openstack_release: .*$/openstack_release: "victoria"/g'  /etc/kolla/globals.yml
 sudo sed -i 's/^#kolla_base_distro: .*$/kolla_base_distro: "ubuntu"/g'  /etc/kolla/globals.yml
@@ -70,12 +69,12 @@ sudo sed -i 's/^#network_interface: .*/network_interface: "eth2"/g' /etc/kolla/g
 sudo sed -i 's/^#neutron_external_interface: .*/neutron_external_interface: "eth1"/g' /etc/kolla/globals.yml
 
 
-sed -i 's/localhost/aiokolla/g' /root/all-in-one 
+sudo sed -i 's/localhost/aiokolla/g' all-in-one 
 
 kolla-genpwd
 
-sed -i 's/^keystone_admin_password.*/keystone_admin_password: Welcome123/' /etc/kolla/passwords.yml
+sudo sed -i 's/^keystone_admin_password.*/keystone_admin_password: Welcome123/' /etc/kolla/passwords.yml
 
-sendtelegram "Da cai dat xong"
+sendtelegram "Da cai dat xong moi truong co ban de cai kolla-ansible"
 
 notify
