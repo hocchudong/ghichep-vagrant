@@ -70,11 +70,21 @@ echo -e "hcdadmin\nhcdadmin" | passwd root >/dev/null 2>&1
 # Install package
 echo "[TASK 4] Install package"
 apt update -qq -y >/dev/null 2>&1
-apt dist-upgrade -y -qq -y >/dev/null 2>&1
+apt dist-upgrade -qq -y >/dev/null 2>&1
 apt install -qq -y net-tools git curl vim byobu crudini >/dev/null 2>&1
 
 echo "[TASK 5] Config timezone"
-timedatectl set-timezone Asia/Ho_Chi_Minh
+apt-get install chrony -qq -y >/dev/null 2>&1
+ntpfile=/etc/chrony/chrony.conf
+
+timedatectl set-timezone Asia/Ho_Chi_Minh >/dev/null 2>&1
+sed -i 's/pool 2.debian.pool.ntp.org offline iburst/ \
+pool 2.debian.pool.ntp.org offline iburst \
+server 0.asia.pool.ntp.org iburst \
+server 1.asia.pool.ntp.org iburst/g' $ntpfile -qq -y >/dev/null 2>&1
+
+echo "allow 172.16.70.212/24" >> $ntpfile  >/dev/null 2>&1
+service chrony restart  >/dev/null 2>&1
 
 echo "[TASK 6] Install Iptables"
 apt-get install iptables -y  >/dev/null 2>&1
