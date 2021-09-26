@@ -86,21 +86,6 @@ server 1.asia.pool.ntp.org iburst/g' $ntpfile -qq -y >/dev/null 2>&1
 echo "allow 172.16.70.212/24" >> $ntpfile  >/dev/null 2>&1
 service chrony restart  >/dev/null 2>&1
 
-echo "[TASK 6] Install Iptables"
-apt-get install iptables -y  >/dev/null 2>&1
-apt-get install arptables -y  >/dev/null 2>&1
-apt-get install ebtables -y  >/dev/null 2>&1
-
-# update-alternatives --set iptables /usr/sbin/iptables-legacy || true
-# update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy || true
-# update-alternatives --set arptables /usr/sbin/arptables-legacy || true
-# update-alternatives --set ebtables /usr/sbin/ebtables-legacy || true
-
-cat > /etc/sysctl.conf << EOF
-net.bridge.bridge-nf-call-iptables=1
-net.bridge.bridge-nf-call-ip6tables=1
-EOF
-sysctl -p /etc/sysctl.conf
 
 TIME_END=`date +%s.%N`
 TIME_TOTAL_TEMP=$( echo "$TIME_END - $TIME_START" | bc -l )
