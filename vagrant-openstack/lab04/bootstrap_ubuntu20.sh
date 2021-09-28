@@ -5,8 +5,9 @@ TIME_START=`date +%s.%N`
 
 ## Khai bao cac ham
 function notify() {
-    chatid=1977142239
-    token=1117214915:AAF4LFh6uChng056_oTyM6cz9TY4dyAn3YU
+    chatid=-557175523
+    #token=1117214915:AAF4LFh6uChng056_oTyM6cz9TY4dyAn3YU
+    token=2004478698:AAEsHPaCw_mbTsCaxtV2YoTAdmi1cB6N9Rw
 
 if [ $? -eq 0 ]
 then
@@ -21,8 +22,9 @@ fi
 
 # Status
 function sendtelegram() {
-  chatid=1977142239
-  token=1117214915:AAF4LFh6uChng056_oTyM6cz9TY4dyAn3YU
+  chatid=-557175523
+  #token=1117214915:AAF4LFh6uChng056_oTyM6cz9TY4dyAn3YU
+  token=2004478698:AAEsHPaCw_mbTsCaxtV2YoTAdmi1cB6N9Rw
   default_message="Test canh bao"
   curl -s --data-urlencode "text=$@" "https://api.telegram.org/bot$token/sendMessage?chat_id=$chatid" > /dev/null
 }
