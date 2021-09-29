@@ -51,13 +51,13 @@ EOF
     apt-get update
 }
 
-sendtelegram "Thuc hien script $0 tren `hostname`"
-sendtelegram "Setup co ban tren node `hostname`"
+# sendtelegram "Thuc hien script $0 tren `hostname`"
+# sendtelegram "Setup co ban tren node `hostname`"
 
-echo "[TASK 1]Khai bao repo node `hostname`"
+# echo "[TASK 1]Khai bao repo node `hostname`"
+# sendtelegram "Khai bao repo node `hostname`"
+# repo
 
-sendtelegram "Khai bao repo node `hostname`"
-repo
 
 # Enable ssh password authentication
 echo "[TASK 2] Enable ssh password authentication"
@@ -96,6 +96,6 @@ TIME_TOTAL=$(cut -c-6 <<< "$TIME_TOTAL_TEMP")
 echo "Da thuc hien script $0 tren `hostname`"
 echo "Tong thoi gian thuc hien $0 tren `hostname`: $TIME_TOTAL giay"
 
-sendtelegram "Da thuc hien script $0"
-sendtelegram "Tong thoi gian thuc hien $0 tren `hostname`: $TIME_TOTAL giay"
-notify
+# sendtelegram "Da thuc hien script $0"
+# sendtelegram "Tong thoi gian thuc hien $0 tren `hostname`: $TIME_TOTAL giay"
+# notify
