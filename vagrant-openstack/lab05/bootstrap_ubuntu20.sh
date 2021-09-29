@@ -46,7 +46,6 @@ deb https://172.16.70.131/repository/u20proxy focal-security main restricted
 deb https://172.16.70.131/repository/u20proxy focal-security universe
 deb https://172.16.70.131/repository/u20proxy focal-security multiverse
 EOF
-
     apt clean
     apt-get update
 }
@@ -56,7 +55,7 @@ EOF
 
 # echo "[TASK 1]Khai bao repo node `hostname`"
 # sendtelegram "Khai bao repo node `hostname`"
-# repo
+repo
 
 
 # Enable ssh password authentication
