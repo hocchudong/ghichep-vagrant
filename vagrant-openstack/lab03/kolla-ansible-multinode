@@ -59,13 +59,24 @@ sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@compute03
 # ssh-copy-id -o StrictHostKeyChecking=no root@compute03
 
 
+## Copy hostname 
+scp /etc/hosts root@controller01:/etc/hosts
+scp /etc/hosts root@controller02:/etc/hosts
+scp /etc/hosts root@controller03:/etc/hosts
+
+scp /etc/hosts root@compute01:/etc/hosts
+scp /etc/hosts root@compute02:/etc/hosts
+scp /etc/hosts root@compute03:/etc/hosts
+
 ## Cai dat goi bo tro 
 
 sudo apt-get install git gcc python3-pip -y
 
-sudo pip3 install --upgrade pip -y
+sudo pip3 install --upgrade pip
 sudo apt update  -y
 sudo apt upgrade -y
+
+
 
 ## Reboot controller01
 
@@ -154,13 +165,51 @@ sudo sed -i 's/^#docker_registry: .*/docker_registry: "registry.hcdcloud.com:812
 sudo sed -i 's/^#network_interface: .*/network_interface: "eth2"/g' /etc/kolla/globals.yml
 sudo sed -i 's/^#neutron_external_interface: .*/neutron_external_interface: "eth1"/g' /etc/kolla/globals.yml
 
-sudo sed -i 's/localhost/aiokolla/g' all-in-one 
+# sudo sed -i 's/localhost/aiokolla/g' all-in-one 
 
 kolla-genpwd
 
 sudo sed -i 's/^keystone_admin_password.*/keystone_admin_password: Welcome123/' /etc/kolla/passwords.yml
 
-## 
+## Sua file multinode
+
+[control]
+controller01
+controller02
+controller03
+
+[network]
+controller01
+controller02
+controller03
+
+[compute]
+compute01
+compute02
+compute03
+
+
+[monitoring]
+controller01
+
+[storage]
+controller01
+
+[deployment]
+controller01
+
+#......
+
+
+ansible -i multinode all -m ping
+
+kolla-ansible -i ./multinode bootstrap-servers -vv
+
+kolla-ansible -i ./multinode prechecks -vv
+
+kolla-ansible -i ./multinode deploy -vv
+
+
 
 ## Tao registry cho docker
 
