@@ -26,6 +26,7 @@ cat << EOF > /etc/hosts
 172.16.70.184 compute01
 172.16.70.185 compute02
 172.16.70.186 compute03
+172.16.70.131 registry.hcdcloud.com
 EOF
 
 
@@ -34,7 +35,6 @@ EOF
 
 sed -i 's/#ClientAliveInterval 0/ClientAliveInterval 60/g' /etc/ssh/sshd_config
 sed -i 's/#ClientAliveCountMax 3/ClientAliveCountMax 60/g' /etc/ssh/sshd_config
-
 
 sudo systemctl restart sshd && systemctl status sshd
 
@@ -124,7 +124,6 @@ sudo chown $USER:$USER /etc/kolla
 
 
 cp -r /usr/local/share/kolla-ansible/etc_examples/kolla/* /etc/kolla
-
 
 cp /usr/local/share/kolla-ansible/ansible/inventory/* .
 
