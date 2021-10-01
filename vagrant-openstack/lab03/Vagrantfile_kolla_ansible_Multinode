@@ -20,7 +20,7 @@ Vagrant.configure("2") do |config|
     controller01.vm.box_check_update  = false
     controller01.vm.hostname = "controller01"
 
-    controller01.vm.network "private_network", ip: "172.16.16.81"
+    controller01.vm.network "private_network", ip: "172.16.16.181"
     controller01.vm.network "public_network", :dev => "vlan2341", :mode => 'bridge', :type => "bridge", :ip => "172.16.70.181"
     controller01.vm.network "public_network", :dev => "vlan2342", :mode => 'bridge', :type => "bridge", :ip => "172.16.71.181"
     controller01.vm.provider "libvirt" do |v|

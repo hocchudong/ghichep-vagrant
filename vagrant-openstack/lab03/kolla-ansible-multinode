@@ -163,7 +163,7 @@ sudo sed -i 's/^#kolla_internal_fqdn: .*/kolla_internal_fqdn: "mgnt.hcdcloud.com
 sudo sed -i 's/^#docker_registry:.*/docker_registry: "registry.hcdcloud.com:8123"/g' /etc/kolla/globals.yml
 
 sudo sed -i 's/^#network_interface: .*/network_interface: "eth2"/g' /etc/kolla/globals.yml
-sudo sed -i 's/^#neutron_external_interface: .*/neutron_external_interface: "eth1"/g' /etc/kolla/globals.yml
+sudo sed -i 's/^#neutron_external_interface: .*/neutron_external_interface: "eth3"/g' /etc/kolla/globals.yml
 
 # sudo sed -i 's/localhost/aiokolla/g' all-in-one 
 
@@ -208,7 +208,10 @@ kolla-ansible -i ./multinode bootstrap-servers -vv
 kolla-ansible -i ./multinode prechecks -vv
 
 kolla-ansible -i ./multinode deploy -vv
+kolla-ansible -i ./multinode post-deploy -vv
 
+
+source admin-openrc.sh
 
 
 ## Tao registry cho docker
