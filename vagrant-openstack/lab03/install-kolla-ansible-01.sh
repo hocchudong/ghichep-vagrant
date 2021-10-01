@@ -52,7 +52,6 @@ sudo chown $USER:$USER /etc/kolla
 cp -r /usr/local/share/kolla-ansible/etc_examples/kolla/* /etc/kolla 
 cp /usr/local/share/kolla-ansible/ansible/inventory/* .
 
-
 echo "[TASK 4] Cau hinh Kolla-Ansible"
 sudo sed -i '/export ERL_EPMD_ADDRESS/d' /usr/local/share/kolla-ansible/ansible/roles/rabbitmq/templates/rabbitmq-env.conf.j2
 
@@ -67,7 +66,6 @@ sudo sed -i 's/^#enable_haproxy: .*/enable_haproxy: "no"/g' /etc/kolla/globals.y
 sudo sed -i 's/^#kolla_internal_vip_address: .*/kolla_internal_vip_address: "172.16.70.188"/g' /etc/kolla/globals.yml
 sudo sed -i 's/^#network_interface: .*/network_interface: "eth2"/g' /etc/kolla/globals.yml
 sudo sed -i 's/^#neutron_external_interface: .*/neutron_external_interface: "eth1"/g' /etc/kolla/globals.yml
-
 
 sudo sed -i 's/localhost/aiokolla/g' all-in-one 
 

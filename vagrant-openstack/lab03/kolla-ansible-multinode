@@ -1,0 +1,139 @@
+controller1 CPU: 8-core memory: 32GB system disk SSD 300GB*1 Management network: ens33 192.168.10.84/28 Floating network: ens34 dhcp Business network: ens35 192.168.1.84/24
+controller2 CPU: 8 cores Memory: 32GB system disk SSD 300GB*1 Management network: ens33 192.168.10.85/28 Floating network: ens34 dhcp Business network: ens35 192.168.1.85/24
+controller3 CPU: 8-core memory: 32GB system disk SSD 300GB*1 Management network: ens33 192.168.10.86/28 Floating network: ens34 dhcp Business network: ens35 192.168.1.86/24
+
+compute1 CPU: 4 cores Memory: 16GB system disk SSD 300GB*1 Management network: ens33 192.168.10.87/28 Floating network: ens34 dhcp Business network: ens35 192.168.1.87/24
+compute2 CPU: 4 cores Memory: 16GB system disk SSD 300GB*1 Management network: ens33 192.168.10.88/28 Floating network: ens34 dhcp Business network: ens35 192.168.1.88/24
+
+ceph1 CPU: 4 cores Memory: 8GB System disk SSD 300GB*1 Data disk SSD 200GB*2 Management network: ens33 192.168.10.90/28 Business network: ens35 192.168.1.90/24
+ceph2 CPU: 4 cores Memory: 8GB System disk SSD 300GB*1 Data disk SSD 200GB*2 Management network: ens33 192.168.10.91/28 Business network: ens35 192.168.1.91/24
+ceph3 CPU: 4 cores Memory: 8GB System disk SSD 300GB*1 Data disk SSD 200GB*2 Management network: ens33 192.168.10.92/28 Business network: ens35 192.168.1.92/24
+
+
+
+############
+
+#######################################################
+############# THUC HIEN TREN CONTROLLER01 #############
+#######################################################
+
+## Khai bao hostname
+cat << EOF > /etc/hosts
+172.16.70.180 mgnt.hcdcloud.com
+172.16.70.181 controller01
+172.16.70.182 controller02
+172.16.70.183 controller03
+172.16.70.184 compute01
+172.16.70.185 compute02
+172.16.70.186 compute03
+EOF
+
+
+
+## Sua cau hinh ssh
+
+sed -i 's/#ClientAliveInterval 0/ClientAliveInterval 60/g' /etc/ssh/sshd_config
+sed -i 's/#ClientAliveCountMax 3/ClientAliveCountMax 60/g' /etc/ssh/sshd_config
+
+
+sudo systemctl restart sshd && systemctl status sshd
+
+## Tao keypair
+
+apt install sshpass -y
+
+ssh-keygen -N "" -f /root/.ssh/id_rsa
+
+sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@controller01
+sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@controller02
+sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@controller03
+sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@compute01
+sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@compute02
+sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@compute03
+
+# ssh-copy-id -o StrictHostKeyChecking=no root@controller01
+# ssh-copy-id -o StrictHostKeyChecking=no root@controller02
+# ssh-copy-id -o StrictHostKeyChecking=no root@controller03
+# ssh-copy-id -o StrictHostKeyChecking=no root@compute01
+# ssh-copy-id -o StrictHostKeyChecking=no root@compute02
+# ssh-copy-id -o StrictHostKeyChecking=no root@compute03
+
+
+## Cai dat goi bo tro 
+
+sudo apt-get install git gcc python3-pip -y
+
+sudo pip3 install --upgrade pip -y
+sudo apt update  -y
+sudo apt upgrade -y
+
+## Reboot controller01
+
+init 6
+
+
+#######################################################
+############# THUC HIEN TREN CAC NODE #############
+#######################################################
+
+## Go bo docker
+
+sudo apt-get install python3-dev libffi-dev libssl-dev -y
+
+sudo apt-get remove docker docker-engine docker.io containerd runc -y
+
+sudo apt-get install apt-transport-https ca-certificates curl gnupg2 gnupg-agent software-properties-common -y
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+sudo apt-get update -y
+sudo apt-get install docker-ce docker-ce-cli containerd.io -y
+
+sudo systemctl enable docker && systemctl start docker
+
+systemctl disable ufw
+systemctl stop ufw
+
+
+
+#######################################################
+############# THUC HIEN TREN CONTROLLER01##############
+#######################################################
+
+# login vao controller01 va thuc hien taoj registry
+
+sudo mkdir -p /etc/docker
+
+udo tee /etc/docker/daemon.json <<-'EOF'
+{
+ "registry-mirrors": ["https://3wk75oh9.mirror.aliyuncs.com"],
+"insecure-registries": ["image.hcdcloud.com:4000"]
+}
+EOF
+
+
+sudo pip3 install -U 'ansible<2.9.19'
+
+pip3 install kolla-ansible==11.0.0
+
+
+sudo mkdir -p /etc/kolla
+sudo chown $USER:$USER /etc/kolla
+
+
+cp -r /usr/local/share/kolla-ansible/etc_examples/kolla/* /etc/kolla
+
+
+cp /usr/local/share/kolla-ansible/ansible/inventory/* .
+
+## Tao registry cho docker
+
+docker run -d -p 4000:5000 -v /opt/registry/:/var/lib/registry/ --restart=always --name registry registry:latest
+
+curl -XGET http://image.hcdcloud.com:4000/v2/_catalog
+
+
+
+
