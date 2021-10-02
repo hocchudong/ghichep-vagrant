@@ -20,8 +20,8 @@ Vagrant.configure("2") do |config|
     ctl01.vm.box_check_update  = false
     ctl01.vm.hostname = "ctl01"
     ctl01.vm.network "private_network", ip: "172.16.16.90"
-    ctl01.vm.network "public_network", :dev => "vlan2341", :mode => 'bridge', :type => "bridge", :ip => "172.16.70.90"
-    ctl01.vm.network "public_network", :dev => "vlan2342", :mode => 'bridge', :type => "bridge", :ip => "172.16.71.90"
+    ctl01.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.90"
+    ctl01.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge"
     ctl01.vm.provider "libvirt" do |v|
       v.memory = 8192
       v.cpus = 4			
@@ -37,8 +37,8 @@ Vagrant.configure("2") do |config|
     com01.vm.box_check_update  = false
     com01.vm.hostname = "com01"
     com01.vm.network "private_network", ip: "172.16.16.91"
-    com01.vm.network "public_network", :dev => "vlan2341", :mode => 'bridge', :type => "bridge", :ip => "172.16.70.91"
-    com01.vm.network "public_network", :dev => "vlan2342", :mode => 'bridge', :type => "bridge", :ip => "172.16.71.91"
+    com01.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.91"
+    com01.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge"
     com01.vm.provider "libvirt" do |v|
       v.memory = 8192
       v.cpus = 4			
@@ -54,8 +54,8 @@ Vagrant.configure("2") do |config|
     # com02.vm.box_check_update  = false
     # com02.vm.hostname = "com02"
     # com02.vm.network "private_network", ip: "172.16.16.92"
-    # com02.vm.network "public_network", :dev => "vlan2341", :mode => 'bridge', :type => "bridge", :ip => "172.16.70.92"
-    # com02.vm.network "public_network", :dev => "vlan2342", :mode => 'bridge', :type => "bridge", :ip => "172.16.71.92"
+    # com02.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.92"
+    # com02.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge", ip: "172.16.71.92"
     # com02.vm.provider "libvirt" do |v|
       # v.memory = 8192
       # v.cpus = 4			
