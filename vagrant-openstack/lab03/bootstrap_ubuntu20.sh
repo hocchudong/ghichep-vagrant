@@ -21,7 +21,35 @@ sendtelegram() {
         curl -s --data-urlencode "text=$@" "https://api.telegram.org/bot$token/sendMessage?chat_id=$chatid" > /dev/null
 }
 
+function repo(){
+  touch /etc/apt/apt.conf.d/99verify-peer.conf
+  echo >>/etc/apt/apt.conf.d/99verify-peer.conf "Acquire { https::Verify-Peer false }"
+  cp /etc/apt/sources.list /etc/apt/sources.list.bka
+
+cat << EOF > /etc/apt/sources.list
+deb https://172.16.70.131/repository/u20proxy focal main restricted
+deb https://172.16.70.131/repository/u20proxy focal-updates main restricted
+deb https://172.16.70.131/repository/u20proxy focal universe
+deb https://172.16.70.131/repository/u20proxy focal-updates universe
+deb https://172.16.70.131/repository/u20proxy focal multiverse
+deb https://172.16.70.131/repository/u20proxy focal-updates multiverse
+deb https://172.16.70.131/repository/u20proxy focal-backports main restricted universe multiverse
+deb https://172.16.70.131/repository/u20proxy focal-security main restricted
+deb https://172.16.70.131/repository/u20proxy focal-security universe
+deb https://172.16.70.131/repository/u20proxy focal-security multiverse
+EOF
+
+    apt clean
+    apt-get update
+}
+
+sendtelegram "Thuc hien script $0 tren `hostname`"
 sendtelegram "Setup co ban tren node `hostname`"
+
+echo "[TASK 1]Khai bao repo node `hostname`"
+
+sendtelegram "Khai bao repo node `hostname`"
+repo
 
 # Enable ssh password authentication
 echo "[TASK 1] Enable ssh password authentication"

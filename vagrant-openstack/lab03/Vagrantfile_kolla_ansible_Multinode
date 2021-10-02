@@ -1,0 +1,142 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+# wget http://download.cirros-cloud.net/0.5.2/cirros-0.5.2-x86_64-disk.img
+ENV['VAGRANT_NO_PARALLEL'] = 'yes'
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
+
+BOX_IMAGE= "generic/ubuntu2004"
+PATH_SHELL = "bootstrap_ubuntu20.sh"
+
+Vagrant.configure("2") do |config|
+  config.vm.box = BOX_IMAGE
+
+  config.vm.provision "shell", path: PATH_SHELL
+
+  config.ssh.insert_key = false
+	
+  # VM controller01 
+  config.vm.define "controller01" do |controller01|
+    controller01.vm.box = BOX_IMAGE
+    controller01.vm.box_check_update  = false
+    controller01.vm.hostname = "controller01"
+
+    controller01.vm.network "private_network", ip: "172.16.16.181"
+    controller01.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.181"
+    controller01.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge"
+    controller01.vm.provider "libvirt" do |v|
+      v.memory = 4096
+      v.cpus = 2		
+      v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.
+      v.storage :file, :size => '90G' #them o cung thu 2			
+      # v.graphics_ip = '0.0.0.0'
+    end
+    # controller01.vm.provision "shell", path: "install-kolla-ansible-01.sh"
+    # controller01.vm.provision "shell", path: "install-kolla-ansible-02.sh"
+
+  end
+
+  # VM controller02 
+  config.vm.define "controller02" do |controller02|
+    controller02.vm.box = BOX_IMAGE
+    controller02.vm.box_check_update  = false
+    controller02.vm.hostname = "controller02"
+
+    controller02.vm.network "private_network", ip: "172.16.16.182"
+    controller02.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.182"
+    controller02.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge"
+    controller02.vm.provider "libvirt" do |v|
+      v.memory = 4096
+      v.cpus = 2			
+      v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.
+      v.storage :file, :size => '90G' #them o cung thu 2			
+    end
+    # controller02.vm.provision "shell", path: "install-kolla-ansible-01.sh"
+    # controller02.vm.provision "shell", path: "install-kolla-ansible-02.sh"
+
+  end
+  # VM controller03 
+  config.vm.define "controller03" do |controller03|
+    controller03.vm.box = BOX_IMAGE
+    controller03.vm.box_check_update  = false
+    controller03.vm.hostname = "controller03"
+
+    controller03.vm.network "private_network", ip: "172.16.16.183"
+    controller03.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.183"
+    controller03.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge"
+    controller03.vm.provider "libvirt" do |v|
+      v.memory = 4096
+      v.cpus = 2			
+      v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.
+      v.storage :file, :size => '90G' #them o cung thu 2			
+    end
+    # controller03.vm.provision "shell", path: "install-kolla-ansible-01.sh"
+    # controller03.vm.provision "shell", path: "install-kolla-ansible-02.sh"
+
+  end
+  
+  # VM compute01 
+  config.vm.define "compute01" do |compute01|
+    compute01.vm.box = BOX_IMAGE
+    compute01.vm.box_check_update  = false
+    compute01.vm.hostname = "compute01"
+
+    compute01.vm.network "private_network", ip: "172.16.16.184"
+    compute01.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.184"
+    compute01.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge"
+    compute01.vm.provider "libvirt" do |v|
+      v.memory = 4096
+      v.cpus = 2			
+      v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.
+      v.storage :file, :size => '50G' #them o cung thu 2			
+      v.storage :file, :size => '50G' #them o cung thu 2			
+      v.storage :file, :size => '50G' #them o cung thu 2			
+    end
+    # compute01.vm.provision "shell", path: "install-kolla-ansible-01.sh"
+    # compute01.vm.provision "shell", path: "install-kolla-ansible-02.sh"
+
+  end
+
+  # VM compute02 
+  config.vm.define "compute02" do |compute02|
+    compute02.vm.box = BOX_IMAGE
+    compute02.vm.box_check_update  = false
+    compute02.vm.hostname = "compute02"
+
+    compute02.vm.network "private_network", ip: "172.16.16.185"
+    compute02.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.185"
+    compute02.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge"
+    compute02.vm.provider "libvirt" do |v|
+      v.memory = 4096
+      v.cpus = 2			
+      v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.
+      v.storage :file, :size => '50G' #them o cung thu 2			
+      v.storage :file, :size => '50G' #them o cung thu 2			
+      v.storage :file, :size => '50G' #them o cung thu 2			
+    end
+    # compute02.vm.provision "shell", path: "install-kolla-ansible-01.sh"
+    # compute02.vm.provision "shell", path: "install-kolla-ansible-02.sh"
+
+  end
+
+  # VM compute03 
+  config.vm.define "compute03" do |compute03|
+    compute03.vm.box = BOX_IMAGE
+    compute03.vm.box_check_update  = false
+    compute03.vm.hostname = "compute03"
+
+    compute03.vm.network "private_network", ip: "172.16.16.186"
+    compute03.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.186"
+    compute03.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge"
+    compute03.vm.provider "libvirt" do |v|
+      v.memory = 4096
+      v.cpus = 2			
+      v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.
+      v.storage :file, :size => '50G' #them o cung thu 2			
+      v.storage :file, :size => '50G' #them o cung thu 2			
+      v.storage :file, :size => '50G' #them o cung thu 2			
+    end
+    # compute03.vm.provision "shell", path: "install-kolla-ansible-01.sh"
+    # compute03.vm.provision "shell", path: "install-kolla-ansible-02.sh"
+
+  end  
+end

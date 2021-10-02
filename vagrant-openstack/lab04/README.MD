@@ -1,3 +1,3 @@
-# File vagrant cài đặt kolla-ansible
+# File vagrant cài đặt OpenStack bằng script
 
-Hướng dẫn cài đặt kolla-ansible bằng vagrant
+Vgrantfile để cài đặt OpenStack bằng script

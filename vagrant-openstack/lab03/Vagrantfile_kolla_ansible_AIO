@@ -22,6 +22,7 @@ Vagrant.configure("2") do |config|
 
     aiokolla.vm.network "private_network", ip: "172.16.16.188"
     aiokolla.vm.network "public_network", :dev => "vlan2341", :mode => 'bridge', :type => "bridge", :ip => "172.16.70.188"
+    aiokolla.vm.network "public_network", :dev => "vlan2342", :mode => 'bridge', :type => "bridge", :ip => "172.16.71.188"
     aiokolla.vm.provider "libvirt" do |v|
       v.memory = 8192
       v.cpus = 4			
