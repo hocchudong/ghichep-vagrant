@@ -21,8 +21,8 @@ Vagrant.configure("2") do |config|
     controller01.vm.hostname = "controller01"
 
     controller01.vm.network "private_network", ip: "172.16.16.181"
-    controller01.vm.network "public_network", :dev => "vlan2341", :mode => 'bridge', :type => "bridge", :ip => "172.16.70.181"
-    controller01.vm.network "public_network", :dev => "vlan2342", :mode => 'bridge', :type => "bridge"
+    controller01.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.181"
+    controller01.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge"
     controller01.vm.provider "libvirt" do |v|
       v.memory = 4096
       v.cpus = 2		
@@ -42,8 +42,8 @@ Vagrant.configure("2") do |config|
     controller02.vm.hostname = "controller02"
 
     controller02.vm.network "private_network", ip: "172.16.16.182"
-    controller02.vm.network "public_network", :dev => "vlan2341", :mode => 'bridge', :type => "bridge", :ip => "172.16.70.182"
-    controller02.vm.network "public_network", :dev => "vlan2342", :mode => 'bridge', :type => "bridge"
+    controller02.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.182"
+    controller02.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge"
     controller02.vm.provider "libvirt" do |v|
       v.memory = 4096
       v.cpus = 2			
@@ -61,8 +61,8 @@ Vagrant.configure("2") do |config|
     controller03.vm.hostname = "controller03"
 
     controller03.vm.network "private_network", ip: "172.16.16.183"
-    controller03.vm.network "public_network", :dev => "vlan2341", :mode => 'bridge', :type => "bridge", :ip => "172.16.70.183"
-    controller03.vm.network "public_network", :dev => "vlan2342", :mode => 'bridge', :type => "bridge"
+    controller03.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.183"
+    controller03.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge"
     controller03.vm.provider "libvirt" do |v|
       v.memory = 4096
       v.cpus = 2			
@@ -81,8 +81,8 @@ Vagrant.configure("2") do |config|
     compute01.vm.hostname = "compute01"
 
     compute01.vm.network "private_network", ip: "172.16.16.184"
-    compute01.vm.network "public_network", :dev => "vlan2341", :mode => 'bridge', :type => "bridge", :ip => "172.16.70.184"
-    compute01.vm.network "public_network", :dev => "vlan2342", :mode => 'bridge', :type => "bridge"
+    compute01.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.184"
+    compute01.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge"
     compute01.vm.provider "libvirt" do |v|
       v.memory = 4096
       v.cpus = 2			
@@ -103,8 +103,8 @@ Vagrant.configure("2") do |config|
     compute02.vm.hostname = "compute02"
 
     compute02.vm.network "private_network", ip: "172.16.16.185"
-    compute02.vm.network "public_network", :dev => "vlan2341", :mode => 'bridge', :type => "bridge", :ip => "172.16.70.185"
-    compute02.vm.network "public_network", :dev => "vlan2342", :mode => 'bridge', :type => "bridge"
+    compute02.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.185"
+    compute02.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge"
     compute02.vm.provider "libvirt" do |v|
       v.memory = 4096
       v.cpus = 2			
@@ -125,8 +125,8 @@ Vagrant.configure("2") do |config|
     compute03.vm.hostname = "compute03"
 
     compute03.vm.network "private_network", ip: "172.16.16.186"
-    compute03.vm.network "public_network", :dev => "vlan2341", :mode => 'bridge', :type => "bridge", :ip => "172.16.70.186"
-    compute03.vm.network "public_network", :dev => "vlan2342", :mode => 'bridge', :type => "bridge"
+    compute03.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.186"
+    compute03.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge"
     compute03.vm.provider "libvirt" do |v|
       v.memory = 4096
       v.cpus = 2			
