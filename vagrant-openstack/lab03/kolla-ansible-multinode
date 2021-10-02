@@ -50,6 +50,7 @@ ssh-keygen -N "" -f /root/.ssh/id_rsa
 sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@controller01
 sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@controller02
 sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@controller03
+
 sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@compute01
 sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@compute02
 sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@compute03
