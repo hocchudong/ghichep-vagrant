@@ -66,3 +66,17 @@ kolla-genpwd
 
 sudo sed -i 's/^keystone_admin_password.*/keystone_admin_password: Welcome123/' /etc/kolla/passwords.yml
 
+sed -i 's/control01/controller01/g' multinode
+sed -i 's/control02/controller02/g' multinode
+sed -i 's/control03/controller03/g' multinode
+
+
+sed -i 's/network01/controller01/g' multinode
+sed -i 's/network02/controller02\ncontroller03/g' multinode
+
+
+
+
+
+
+
