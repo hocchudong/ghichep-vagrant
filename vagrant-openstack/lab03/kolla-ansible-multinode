@@ -156,6 +156,8 @@ sudo sed -i 's/^#cinder_volume_group: .*/cinder_volume_group: "cinder-volumes"/g
 
 sudo sed -i 's/^#enable_cinder_backup: .*/enable_cinder_backup: "no"/g' /etc/kolla/globals.yml
 
+sudo sed -i 's/^#nova_compute_virt_type: .*/nova_compute_virt_type: "qemu"/g' /etc/kolla/globals.yml
+
 sudo sed -i 's/^#enable_haproxy: .*/enable_haproxy: "yes"/g' /etc/kolla/globals.yml
 
 sudo sed -i 's/^#kolla_internal_vip_address: .*/kolla_internal_vip_address: "172.16.70.180"/g' /etc/kolla/globals.yml
