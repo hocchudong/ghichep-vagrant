@@ -72,7 +72,7 @@ sed -i 's/control03/controller03/g' multinode
 
 
 sed -i 's/network01/controller01/g' multinode
-sed -i 's/network02/controller02\ncontroller03/g' multinode
+sed -i 's/network02/controller02/g' multinode
 
 
 
