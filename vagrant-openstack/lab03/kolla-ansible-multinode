@@ -30,13 +30,16 @@ cat << EOF > /etc/hosts
 EOF
 
 
+# Tao volume LVM
+pvcreate /dev/vdb
+vgcreate cinder-volumes /dev/vdb
 
 ## Sua cau hinh ssh
 
 sed -i 's/#ClientAliveInterval 0/ClientAliveInterval 60/g' /etc/ssh/sshd_config
 sed -i 's/#ClientAliveCountMax 3/ClientAliveCountMax 60/g' /etc/ssh/sshd_config
 
-sudo systemctl restart sshd && systemctl status sshd
+sudo systemctl restart sshd 
 
 ## Tao keypair
 
@@ -210,6 +213,7 @@ kolla-ansible -i ./multinode bootstrap-servers -vv
 kolla-ansible -i ./multinode prechecks -vv
 
 kolla-ansible -i ./multinode deploy -vv
+
 kolla-ansible -i ./multinode post-deploy -vv
 
 
