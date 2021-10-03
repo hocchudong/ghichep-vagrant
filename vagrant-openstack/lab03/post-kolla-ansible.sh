@@ -56,8 +56,12 @@ sudo kolla-ansible -i multinode post-deploy
 cp /etc/kolla/admin-openrc.sh .
 chmod +x admin-openrc.sh
 
-# add-apt-repository cloud-archive:victoria
-# apt update && apt dist-upgrade
+# add-apt-repository cloud-archive:victoria -y
+# apt update -y && apt dist-upgrade -y
 # apt install python3-openstackclient -y
+# cp /usr/local/share/kolla-ansible/init-runonce .
+# sed -i 's/10.0.2/172.16.71/g' init-runonce
+# sed -i 's/150/30/g' init-runonce
+# sed -i 's/199/50/g' init-runonce
 
 notify
