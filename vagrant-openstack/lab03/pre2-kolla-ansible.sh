@@ -25,7 +25,7 @@ sendtelegram() {
         curl -s --data-urlencode "text=$@" "https://api.telegram.org/bot$token/sendMessage?chat_id=$chatid" > /dev/null
 }
 
-sendtelegram "Chuan bi moi truong cho kolla-ansible tren `hostname`"
+sendtelegram "Cai dat kolla-ansible tren `hostname`"
 
 
 sudo pip3 install -U 'ansible<2.9.19'
@@ -73,6 +73,15 @@ sed -i 's/control03/controller03/g' multinode
 
 sed -i 's/network01/controller01/g' multinode
 sed -i 's/network02/controller02/g' multinode
+sed -i '17 i controller03' multinode
+
+sed -i '21 i compute02' multinode
+sed -i '22 i compute03' multinode
+
+
+sed -i 's/monitoring01/controller01/g' multinode
+sed -i 's/storage01/controller01/g' multinode
+
 
 
 

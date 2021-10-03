@@ -25,7 +25,33 @@ sendtelegram() {
         curl -s --data-urlencode "text=$@" "https://api.telegram.org/bot$token/sendMessage?chat_id=$chatid" > /dev/null
 }
 
-cp /etc/kolla/admin-openrc.sh ./
+kolla-ansible -i multinode bootstrap-servers
+
+if [ $? -ne 0 ]; then
+  echo "Bootstrap servers failed"
+  exit $?
+fi
+
+echo 'run-kolla.sh: Running kolla-ansible -i multinode prechecks'
+kolla-ansible -i multinode prechecks
+
+if [ $? -ne 0 ]; then
+  echo "Prechecks failed"
+  exit $?
+fi
+
+echo 'run-kolla.sh: Running kolla-ansible -i multinode deploy'
+kolla-ansible -i multinode deploy
+
+if [ $? -ne 0 ]; then
+  echo "Deploy failed"
+  exit $?
+fi
+
+echo 'run-kolla.sh: Running sudo sudo kolla-ansible -i multinode post-deploy'
+sudo kolla-ansible -i multinode post-deploy
+
+cp /etc/kolla/admin-openrc.sh .
 chmod +x admin-openrc.sh
 
 add-apt-repository cloud-archive:victoria

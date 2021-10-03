@@ -59,7 +59,6 @@ sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@compute01
 sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@compute02
 sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@compute03
 
-
 ## Copy hostname 
 scp /etc/hosts root@controller01:/etc/hosts
 scp /etc/hosts root@controller02:/etc/hosts
