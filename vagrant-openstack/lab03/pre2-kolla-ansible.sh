@@ -59,6 +59,8 @@ sudo sed -i 's/^#kolla_internal_fqdn: .*/kolla_internal_fqdn: "mgnt.hcdcloud.com
 sudo sed -i 's/^#docker_registry:.*/docker_registry: "registry.hcdcloud.com:8123"/g' /etc/kolla/globals.yml
 sudo sed -i 's/^#network_interface: .*/network_interface: "eth2"/g' /etc/kolla/globals.yml
 sudo sed -i 's/^#neutron_external_interface: .*/neutron_external_interface: "eth3"/g' /etc/kolla/globals.yml
+sudo sed -i 's/^#enable_neutron_provider_networks: .*/enable_neutron_provider_networks: "yes"/g' /etc/kolla/globals.yml
+
 
 # sudo sed -i 's/localhost/aiokolla/g' all-in-one 
 

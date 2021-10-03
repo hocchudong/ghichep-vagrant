@@ -76,23 +76,7 @@ sudo pip3 install --upgrade pip
 sudo apt update  -y
 sudo apt upgrade -y
 
-
-sudo apt-get install python3-dev libffi-dev libssl-dev -y
-
-sudo apt-get remove docker docker-engine docker.io containerd runc -y
-
-sudo apt-get install apt-transport-https ca-certificates curl gnupg2 gnupg-agent software-properties-common -y
-
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-
-sudo apt-get update -y
-sudo apt-get install docker-ce docker-ce-cli containerd.io -y
-
-sudo systemctl enable docker && systemctl start docker
-
 systemctl disable ufw
 systemctl stop ufw
 
-
+notify

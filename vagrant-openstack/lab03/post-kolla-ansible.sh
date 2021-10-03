@@ -25,6 +25,8 @@ sendtelegram() {
         curl -s --data-urlencode "text=$@" "https://api.telegram.org/bot$token/sendMessage?chat_id=$chatid" > /dev/null
 }
 
+sendtelegram "Bat dau cai dat OpenStack bang kolla-ansible tren `hostname`"
+
 kolla-ansible -i multinode bootstrap-servers
 
 if [ $? -ne 0 ]; then
@@ -54,10 +56,8 @@ sudo kolla-ansible -i multinode post-deploy
 cp /etc/kolla/admin-openrc.sh .
 chmod +x admin-openrc.sh
 
-add-apt-repository cloud-archive:victoria
+# add-apt-repository cloud-archive:victoria
+# apt update && apt dist-upgrade
+# apt install python3-openstackclient -y
 
-apt update -y && apt dist-upgrade -y
-
-apt install python3-openstackclient -y
-
-cp /usr/local/share/kolla-ansible/init-runonce .
+notify
