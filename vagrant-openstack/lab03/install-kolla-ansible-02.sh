@@ -32,7 +32,7 @@ echo "[TASK 1]Kolla-ansible bootstrap-servers"
 echo "######### bootstrap-servers ##########" >> loginstall.txt
 sendtelegram "[TASK 1]Kolla-ansible bootstrap-servers"
 
-kolla-ansible -i all-in-one bootstrap-servers 2>&1 | tee -a loginstall.txt
+kolla-ansible -i all-in-one bootstrap-servers
 
 if [ $? -ne 0 ]; then
   echo "Bootstrap servers failed"
@@ -42,21 +42,21 @@ fi
 echo "[TASK 2] Running kolla-ansible -i all-in-one prechecks"
 sendtelegram "[TASK 2] Running kolla-ansible -i all-in-one prechecks"
 
-kolla-ansible -i all-in-one prechecks 2>&1 | tee -a loginstall.txt
-echo "######### Prechecks ##########" >> loginstall.txt
+kolla-ansible -i all-in-one prechecks
 
+echo "######### Prechecks ##########"
 if [ $? -ne 0 ]; then
   echo "Prechecks failed"
   exit $?
 fi
 
 echo "[TASK 3] Running kolla-ansible -i all-in-one deploy"
-sendtelegram "[TASK 3] Running kolla-ansible -i all-in-one deploy" 2>&1 | tee -a loginstall.txt
+sendtelegram "[TASK 3] Running kolla-ansible -i all-in-one deploy"
 
-echo "######### deploy ##########" >> loginstall.txt
+echo "######### deploy ##########" 
 
 
-kolla-ansible -i all-in-one deploy 2>&1 | tee -a loginstall.txt
+kolla-ansible -i all-in-one deploy
 
 if [ $? -ne 0 ]; then
   echo "Deploy failed"
@@ -66,9 +66,21 @@ fi
 echo "[TASK 4] Running sudo kolla-ansible -i all-in-one post-deploy"
 sendtelegram "[TASK 4] Running sudo kolla-ansible -i all-in-one post-deploy"
 
-echo "######### post-deploy##########" >> loginstall.txt
+echo "######### post-deploy##########" 
 
-kolla-ansible post-deploy 2>&1 | tee -a loginstall.txt
+kolla-ansible -i all-in-one post-deploy 
+
+
+cp /etc/kolla/admin-openrc.sh .
+chmod +x admin-openrc.sh
+
+# add-apt-repository cloud-archive:victoria -y
+# apt update -y && apt dist-upgrade -y
+# apt install python3-openstackclient -y
+# cp /usr/local/share/kolla-ansible/init-runonce .
+# sed -i 's/10.0.2/172.16.71/g' init-runonce
+# sed -i 's/150/30/g' init-runonce
+# sed -i 's/199/50/g' init-runonce
 
 sendtelegram "Da cai dat xong kolla-ansible, truy cap vao de su dung"
 notify
