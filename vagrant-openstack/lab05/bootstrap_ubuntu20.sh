@@ -55,8 +55,8 @@ EOF
 
 # echo "[TASK 1]Khai bao repo node `hostname`"
 # sendtelegram "Khai bao repo node `hostname`"
-repo
 
+# repo
 
 # Enable ssh password authentication
 echo "[TASK 2] Enable ssh password authentication"
