@@ -44,5 +44,5 @@ function install_ops_packages () {
 }
 
 ##############
-# repo
+repo
 install_ops_packages
