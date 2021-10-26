@@ -26,7 +26,9 @@ Vagrant.configure("2") do |config|
       v.memory = 8192
       v.cpus = 4			
       v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.
-      v.storage :file, :size => '90G' #them o cung thu 2			
+      v.storage :file, :size => '60G' #them o cung thu 2			
+      v.storage :file, :size => '60G' #them o cung thu 2			
+      v.storage :file, :size => '60G' #them o cung thu 2			
       # v.graphics_ip = '0.0.0.0'
     end
   end
@@ -43,7 +45,9 @@ Vagrant.configure("2") do |config|
       v.memory = 8192
       v.cpus = 4			
       v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.
-      v.storage :file, :size => '90G' #them o cung thu 2			
+      v.storage :file, :size => '60G' #them o cung thu 2			
+      v.storage :file, :size => '60G' #them o cung thu 2			
+      v.storage :file, :size => '60G' #them o cung thu 2				
       # v.graphics_ip = '0.0.0.0'
     end	  
   end
@@ -60,7 +64,9 @@ Vagrant.configure("2") do |config|
       v.memory = 8192
       v.cpus = 4			
       v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.
-      v.storage :file, :size => '90G' #them o cung thu 2			
+      v.storage :file, :size => '60G' #them o cung thu 2			
+      v.storage :file, :size => '60G' #them o cung thu 2			
+      v.storage :file, :size => '60G' #them o cung thu 2			
       # v.graphics_ip = '0.0.0.0'
     end	  
   end
