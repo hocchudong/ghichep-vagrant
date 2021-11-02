@@ -52,13 +52,39 @@ net.ipv4.ip_forward                 = 1
 EOF
 sysctl --system >/dev/null 2>&1
 
-echo "[TASK 5] Install containerd runtime"
-apt update -qq >/dev/null 2>&1
-apt install -qq -y containerd apt-transport-https >/dev/null 2>&1
-mkdir /etc/containerd
-containerd config default > /etc/containerd/config.toml
-systemctl restart containerd
-systemctl enable containerd >/dev/null 2>&1
+
+## Bo comment cac dong duoi de su dung containerd
+## echo "[TASK 5] Install containerd runtime"
+# apt update -qq >/dev/null 2>&1
+# apt install -qq -y containerd apt-transport-https >/dev/null 2>&1
+# mkdir /etc/containerd
+# containerd config default > /etc/containerd/config.toml
+# systemctl restart containerd
+# systemctl enable containerd >/dev/null 2>&1
+
+echo "[TASK 5] Install container runtime"
+
+export DEBIAN_FRONTEND=noninteractive
+
+apt install -y curl ca-certificates gnupg2 gnupg-agent software-properties-common libpq-dev apt-transport-https
+apt-get install -y docker.io
+
+cat > /etc/docker/daemon.json <<EOF
+{
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2"
+}
+EOF
+
+systemctl daemon-reload
+systemctl restart docker
+systemctl enable docker
+
+apt-mark hold docker.io
 
 echo "[TASK 6] Add apt repo for kubernetes"
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - >/dev/null 2>&1
