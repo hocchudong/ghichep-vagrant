@@ -62,6 +62,7 @@ sysctl --system >/dev/null 2>&1
 # systemctl restart containerd
 # systemctl enable containerd >/dev/null 2>&1
 
+##########CAI DAT CONTAINER############
 echo "[TASK 5] Install container runtime"
 apt update -qq >/dev/null 2>&1
 export DEBIAN_FRONTEND=noninteractive
@@ -85,6 +86,7 @@ systemctl restart docker
 systemctl enable docker
 
 apt-mark hold docker.io
+########################################
 
 echo "[TASK 8] Enable ssh password authentication"
 sed -i 's/^PasswordAuthentication .*/PasswordAuthentication yes/' /etc/ssh/sshd_config
