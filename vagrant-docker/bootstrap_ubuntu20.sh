@@ -55,7 +55,7 @@ sysctl --system >/dev/null 2>&1
 
 ## Bo comment cac dong duoi de su dung containerd
 ## echo "[TASK 5] Install containerd runtime"
-# apt update -qq >/dev/null 2>&1
+# apt update -qq -y >/dev/null 2>&1
 # apt install -qq -y containerd apt-transport-https >/dev/null 2>&1
 # mkdir /etc/containerd
 # containerd config default > /etc/containerd/config.toml
@@ -63,11 +63,11 @@ sysctl --system >/dev/null 2>&1
 # systemctl enable containerd >/dev/null 2>&1
 
 echo "[TASK 5] Install container runtime"
-
+apt update -qq >/dev/null 2>&1
 export DEBIAN_FRONTEND=noninteractive
 
-apt install -y curl ca-certificates gnupg2 gnupg-agent software-properties-common libpq-dev apt-transport-https
-apt-get install -y docker.io
+apt install -y -qq curl ca-certificates gnupg2 gnupg-agent software-properties-common libpq-dev apt-transport-https
+apt install -y -qq docker.io >/dev/null 2>&1
 
 cat > /etc/docker/daemon.json <<EOF
 {
