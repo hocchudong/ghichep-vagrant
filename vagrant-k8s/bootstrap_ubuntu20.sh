@@ -109,4 +109,15 @@ cat >>/etc/hosts<<EOF
 172.16.70.99  kworker2.example.com    kworker2
 EOF
 
+echo "[TASK 11] Fix DNS"
+sudo apt -q -y update
+sudo apt -q -y install resolvconf
+systemctl enable resolvconf.service
+
+cat >>/etc/resolvconf/resolv.conf.d/head<<EOF
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+EOF
+
+
 notify
