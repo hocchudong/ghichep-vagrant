@@ -62,12 +62,13 @@ sysctl --system >/dev/null 2>&1
 # systemctl restart containerd
 # systemctl enable containerd >/dev/null 2>&1
 
+##########CAI DAT CONTAINER############
 echo "[TASK 5] Install container runtime"
-apt update -qq >/dev/null 2>&1 
+apt update -qq >/dev/null 2>&1
 export DEBIAN_FRONTEND=noninteractive
 
 apt install -y -qq curl ca-certificates gnupg2 gnupg-agent software-properties-common libpq-dev apt-transport-https
-apt install -y -qq docker.io  >/dev/null 2>&1
+apt install -y -qq docker.io >/dev/null 2>&1
 
 cat > /etc/docker/daemon.json <<EOF
 {
@@ -85,13 +86,7 @@ systemctl restart docker
 systemctl enable docker
 
 apt-mark hold docker.io
-
-echo "[TASK 6] Add apt repo for kubernetes"
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - >/dev/null 2>&1
-apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main" >/dev/null 2>&1
-
-echo "[TASK 7] Install Kubernetes components (kubeadm, kubelet and kubectl)"
-apt install -qq -y kubeadm=1.22.0-00 kubelet=1.22.0-00 kubectl=1.22.0-00 >/dev/null 2>&1
+########################################
 
 echo "[TASK 8] Enable ssh password authentication"
 sed -i 's/^PasswordAuthentication .*/PasswordAuthentication yes/' /etc/ssh/sshd_config
@@ -102,24 +97,6 @@ echo "[TASK 9] Set root password"
 echo -e "kubeadmin\nkubeadmin" | passwd root >/dev/null 2>&1
 echo "export TERM=xterm" >> /etc/bash.bashrc
 
-echo "[TASK 10] Update /etc/hosts file"
-cat >>/etc/hosts<<EOF
-172.16.70.97  kmaster.example.com     kmaster
-172.16.70.98  kworker1.example.com    kworker1
-172.16.70.99  kworker2.example.com    kworker2
-EOF
 
-echo "[TASK 11] Fix DNS"
-sudo apt -q -y update
-sudo apt -q -y install resolvconf
-systemctl enable resolvconf.service
-
-cat >>/etc/resolvconf/resolv.conf.d/head<<EOF
-nameserver 8.8.8.8
-nameserver 8.8.4.4
-EOF
-
-resolvconf --enable-updates
-resolvconf -u
 
 notify

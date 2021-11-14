@@ -25,13 +25,43 @@ sendtelegram() {
         curl -s --data-urlencode "text=$@" "https://api.telegram.org/bot$token/sendMessage?chat_id=$chatid" > /dev/null
 }
 
-cp /etc/kolla/admin-openrc.sh ./
+sendtelegram "Bat dau cai dat OpenStack bang kolla-ansible tren `hostname`"
+
+kolla-ansible -i multinode bootstrap-servers
+
+if [ $? -ne 0 ]; then
+  echo "Bootstrap servers failed"
+  exit $?
+fi
+
+echo 'run-kolla.sh: Running kolla-ansible -i multinode prechecks'
+kolla-ansible -i multinode prechecks
+
+if [ $? -ne 0 ]; then
+  echo "Prechecks failed"
+  exit $?
+fi
+
+echo 'run-kolla.sh: Running kolla-ansible -i multinode deploy'
+kolla-ansible -i multinode deploy
+
+if [ $? -ne 0 ]; then
+  echo "Deploy failed"
+  exit $?
+fi
+
+echo 'run-kolla.sh: Running sudo sudo kolla-ansible -i multinode post-deploy'
+sudo kolla-ansible -i multinode post-deploy
+
+cp /etc/kolla/admin-openrc.sh .
 chmod +x admin-openrc.sh
 
-add-apt-repository cloud-archive:victoria
+# add-apt-repository cloud-archive:victoria -y
+# apt update -y && apt dist-upgrade -y
+# apt install python3-openstackclient -y
+# cp /usr/local/share/kolla-ansible/init-runonce .
+# sed -i 's/10.0.2/172.16.71/g' init-runonce
+# sed -i 's/150/30/g' init-runonce
+# sed -i 's/199/50/g' init-runonce
 
-apt update -y && apt dist-upgrade -y
-
-apt install python3-openstackclient -y
-
-cp /usr/local/share/kolla-ansible/init-runonce .
+notify

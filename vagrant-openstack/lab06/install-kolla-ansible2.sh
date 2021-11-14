@@ -28,7 +28,7 @@ sendtelegram() {
 sendtelegram "Cai dat kolla-ansible tren `hostname`"
 
 
-sudo pip3 install -U 'ansible<2.9.19'
+# sudo pip3 install -U 'ansible<2.9.19'
 
 pip3 install kolla-ansible==11.0.0
 
@@ -47,16 +47,18 @@ echo "Cau hinh Kolla-Ansible"
 sudo sed -i '/export ERL_EPMD_ADDRESS/d' /usr/local/share/kolla-ansible/ansible/roles/rabbitmq/templates/rabbitmq-env.conf.j2
 sudo sed -i 's/^#openstack_release: .*$/openstack_release: "victoria"/g'  /etc/kolla/globals.yml
 sudo sed -i 's/^#kolla_base_distro: .*$/kolla_base_distro: "ubuntu"/g'  /etc/kolla/globals.yml
-sudo sed -i 's/^#enable_heat: .*/enable_heat: "no"/g' /etc/kolla/globals.yml
+sudo sed -i 's/^#enable_openstack_core: .*/enable_openstack_core: "yes"/g' /etc/kolla/globals.yml
+
 sudo sed -i 's/^#enable_cinder: .*/enable_cinder: "yes"/g' /etc/kolla/globals.yml
-sudo sed -i 's/^#enable_cinder_backend_lvm: .*/enable_cinder_backend_lvm: "yes"/g' /etc/kolla/globals.yml
-sudo sed -i 's/^#cinder_volume_group: .*/cinder_volume_group: "cinder-volumes"/g' /etc/kolla/globals.yml
-sudo sed -i 's/^#enable_cinder_backup: .*/enable_cinder_backup: "no"/g' /etc/kolla/globals.yml
+
 sudo sed -i 's/^#nova_compute_virt_type: .*/nova_compute_virt_type: "qemu"/g' /etc/kolla/globals.yml
+
 sudo sed -i 's/^#enable_haproxy: .*/enable_haproxy: "yes"/g' /etc/kolla/globals.yml
-sudo sed -i 's/^#kolla_internal_vip_address: .*/kolla_internal_vip_address: "172.16.70.180"/g' /etc/kolla/globals.yml
+sudo sed -i 's/^#kolla_internal_vip_address: .*/kolla_internal_vip_address: "172.16.70.89"/g' /etc/kolla/globals.yml
+
 sudo sed -i 's/^#kolla_internal_fqdn: .*/kolla_internal_fqdn: "mgnt.hcdcloud.com"/g' /etc/kolla/globals.yml
-sudo sed -i 's/^#docker_registry:.*/docker_registry: "registry.hcdcloud.com:8123"/g' /etc/kolla/globals.yml
+# sudo sed -i 's/^#docker_registry:.*/docker_registry: "registry.hcdcloud.com:8123"/g' /etc/kolla/globals.yml
+
 sudo sed -i 's/^#network_interface: .*/network_interface: "eth2"/g' /etc/kolla/globals.yml
 sudo sed -i 's/^#neutron_external_interface: .*/neutron_external_interface: "eth3"/g' /etc/kolla/globals.yml
 sudo sed -i 's/^#enable_neutron_provider_networks: .*/enable_neutron_provider_networks: "yes"/g' /etc/kolla/globals.yml

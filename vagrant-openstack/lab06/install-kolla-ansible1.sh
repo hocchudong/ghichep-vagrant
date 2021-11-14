@@ -28,18 +28,12 @@ sendtelegram() {
 sendtelegram "Chuan bi moi truong cho kolla-ansible tren `hostname`"
 
 cat << EOF > /etc/hosts
-172.16.70.180 mgnt.hcdcloud.com
-172.16.70.181 controller01
-172.16.70.182 controller02
-172.16.70.183 controller03
-172.16.70.184 compute01
-172.16.70.185 compute02
-172.16.70.186 compute03
-172.16.70.131 registry.hcdcloud.com
-EOF
+172.16.70.89 mgnt.hcdcloud.com
+172.16.70.90 ctl01
+172.16.70.91 com01
+172.16.70.92 com02
 
-pvcreate /dev/vdb
-vgcreate cinder-volumes /dev/vdb
+EOF
 
 sed -i 's/#ClientAliveInterval 0/ClientAliveInterval 60/g' /etc/ssh/sshd_config
 sed -i 's/#ClientAliveCountMax 3/ClientAliveCountMax 60/g' /etc/ssh/sshd_config
@@ -49,24 +43,21 @@ systemctl restart sshd
 
 apt install sshpass -y
 
-ssh-keygen -N "" -f /root/.ssh/id_rsa
+# ssh-keygen -N "" -f /root/.ssh/id_rsa
 
-sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@controller01
-sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@controller02
-sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@controller03
+sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@ctl01
+sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@com01
+sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@com02
 
-sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@compute01
-sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@compute02
-sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@compute03
+# sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@compute01
+# sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@compute02
+# sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@compute03
 
 ## Copy hostname 
-scp /etc/hosts root@controller01:/etc/hosts
-scp /etc/hosts root@controller02:/etc/hosts
-scp /etc/hosts root@controller03:/etc/hosts
+scp /etc/hosts root@ctl01:/etc/hosts
+scp /etc/hosts root@com01:/etc/hosts
+scp /etc/hosts root@com02:/etc/hosts
 
-scp /etc/hosts root@compute01:/etc/hosts
-scp /etc/hosts root@compute02:/etc/hosts
-scp /etc/hosts root@compute03:/etc/hosts
 
 ## Cai dat goi bo tro 
 

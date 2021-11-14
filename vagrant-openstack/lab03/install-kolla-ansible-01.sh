@@ -29,6 +29,7 @@ sendtelegram "Chuan bi moi truong cho kolla-ansible tren `hostname`"
 
 echo "[TASK 1] Thiet lap hostname"
 sudo echo "172.16.70.188 aiokolla" > /etc/hosts
+sudo echo "172.16.70.131 registry.hcdcloud.com" >> /etc/hosts
 sudo pvcreate /dev/vdb >/dev/null 2>&1
 sudo vgcreate cinder-volumes /dev/vdb >/dev/null 2>&1
 
@@ -59,13 +60,18 @@ sudo sed -i 's/^#openstack_release: .*$/openstack_release: "victoria"/g'  /etc/k
 sudo sed -i 's/^#kolla_base_distro: .*$/kolla_base_distro: "ubuntu"/g'  /etc/kolla/globals.yml
 sudo sed -i 's/^#enable_heat: .*/enable_heat: "no"/g' /etc/kolla/globals.yml
 sudo sed -i 's/^#enable_cinder: .*/enable_cinder: "yes"/g' /etc/kolla/globals.yml
+sudo sed -i 's/^#nova_compute_virt_type: .*/nova_compute_virt_type: "qemu"/g' /etc/kolla/globals.yml
 sudo sed -i 's/^#enable_cinder_backend_lvm: .*/enable_cinder_backend_lvm: "yes"/g' /etc/kolla/globals.yml
+sudo sed -i 's/^#docker_registry:.*/docker_registry: "registry.hcdcloud.com:8123"/g' /etc/kolla/globals.yml
+
 sudo sed -i 's/^#cinder_volume_group: .*/cinder_volume_group: "cinder-volumes"/g' /etc/kolla/globals.yml
 sudo sed -i 's/^#enable_cinder_backup: .*/enable_cinder_backup: "no"/g' /etc/kolla/globals.yml
 sudo sed -i 's/^#enable_haproxy: .*/enable_haproxy: "no"/g' /etc/kolla/globals.yml
 sudo sed -i 's/^#kolla_internal_vip_address: .*/kolla_internal_vip_address: "172.16.70.188"/g' /etc/kolla/globals.yml
 sudo sed -i 's/^#network_interface: .*/network_interface: "eth2"/g' /etc/kolla/globals.yml
-sudo sed -i 's/^#neutron_external_interface: .*/neutron_external_interface: "eth1"/g' /etc/kolla/globals.yml
+sudo sed -i 's/^#neutron_external_interface: .*/neutron_external_interface: "eth3"/g' /etc/kolla/globals.yml
+sudo sed -i 's/^#enable_neutron_provider_networks: .*/enable_neutron_provider_networks: "yes"/g' /etc/kolla/globals.yml
+
 
 sudo sed -i 's/localhost/aiokolla/g' all-in-one 
 

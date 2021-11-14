@@ -35,16 +35,16 @@ function repo(){
   cp /etc/apt/sources.list /etc/apt/sources.list.bka
 
 cat << EOF > /etc/apt/sources.list
-deb https://172.16.70.131/repository/u20proxy focal main restricted
-deb https://172.16.70.131/repository/u20proxy focal-updates main restricted
-deb https://172.16.70.131/repository/u20proxy focal universe
-deb https://172.16.70.131/repository/u20proxy focal-updates universe
-deb https://172.16.70.131/repository/u20proxy focal multiverse
-deb https://172.16.70.131/repository/u20proxy focal-updates multiverse
-deb https://172.16.70.131/repository/u20proxy focal-backports main restricted universe multiverse
-deb https://172.16.70.131/repository/u20proxy focal-security main restricted
-deb https://172.16.70.131/repository/u20proxy focal-security universe
-deb https://172.16.70.131/repository/u20proxy focal-security multiverse
+deb https://172.16.70.131/repository/ubuntu2004 focal main restricted
+deb https://172.16.70.131/repository/ubuntu2004 focal-updates main restricted
+deb https://172.16.70.131/repository/ubuntu2004 focal universe
+deb https://172.16.70.131/repository/ubuntu2004 focal-updates universe
+deb https://172.16.70.131/repository/ubuntu2004 focal multiverse
+deb https://172.16.70.131/repository/ubuntu2004 focal-updates multiverse
+deb https://172.16.70.131/repository/ubuntu2004 focal-backports main restricted universe multiverse
+deb https://172.16.70.131/repository/ubuntu2004 focal-security main restricted
+deb https://172.16.70.131/repository/ubuntu2004 focal-security universe
+deb https://172.16.70.131/repository/ubuntu2004 focal-security multiverse
 EOF
 
     apt clean
