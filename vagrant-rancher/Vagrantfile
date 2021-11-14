@@ -1,0 +1,64 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+ENV['VAGRANT_NO_PARALLEL'] = 'yes'
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
+BOX_IMAGE_CENTOS7 = "centos/7"
+BOX_IMAGE_UBUNTU20= "generic/ubuntu2004"
+
+Vagrant.configure(2) do |config|
+
+  config.vm.provision "shell", path: "bootstrap_ubuntu20.sh"
+  config.ssh.insert_key = false
+
+  # VM master 
+  config.vm.define "master01" do |master01|
+    master01.vm.provider "libvirt" do |v|
+      v.memory = 4096
+      v.cpus = 4
+      v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.			
+      # v.graphics_ip = '0.0.0.0'
+    end
+    master01.vm.box = BOX_IMAGE_UBUNTU20
+    master01.vm.box_check_update  = false
+    master01.vm.hostname = "master01"
+    master01.vm.network :private_network, ip: "172.16.16.161"
+    master01.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.161"
+    # master01.vm.provision "shell", path: "bootstrap_kmaster.sh"
+  end
+
+  # VM worker01
+  config.vm.define "worker01" do |worker01|
+    worker01.vm.provider "libvirt" do |v|
+      v.memory = 2048
+      v.cpus = 2
+      v.storage :file, :size => '20G' #them o cung thu 2
+      v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.
+      # v.graphics_ip = '0.0.0.0'
+    end
+    worker01.vm.box = BOX_IMAGE_UBUNTU20
+    worker01.vm.box_check_update  = false
+    worker01.vm.hostname = "worker01"
+    worker01.vm.network :private_network, ip: "172.16.16.162"
+    worker01.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.162"
+    # worker01.vm.provision "shell", path: "bootstrap_kworker.sh"
+  end
+
+  # VM worker02
+  config.vm.define "worker02" do |worker02|
+    worker02.vm.provider "libvirt" do |v|
+      v.memory = 2048
+      v.cpus = 2
+      v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.
+      # v.graphics_ip = '0.0.0.0'
+    end
+    worker02.vm.box = BOX_IMAGE_UBUNTU20
+    worker02.vm.box_check_update  = false
+    worker02.vm.hostname = "worker02"
+    worker02.vm.network :private_network, ip: "172.16.16.163"
+    worker02.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.163"
+    # worker02.vm.provision "shell", path: "bootstrap_kworker.sh"
+   
+  end
+
+end
