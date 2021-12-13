@@ -75,20 +75,6 @@ apt-get update -qq -y >/dev/null 2>&1
 apt-get dist-upgrade -qq -y >/dev/null 2>&1
 apt-get install -qq -y net-tools git curl vim byobu crudini bc >/dev/null 2>&1
 
-echo "[TASK 5] Config timezone"
-apt-get install chrony -qq -y >/dev/null 2>&1
-ntpfile=/etc/chrony/chrony.conf
-
-timedatectl set-timezone Asia/Ho_Chi_Minh >/dev/null 2>&1
-sed -i 's/pool 2.debian.pool.ntp.org offline iburst/ \
-pool 2.debian.pool.ntp.org offline iburst \
-server 0.asia.pool.ntp.org iburst \
-server 1.asia.pool.ntp.org iburst/g' $ntpfile -qq -y >/dev/null 2>&1
-
-echo "allow 172.16.70.212/24" >> $ntpfile  >/dev/null 2>&1
-service chrony restart  >/dev/null 2>&1
-
-
 TIME_END=`date +%s.%N`
 TIME_TOTAL_TEMP=$( echo "$TIME_END - $TIME_START" | bc -l )
 TIME_TOTAL=$(cut -c-6 <<< "$TIME_TOTAL_TEMP")
