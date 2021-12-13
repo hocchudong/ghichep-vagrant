@@ -71,9 +71,9 @@ echo -e "hcdadmin\nhcdadmin" | passwd root >/dev/null 2>&1
 
 # Install package
 echo "[TASK 4] Install package"
-apt update -qq -y >/dev/null 2>&1
-apt dist-upgrade -qq -y >/dev/null 2>&1
-apt install -qq -y net-tools git curl vim byobu crudini >/dev/null 2>&1
+apt-get update -qq -y >/dev/null 2>&1
+apt-get dist-upgrade -qq -y >/dev/null 2>&1
+apt-get install -qq -y net-tools git curl vim byobu crudini bc >/dev/null 2>&1
 
 echo "[TASK 5] Config timezone"
 apt-get install chrony -qq -y >/dev/null 2>&1
