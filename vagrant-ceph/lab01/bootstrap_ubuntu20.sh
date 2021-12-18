@@ -75,6 +75,12 @@ apt-get update -qq -y >/dev/null 2>&1
 apt-get dist-upgrade -qq -y >/dev/null 2>&1
 apt-get install -qq -y net-tools git curl vim byobu crudini bc >/dev/null 2>&1
 
+# Config basic
+echo "[TASK 5] Config basic"
+systemctl disable ufw
+systemctl stop ufw
+timedatectl set-timezone Asia/Ho_Chi_Minh
+
 TIME_END=`date +%s.%N`
 TIME_TOTAL_TEMP=$( echo "$TIME_END - $TIME_START" | bc -l )
 TIME_TOTAL=$(cut -c-6 <<< "$TIME_TOTAL_TEMP")
