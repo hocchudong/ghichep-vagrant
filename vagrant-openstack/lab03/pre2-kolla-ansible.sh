@@ -27,7 +27,6 @@ sendtelegram() {
 
 sendtelegram "Cai dat kolla-ansible tren `hostname`"
 
-
 sudo pip3 install -U 'ansible<2.9.19'
 
 pip3 install kolla-ansible==11.0.0
@@ -36,13 +35,10 @@ pip3 install kolla-ansible==11.0.0
 sudo mkdir -p /etc/kolla
 sudo chown $USER:$USER /etc/kolla
 
-
 cp -r /usr/local/share/kolla-ansible/etc_examples/kolla/* /etc/kolla
 cp /usr/local/share/kolla-ansible/ansible/inventory/* .
 
 ## Sua file config
-
-
 echo "Cau hinh Kolla-Ansible"
 sudo sed -i '/export ERL_EPMD_ADDRESS/d' /usr/local/share/kolla-ansible/ansible/roles/rabbitmq/templates/rabbitmq-env.conf.j2
 sudo sed -i 's/^#openstack_release: .*$/openstack_release: "victoria"/g'  /etc/kolla/globals.yml
@@ -60,7 +56,6 @@ sudo sed -i 's/^#docker_registry:.*/docker_registry: "registry.hcdcloud.com:8123
 sudo sed -i 's/^#network_interface: .*/network_interface: "eth2"/g' /etc/kolla/globals.yml
 sudo sed -i 's/^#neutron_external_interface: .*/neutron_external_interface: "eth3"/g' /etc/kolla/globals.yml
 sudo sed -i 's/^#enable_neutron_provider_networks: .*/enable_neutron_provider_networks: "yes"/g' /etc/kolla/globals.yml
-
 
 # sudo sed -i 's/localhost/aiokolla/g' all-in-one 
 
