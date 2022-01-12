@@ -1,4 +1,8 @@
 #!/bin/bash
+
+DATE_EXEC="$(date "+%d/%m/%Y %H:%M")"
+TIME_START=`date +%s.%N`
+
 notify() {
         chatid=1977142239
         token=1117214915:AAF4LFh6uChng056_oTyM6cz9TY4dyAn3YU
@@ -83,5 +87,13 @@ update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy || true
 update-alternatives --set arptables /usr/sbin/arptables-legacy || true
 update-alternatives --set ebtables /usr/sbin/ebtables-legacy || true
 
-sendtelegram "Da cai dat xong Ubuntu co ban"
+TIME_END=`date +%s.%N`
+TIME_TOTAL_TEMP=$( echo "$TIME_END - $TIME_START" | bc -l )
+TIME_TOTAL=$(cut -c-6 <<< "$TIME_TOTAL_TEMP")
+
+echo "Da thuc hien script $0 tren `hostname`"
+echo "Tong thoi gian thuc hien $0 tren `hostname`: $TIME_TOTAL giay"
+
+sendtelegram "Da thuc hien script $0"
+sendtelegram "Tong thoi gian thuc hien $0 tren `hostname`: $TIME_TOTAL giay"
 notify

@@ -27,10 +27,25 @@ sendtelegram() {
 
 sendtelegram "Cai dat kolla-ansible tren `hostname`"
 
-sudo pip3 install -U 'ansible<2.9.19'
 
+## Lua chon cac goi de cai dat OpenStack Victoria
+pip3 install -U 'ansible<2.9.19'
 pip3 install kolla-ansible==11.0.0
 
+## Lua chon cac goi de cai dat OpenStack Wallaby
+# pip3 install 'ansible<3.0'
+# pip3 install 'kolla-ansible==12.2'
+
+# Cau hinh cho ansible
+
+mkdir /etc/ansible
+
+cat << EOF > /etc/ansible/ansible.cfg
+[defaults]
+host_key_checking=False
+pipelining=True
+forks=100
+EOF
 
 sudo mkdir -p /etc/kolla
 sudo chown $USER:$USER /etc/kolla
@@ -41,7 +56,12 @@ cp /usr/local/share/kolla-ansible/ansible/inventory/* .
 ## Sua file config
 echo "Cau hinh Kolla-Ansible"
 sudo sed -i '/export ERL_EPMD_ADDRESS/d' /usr/local/share/kolla-ansible/ansible/roles/rabbitmq/templates/rabbitmq-env.conf.j2
+
 sudo sed -i 's/^#openstack_release: .*$/openstack_release: "victoria"/g'  /etc/kolla/globals.yml
+## bo comment neu muon cai OpenStack Wallaby
+# sudo sed -i 's/^#openstack_release: .*$/openstack_release: "wallaby"/g'  /etc/kolla/globals.yml
+
+
 sudo sed -i 's/^#kolla_base_distro: .*$/kolla_base_distro: "ubuntu"/g'  /etc/kolla/globals.yml
 sudo sed -i 's/^#enable_heat: .*/enable_heat: "no"/g' /etc/kolla/globals.yml
 sudo sed -i 's/^#enable_cinder: .*/enable_cinder: "yes"/g' /etc/kolla/globals.yml
@@ -73,7 +93,7 @@ sed -i 's/network02/controller02/g' multinode
 sed -i '17 i controller03' multinode
 
 sed -i '21 i compute02' multinode
-sed -i '22 i compute03' multinode
+# sed -i '22 i compute03' multinode
 
 
 sed -i 's/monitoring01/controller01/g' multinode
