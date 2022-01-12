@@ -118,26 +118,5 @@ Vagrant.configure("2") do |config|
 
   end
 
-#  # VM compute03 
-#  config.vm.define "compute03" do |compute03|
-#    compute03.vm.box = BOX_IMAGE
-#    compute03.vm.box_check_update  = false
-#    compute03.vm.hostname = "compute03"
-#
-#    compute03.vm.network "private_network", ip: "172.16.16.186"
-#    compute03.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.186"
-#    compute03.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge"
-#    compute03.vm.provider "libvirt" do |v|
-#      v.memory = 4096
-#      v.cpus = 2			
-#      v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.
-#      v.storage :file, :size => '50G' #them o cung thu 2			
-#      v.storage :file, :size => '50G' #them o cung thu 2			
-#      v.storage :file, :size => '50G' #them o cung thu 2			
-#    end
-#    # compute03.vm.provision "shell", path: "install-kolla-ansible-01.sh"
-#    # compute03.vm.provision "shell", path: "install-kolla-ansible-02.sh"
-#
-#  end  
 
 end
