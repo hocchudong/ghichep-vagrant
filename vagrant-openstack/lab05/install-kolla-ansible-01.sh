@@ -29,6 +29,12 @@ sendtelegram() {
 
 sendtelegram "Chuan bi moi truong cho kolla-ansible tren `hostname`"
 
+# Enable port forwarding
+echo "net.ipv4.ip_forward = 1" | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+sudo sysctl -a | grep "net.ipv4.ip_forward ="
+
+
 echo "172.16.70.188 aiokolla" > /etc/hosts
 echo "172.16.70.131 registry.hcdcloud.com" >> /etc/hosts
 echo "172.16.70.180 mgnt.hcdcloud.com" >> /etc/hosts
