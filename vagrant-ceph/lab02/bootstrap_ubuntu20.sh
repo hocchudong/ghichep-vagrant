@@ -63,10 +63,7 @@ function install_ntp(){
 # sendtelegram "Setup co ban tren node `hostname`"
 
 echo "[TASK 1]Khai bao repo node `hostname`"
-sendtelegram "Khai bao repo node `hostname`"
 repo
-
-
 
 # Enable ssh password authentication
 echo "[TASK 2] Enable ssh password authentication"
@@ -90,8 +87,7 @@ systemctl disable ufw
 systemctl stop ufw
 timedatectl set-timezone Asia/Ho_Chi_Minh
 
-echo "[TASK 1]Khai bao install_ntp node `hostname`"
-sendtelegram "Khai bao install_ntp node `hostname`"
+echo "[TASK 6]Khai bao install_ntp node `hostname`"
 install_ntp
 
 TIME_END=`date +%s.%N`
@@ -101,6 +97,6 @@ TIME_TOTAL=$(cut -c-6 <<< "$TIME_TOTAL_TEMP")
 echo "Da thuc hien script $0 tren `hostname`"
 echo "Tong thoi gian thuc hien $0 tren `hostname`: $TIME_TOTAL giay"
 
-# sendtelegram "Da thuc hien script $0"
-# sendtelegram "Tong thoi gian thuc hien $0 tren `hostname`: $TIME_TOTAL giay"
+sendtelegram "Da thuc hien script $0"
+sendtelegram "Tong thoi gian thuc hien $0 tren `hostname`: $TIME_TOTAL giay"
 # notify
