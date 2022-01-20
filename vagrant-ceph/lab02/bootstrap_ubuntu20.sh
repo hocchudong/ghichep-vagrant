@@ -53,9 +53,9 @@ EOF
 
 function install_ntp(){
   sed -i 's/#NTP=/NTP=172.16.70.12/g' /etc/systemd/timesyncd.conf
-  timedatectl set-ntp off
-  timedatectl set-ntp on
-  timedatectl timesync-status
+  timedatectl set-ntp off >/dev/null 2>&1
+  timedatectl set-ntp on >/dev/null 2>&1
+  timedatectl timesync-status >/dev/null 2>&1
 }
 
 
