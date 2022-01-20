@@ -27,6 +27,12 @@ EOF
     apt-get update
 }
 
+function install_ntp(){
+  sed -i 's/#NTP=/NTP=172.16.70.12/g' /etc/systemd/timesyncd.conf
+  timedatectl set-ntp off
+  timedatectl set-ntp on
+  timedatectl timesync-status
+}
 
 function install_ops_packages () {
 	echocolor "Install OpenStack client"
@@ -45,4 +51,5 @@ function install_ops_packages () {
 
 ##############
 repo
+install_ntp
 install_ops_packages
