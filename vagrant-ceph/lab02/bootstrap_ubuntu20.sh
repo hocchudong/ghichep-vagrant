@@ -58,7 +58,6 @@ function install_ntp(){
   timedatectl timesync-status >/dev/null 2>&1
 }
 
-
 # sendtelegram "Thuc hien script $0 tren `hostname`"
 # sendtelegram "Setup co ban tren node `hostname`"
 
