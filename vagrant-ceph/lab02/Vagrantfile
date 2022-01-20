@@ -20,8 +20,10 @@ Vagrant.configure("2") do |config|
     ceph01.vm.box = BOX_IMAGE
     ceph01.vm.box_check_update  = false
     ceph01.vm.hostname = "ceph01"
-    ceph01.vm.network "private_network", ip: "172.16.16.95"
-    ceph01.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.95"
+    ceph01.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.151"
+    ceph01.vm.network "public_network", dev: "vlan2344", mode: "bridge", type: "bridge", ip: "172.16.73.151"
+    ceph01.vm.network "public_network", dev: "vlan2345", mode: "bridge", type: "bridge", ip: "172.16.74.151"
+    # ceph01.vm.network "private_network", ip: "172.16.16.151"
     ceph01.vm.provider "libvirt" do |v|
       v.memory = 8192
       v.cpus = 4			
@@ -38,8 +40,10 @@ Vagrant.configure("2") do |config|
     ceph02.vm.box = BOX_IMAGE
     ceph02.vm.box_check_update  = false
     ceph02.vm.hostname = "ceph02"
-    ceph02.vm.network "private_network", ip: "172.16.16.96"
-    ceph02.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.96"
+    ceph02.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.152"
+    ceph02.vm.network "public_network", dev: "vlan2344", mode: "bridge", type: "bridge", ip: "172.16.73.152"
+    ceph02.vm.network "public_network", dev: "vlan2345", mode: "bridge", type: "bridge", ip: "172.16.74.152"
+    # ceph02.vm.network "private_network", ip: "172.16.16.152"
     ceph02.vm.provider "libvirt" do |v|
       v.memory = 8192
       v.cpus = 4			
@@ -56,8 +60,10 @@ Vagrant.configure("2") do |config|
     ceph03.vm.box = BOX_IMAGE
     ceph03.vm.box_check_update  = false
     ceph03.vm.hostname = "ceph03"
-    ceph03.vm.network "private_network", ip: "172.16.16.97"
-    ceph03.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.97"
+    ceph03.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.153"
+    ceph03.vm.network "public_network", dev: "vlan2344", mode: "bridge", type: "bridge", ip: "172.16.73.153"
+    ceph03.vm.network "public_network", dev: "vlan2345", mode: "bridge", type: "bridge", ip: "172.16.74.153"
+    # ceph03.vm.network "private_network", ip: "172.16.16.153"
     ceph03.vm.provider "libvirt" do |v|
       v.memory = 4096
       v.cpus = 2			
@@ -74,8 +80,10 @@ Vagrant.configure("2") do |config|
     client01.vm.box = BOX_IMAGE
     client01.vm.box_check_update  = false
     client01.vm.hostname = "client01"
-    client01.vm.network "private_network", ip: "172.16.16.98"
-    client01.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.98"
+    client01.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.159"
+    client01.vm.network "public_network", dev: "vlan2344", mode: "bridge", type: "bridge", ip: "172.16.73.159"
+    client01.vm.network "public_network", dev: "vlan2345", mode: "bridge", type: "bridge", ip: "172.16.74.159"
+    # client01.vm.network "private_network", ip: "172.16.16.159"
     client01.vm.provider "libvirt" do |v|
       v.memory = 2048
       v.cpus = 2			
