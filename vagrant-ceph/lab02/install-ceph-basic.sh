@@ -34,7 +34,7 @@ function install_ntp(){
   timedatectl timesync-status
 }
 
-function install_ops_packages () {
+function install_ops_packages(){
 	echocolor "Install OpenStack client"
 	sleep 3
 	sudo apt-get install software-properties-common -y 2>&1 | tee -a filelog-install.txt
@@ -49,7 +49,27 @@ function install_ops_packages () {
   systemctl stop ufw
 }
 
+
+function install_pip3(){
+  sudo apt update  -y
+  sudo apt-get install python3-dev libffi-dev gcc libssl-dev -y
+  sudo apt-get install python3-pip -y
+
+  # Khai bao cache de cai dat pip
+
+  mkdir -p .config/pip
+
+cat << EOF> .config/pip/pip.conf
+[global]
+index = https://172.16.70.131/repository/pip3proxy/pypi
+index-url = https://172.16.70.131/repository/pip3proxy/simple
+trusted-host = 172.16.70.131
+EOF
+
+}
+
 ##############
 # repo
 # install_ntp
 install_ops_packages
+install_pip3
