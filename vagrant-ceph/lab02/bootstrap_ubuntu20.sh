@@ -51,13 +51,22 @@ EOF
     apt-get update
 }
 
+function install_ntp(){
+  sed -i 's/#NTP=/NTP=172.16.70.12/g' /etc/systemd/timesyncd.conf
+  timedatectl set-ntp off
+  timedatectl set-ntp on
+  timedatectl timesync-status
+}
+
+
 # sendtelegram "Thuc hien script $0 tren `hostname`"
 # sendtelegram "Setup co ban tren node `hostname`"
 
-# echo "[TASK 1]Khai bao repo node `hostname`"
-# sendtelegram "Khai bao repo node `hostname`"
+echo "[TASK 1]Khai bao repo node `hostname`"
+sendtelegram "Khai bao repo node `hostname`"
+repo
 
-# repo
+
 
 # Enable ssh password authentication
 echo "[TASK 2] Enable ssh password authentication"
@@ -80,6 +89,10 @@ echo "[TASK 5] Config basic"
 systemctl disable ufw
 systemctl stop ufw
 timedatectl set-timezone Asia/Ho_Chi_Minh
+
+echo "[TASK 1]Khai bao install_ntp node `hostname`"
+sendtelegram "Khai bao install_ntp node `hostname`"
+install_ntp
 
 TIME_END=`date +%s.%N`
 TIME_TOTAL_TEMP=$( echo "$TIME_END - $TIME_START" | bc -l )

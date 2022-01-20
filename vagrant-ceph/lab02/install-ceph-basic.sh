@@ -50,6 +50,6 @@ function install_ops_packages () {
 }
 
 ##############
-repo
-install_ntp
+# repo
+# install_ntp
 install_ops_packages
