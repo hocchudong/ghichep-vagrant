@@ -63,6 +63,10 @@ repo
 echo "[TASK 2] Enable ssh password authentication"
 sed -i 's/^PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
 sed -i 's/.*PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+sed -i 's/#ClientAliveInterval 0/ClientAliveInterval 60/g' /etc/ssh/sshd_config
+sed -i 's/#ClientAliveCountMax 3/ClientAliveCountMax 60/g' /etc/ssh/sshd_config
+systemctl restart sshd 
+
 systemctl reload sshd
 
 # Set Root password
@@ -88,6 +92,9 @@ server 1.asia.pool.ntp.org iburst/g' $ntpfile -qq -y >/dev/null 2>&1
 echo "allow 172.16.70.212/24" >> $ntpfile  >/dev/null 2>&1
 service chrony restart  >/dev/null 2>&1
 
+echo "[TASK 6] Config firewall"
+systemctl disable ufw
+systemctl stop ufw
 
 TIME_END=`date +%s.%N`
 TIME_TOTAL_TEMP=$( echo "$TIME_END - $TIME_START" | bc -l )
