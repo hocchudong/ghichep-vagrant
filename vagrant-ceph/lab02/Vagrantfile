@@ -82,7 +82,7 @@ Vagrant.configure("2") do |config|
     client01.vm.hostname = "client01"
     client01.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.169"
     client01.vm.network "public_network", dev: "vlan2344", mode: "bridge", type: "bridge", ip: "172.16.73.169"
-    client01.vm.network "public_network", dev: "vlan2345", mode: "bridge", type: "bridge", ip: "172.16.74.169"
+    # client01.vm.network "public_network", dev: "vlan2345", mode: "bridge", type: "bridge", ip: "172.16.74.169"
     # client01.vm.network "private_network", ip: "172.16.16.169"
     client01.vm.provider "libvirt" do |v|
       v.memory = 2048
