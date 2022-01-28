@@ -64,7 +64,7 @@ Vagrant.configure("2") do |config|
     com02.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.176"
     #com02.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge", ip: "172.16.71.176"
     com02.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge" #VLAN Provider
-    com01.vm.network "public_network", dev: "vlan2344",mode: "bridge", type: "bridge", ip: "172.16.73.176" # VLAN CEPH-COM
+    com02.vm.network "public_network", dev: "vlan2344",mode: "bridge", type: "bridge", ip: "172.16.73.176" # VLAN CEPH-COM
     com02.vm.provider "libvirt" do |v|
       # v.memory = 8192
       v.memory = 12288
