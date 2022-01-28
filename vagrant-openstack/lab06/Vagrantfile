@@ -22,7 +22,8 @@ Vagrant.configure("2") do |config|
     ctl01.vm.network "private_network", ip: "172.16.16.90"
     ctl01.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.171"
     # ctl01.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge", ip: "172.16.71.171"
-    ctl01.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge"
+    ctl01.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge" #VLAN Provider
+    ctl01.vm.network "public_network", dev: "vlan2344",mode: "bridge", type: "bridge", ip: "172.16.73.171" # VLAN CEPH-COM
     ctl01.vm.provider "libvirt" do |v|
       v.memory = 6144
       v.cpus = 2		
@@ -42,7 +43,8 @@ Vagrant.configure("2") do |config|
     com01.vm.network "private_network", ip: "172.16.16.91"
     com01.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.175"
     #com01.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge", ip: "172.16.71.175"
-    com01.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge"
+    com01.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge"  #VLAN Provider
+    com01.vm.network "public_network", dev: "vlan2344",mode: "bridge", type: "bridge", ip: "172.16.73.175" # VLAN CEPH-COM
     com01.vm.provider "libvirt" do |v|
       # v.memory = 8192
       v.memory = 12288
@@ -61,7 +63,8 @@ Vagrant.configure("2") do |config|
     com02.vm.network "private_network", ip: "172.16.16.92"
     com02.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.176"
     #com02.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge", ip: "172.16.71.176"
-    com02.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge"
+    com02.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge" #VLAN Provider
+    com01.vm.network "public_network", dev: "vlan2344",mode: "bridge", type: "bridge", ip: "172.16.73.176" # VLAN CEPH-COM
     com02.vm.provider "libvirt" do |v|
       # v.memory = 8192
       v.memory = 12288
@@ -80,6 +83,7 @@ Vagrant.configure("2") do |config|
     nfs01.vm.network "private_network", ip: "172.16.16.96"
     nfs01.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.179"
     # nfs01.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge", ip: "172.16.71.179"
+    nfs01.vm.network "public_network", dev: "vlan2344",mode: "bridge", type: "bridge", ip: "172.16.73.179" # VLAN CEPH-COM
     nfs01.vm.provider "libvirt" do |v|
       v.memory = 4096
       v.cpus = 4			
