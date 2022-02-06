@@ -102,5 +102,6 @@ EOF
 
 # Trien kahi
 
+# cd ceph-ansible
 # ansible-playbook -i inventory.ini site.yml
 
