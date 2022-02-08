@@ -23,7 +23,6 @@ Vagrant.configure("2") do |config|
     ceph01.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.161"
     ceph01.vm.network "public_network", dev: "vlan2344", mode: "bridge", type: "bridge", ip: "172.16.73.161"
     ceph01.vm.network "public_network", dev: "vlan2345", mode: "bridge", type: "bridge", ip: "172.16.74.161"
-    # ceph01.vm.network "private_network", ip: "172.16.16.161"
     ceph01.vm.provider "libvirt" do |v|
       v.memory = 4096
       v.cpus = 2			
@@ -31,7 +30,6 @@ Vagrant.configure("2") do |config|
       v.storage :file, :size => '60G' #them o cung thu 2			
       v.storage :file, :size => '60G' #them o cung thu 3		
       v.storage :file, :size => '60G' #them o cung thu 4			
-      # v.graphics_ip = '0.0.0.0'
     end
   end
   
@@ -43,7 +41,6 @@ Vagrant.configure("2") do |config|
     ceph02.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.162"
     ceph02.vm.network "public_network", dev: "vlan2344", mode: "bridge", type: "bridge", ip: "172.16.73.162"
     ceph02.vm.network "public_network", dev: "vlan2345", mode: "bridge", type: "bridge", ip: "172.16.74.162"
-    # ceph02.vm.network "private_network", ip: "172.16.16.162"
     ceph02.vm.provider "libvirt" do |v|
       v.memory = 4096
       v.cpus = 2		
@@ -51,7 +48,6 @@ Vagrant.configure("2") do |config|
       v.storage :file, :size => '60G' #them o cung thu 2			
       v.storage :file, :size => '60G' #them o cung thu 3			
       v.storage :file, :size => '60G' #them o cung thu 4			
-      # v.graphics_ip = '0.0.0.0'
     end	  
   end
 
@@ -63,7 +59,6 @@ Vagrant.configure("2") do |config|
     ceph03.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.163"
     ceph03.vm.network "public_network", dev: "vlan2344", mode: "bridge", type: "bridge", ip: "172.16.73.163"
     ceph03.vm.network "public_network", dev: "vlan2345", mode: "bridge", type: "bridge", ip: "172.16.74.163"
-    # ceph03.vm.network "private_network", ip: "172.16.16.163"
     ceph03.vm.provider "libvirt" do |v|
       v.memory = 4096
       v.cpus = 2		
@@ -71,7 +66,24 @@ Vagrant.configure("2") do |config|
       v.storage :file, :size => '60G' #them o cung thu 2			
       v.storage :file, :size => '60G' #them o cung thu 3			
       v.storage :file, :size => '60G' #them o cung thu 4			
-      # v.graphics_ip = '0.0.0.0'
+    end	  
+  end
+  
+  # VM ceph04 
+  config.vm.define "ceph04" do |ceph04|
+    ceph04.vm.box = BOX_IMAGE
+    ceph04.vm.box_check_update  = false
+    ceph04.vm.hostname = "ceph04"
+    ceph04.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.164"
+    ceph04.vm.network "public_network", dev: "vlan2344", mode: "bridge", type: "bridge", ip: "172.16.73.164"
+    ceph04.vm.network "public_network", dev: "vlan2345", mode: "bridge", type: "bridge", ip: "172.16.74.164"
+    ceph04.vm.provider "libvirt" do |v|
+      v.memory = 4096
+      v.cpus = 2		
+      v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.
+      v.storage :file, :size => '60G' #them o cung thu 2			
+      v.storage :file, :size => '60G' #them o cung thu 3			
+      v.storage :file, :size => '60G' #them o cung thu 4			
     end	  
   end
 
@@ -82,16 +94,10 @@ Vagrant.configure("2") do |config|
     client01.vm.hostname = "client01"
     client01.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.169"
     client01.vm.network "public_network", dev: "vlan2344", mode: "bridge", type: "bridge", ip: "172.16.73.169"
-    # client01.vm.network "public_network", dev: "vlan2345", mode: "bridge", type: "bridge", ip: "172.16.74.169"
-    # client01.vm.network "private_network", ip: "172.16.16.169"
     client01.vm.provider "libvirt" do |v|
       v.memory = 2048
       v.cpus = 2			
       v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.
-      # v.storage :file, :size => '60G' #them o cung thu 2			
-      # v.storage :file, :size => '60G' #them o cung thu 3		
-      # v.storage :file, :size => '60G' #them o cung thu 4
-      # v.graphics_ip = '0.0.0.0'
     end	  
   end
 
