@@ -60,14 +60,14 @@ cephx: true
 ceph_origin: repository
 ceph_repository: community
 ceph_stable_release: pacific
-dashboard_enabled: True
-dashboard_protocol: https
-dashboard_port: 8443
-dashboard_admin_user: admin
-dashboard_admin_user_ro: false
-dashboard_admin_password: Welcome123
-grafana_admin_user: admin
-grafana_admin_password: admin
+dashboard_enabled: false
+# dashboard_protocol: https
+# dashboard_port: 8443
+# dashboard_admin_user: admin
+# dashboard_admin_user_ro: false
+# dashboard_admin_password: Welcome123
+# grafana_admin_user: admin
+# grafana_admin_password: admin
 ntp_daemon_type: timesyncd
 EOF
 
