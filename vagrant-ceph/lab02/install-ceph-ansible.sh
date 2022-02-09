@@ -104,7 +104,7 @@ mons
 mons
 EOF
 
-# Trien kahi
+# Trien khai
 
 # cd ceph-ansible
 # ansible-playbook -i inventory.ini site.yml
