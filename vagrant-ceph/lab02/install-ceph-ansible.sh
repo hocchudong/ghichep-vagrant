@@ -10,17 +10,20 @@ ssh-keygen -N "" -f /root/.ssh/id_rsa
 sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@172.16.70.161
 sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@172.16.70.162
 sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@172.16.70.163
+sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@172.16.70.164
 
 # Khai bao file host 
 cat << EOF > /etc/hosts
 172.16.73.161 ceph01
 172.16.73.162 ceph02
 172.16.73.163 ceph03
+172.16.73.164 ceph04
 172.16.73.169 client01
 
 172.16.70.161 ceph01
 172.16.70.162 ceph02
 172.16.70.163 ceph03
+172.16.70.164 ceph04
 172.16.70.169 client01
 
 127.0.0.1       localhost
@@ -30,6 +33,7 @@ EOF
 scp /etc/hosts root@172.16.70.161:/etc/hosts
 scp /etc/hosts root@172.16.70.162:/etc/hosts
 scp /etc/hosts root@172.16.70.163:/etc/hosts
+scp /etc/hosts root@172.16.70.164:/etc/hosts
 
 # Tai bo cai ceph-ansible
 apt-get install python3-pip -y
