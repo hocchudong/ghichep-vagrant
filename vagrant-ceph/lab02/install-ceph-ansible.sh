@@ -26,6 +26,16 @@ cat << EOF > /etc/hosts
 172.16.70.164 ceph04
 172.16.70.169 client01
 
+172.16.73.161 ceph01ssd
+172.16.73.162 ceph02ssd
+172.16.73.163 ceph03ssd
+172.16.73.164 ceph04ssd
+
+172.16.73.161 ceph01ssd
+172.16.73.162 ceph02ssd
+172.16.73.163 ceph03ssd
+172.16.73.164 ceph04ssd
+
 127.0.0.1       localhost
 EOF
 
