@@ -32,6 +32,7 @@ cat << EOF > /etc/hosts
 172.16.70.171 ctl01
 172.16.70.175 com01
 172.16.70.176 com02
+172.16.70.179 nfs01
 172.16.70.131 registry.hcdcloud.com
 EOF
 
@@ -47,11 +48,13 @@ ssh-keygen -N "" -f /root/.ssh/id_rsa
 sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@ctl01
 sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@com01
 sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@com02
+sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@nfs01
 
 ## Copy hostname 
 scp /etc/hosts root@ctl01:/etc/hosts
 scp /etc/hosts root@com01:/etc/hosts
 scp /etc/hosts root@com02:/etc/hosts
+scp /etc/hosts root@nfs01:/etc/hosts
 
 # scp /etc/hosts root@compute03:/etc/hosts
 
