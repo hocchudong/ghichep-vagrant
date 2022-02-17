@@ -103,7 +103,7 @@ cp -r /usr/local/share/kolla-ansible/etc_examples/kolla/* /etc/kolla
 
 cp /usr/local/share/kolla-ansible/ansible/inventory/* .
 
-sudo sed -i '/export ERL_EPMD_ADDRESS/d' /usr/local/share/kolla-ansible/ansible/roles/rabbitmq/templates/rabbitmq-env.conf.j2
+# sudo sed -i '/export ERL_EPMD_ADDRESS/d' /usr/local/share/kolla-ansible/ansible/roles/rabbitmq/templates/rabbitmq-env.conf.j2
 
 cat /etc/kolla/globals.yml | egrep -v '^#|^$'
 
