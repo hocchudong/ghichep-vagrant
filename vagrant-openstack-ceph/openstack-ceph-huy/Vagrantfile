@@ -55,10 +55,10 @@ Vagrant.configure("2") do |config|
     com02.vm.box = BOX_IMAGE
     com02.vm.box_check_update  = false
     com02.vm.hostname = "com02"
-    com01.vm.network "private_network", ip: "172.16.16.53" #VLAN DATAVM
-    com01.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.53" #VLAN MGNT
-    com01.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge" #VLAN Provider
-    com01.vm.network "public_network", dev: "vlan2344",mode: "bridge", type: "bridge", ip: "172.16.73.53" #VLAN CEPH-COM
+    com02.vm.network "private_network", ip: "172.16.16.53" #VLAN DATAVM
+    com02.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.53" #VLAN MGNT
+    com02.vm.network "public_network", dev: "vlan2342", mode: "bridge", type: "bridge" #VLAN Provider
+    com02.vm.network "public_network", dev: "vlan2344",mode: "bridge", type: "bridge", ip: "172.16.73.53" #VLAN CEPH-COM
     com02.vm.provider "libvirt" do |v|
       v.memory = 8192
       v.cpus = 4			
