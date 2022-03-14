@@ -118,3 +118,8 @@ EOF
 # cd ceph-ansible
 # ansible-playbook -i inventory.ini site.yml
 
+echo "#######################"
+echo "Thuc hien cac lenh sau"
+
+echo "cd ceph-ansible"
+echo "ansible-playbook -i inventory.ini site.yml"
