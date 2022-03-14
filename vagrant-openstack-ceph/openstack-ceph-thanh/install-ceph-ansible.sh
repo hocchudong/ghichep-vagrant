@@ -7,42 +7,29 @@ apt install sshpass -y
 
 ssh-keygen -N "" -f /root/.ssh/id_rsa
 
-sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@172.16.70.61
-sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@172.16.70.62
-sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@172.16.70.63
-# sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@172.16.70.64
+sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@172.16.70.41
+sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@172.16.70.42
+sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@172.16.70.43
 
 # Khai bao file host 
 cat << EOF > /etc/hosts
-172.16.73.61 ceph01
-172.16.73.62 ceph02
-172.16.73.63 ceph03
-172.16.73.64 ceph04
+172.16.73.41 ceph01
+172.16.73.42 ceph02
+172.16.73.43 ceph03
+172.16.73.44 ceph04
 
-172.16.70.161 ceph01
-172.16.70.162 ceph02
-172.16.70.163 ceph03
-172.16.70.164 ceph04
-172.16.70.169 client01
+172.16.70.41 ceph01
+172.16.70.42 ceph02
+172.16.70.43 ceph03
 
-172.16.73.61 ceph01ssd
-172.16.73.62 ceph02ssd
-172.16.73.63 ceph03ssd
-172.16.73.64 ceph04ssd
-
-172.16.73.61 ceph01ssd
-172.16.73.62 ceph02ssd
-172.16.73.63 ceph03ssd
-172.16.73.64 ceph04ssd
 
 127.0.0.1       localhost
 EOF
 
 # Copy file host 
-scp /etc/hosts root@172.16.70.61:/etc/hosts
-scp /etc/hosts root@172.16.70.62:/etc/hosts
-scp /etc/hosts root@172.16.70.63:/etc/hosts
-# scp /etc/hosts root@172.16.70.164:/etc/hosts
+scp /etc/hosts root@172.16.70.41:/etc/hosts
+scp /etc/hosts root@172.16.70.42:/etc/hosts
+scp /etc/hosts root@172.16.70.43:/etc/hosts
 
 # Tai bo cai ceph-ansible
 apt-get install python3-pip -y
@@ -99,9 +86,9 @@ EOF
 
 cat << EOF > inventory.ini
 [mons]
-ceph01 ansible_host="172.16.70.61"
-ceph02 ansible_host="172.16.70.62"
-ceph03 ansible_host="172.16.70.63"
+ceph01 ansible_host="172.16.70.41"
+ceph02 ansible_host="172.16.70.42"
+ceph03 ansible_host="172.16.70.43"
 
 [osds:children]
 mons
