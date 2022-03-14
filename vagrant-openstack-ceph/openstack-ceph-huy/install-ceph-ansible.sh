@@ -23,17 +23,6 @@ cat << EOF > /etc/hosts
 172.16.70.162 ceph02
 172.16.70.163 ceph03
 172.16.70.164 ceph04
-172.16.70.169 client01
-
-172.16.73.61 ceph01ssd
-172.16.73.62 ceph02ssd
-172.16.73.63 ceph03ssd
-172.16.73.64 ceph04ssd
-
-172.16.73.61 ceph01ssd
-172.16.73.62 ceph02ssd
-172.16.73.63 ceph03ssd
-172.16.73.64 ceph04ssd
 
 127.0.0.1       localhost
 EOF
@@ -121,5 +110,6 @@ EOF
 echo "#######################"
 echo "Thuc hien cac lenh sau"
 
+echo "byobu"
 echo "cd ceph-ansible"
 echo "ansible-playbook -i inventory.ini site.yml"
