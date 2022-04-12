@@ -1,0 +1,112 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+# wget http://download.cirros-cloud.net/0.5.2/cirros-0.5.2-x86_64-disk.img
+# File vagrant de cai dat ceph-ansbile
+ENV['VAGRANT_NO_PARALLEL'] = 'yes'
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
+
+BOX_IMAGE= "generic/ubuntu2004"
+PATH_SHELL = "bootstrap_ubuntu20.sh"
+
+Vagrant.configure("2") do |config|
+  config.vm.box = BOX_IMAGE
+
+  config.vm.provision "shell", path: PATH_SHELL
+
+  config.ssh.insert_key = false
+	
+  # VM ceph01 
+  config.vm.define "ceph01" do |ceph01|
+    ceph01.vm.box = BOX_IMAGE
+    ceph01.vm.box_check_update  = false
+    ceph01.vm.hostname = "ceph01"
+    ceph01.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.161"
+    ceph01.vm.network "public_network", dev: "vlan2344", mode: "bridge", type: "bridge", ip: "172.16.73.161"
+    ceph01.vm.network "public_network", dev: "vlan2345", mode: "bridge", type: "bridge", ip: "172.16.74.161"
+    ceph01.vm.provider "libvirt" do |v|
+      v.memory = 4096
+      v.cpus = 2			
+      v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.
+      v.storage :file, :size => '60G' #them o cung thu 2 - vdb - disk cache		
+      v.storage :file, :size => '60G' #them o cung thu 3 - vdc - osd disk hdd
+      v.storage :file, :size => '60G' #them o cung thu 4 - vdd - osd disk hdd
+      v.storage :file, :size => '60G' #them o cung thu 5 - vde - osd disk ssd		
+      v.storage :file, :size => '60G' #them o cung thu 6 - vdf - osd disk ssd
+    end
+  end
+  
+  # VM ceph02 
+  config.vm.define "ceph02" do |ceph02|
+    ceph02.vm.box = BOX_IMAGE
+    ceph02.vm.box_check_update  = false
+    ceph02.vm.hostname = "ceph02"
+    ceph02.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.162"
+    ceph02.vm.network "public_network", dev: "vlan2344", mode: "bridge", type: "bridge", ip: "172.16.73.162"
+    ceph02.vm.network "public_network", dev: "vlan2345", mode: "bridge", type: "bridge", ip: "172.16.74.162"
+    ceph02.vm.provider "libvirt" do |v|
+      v.memory = 4096
+      v.cpus = 2		
+      v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.
+      v.storage :file, :size => '60G' #them o cung thu 2 - vdb - disk cache		
+      v.storage :file, :size => '60G' #them o cung thu 3 - vdc - osd disk hdd
+      v.storage :file, :size => '60G' #them o cung thu 4 - vdd - osd disk hdd
+      v.storage :file, :size => '60G' #them o cung thu 5 - vde - osd disk ssd		
+      v.storage :file, :size => '60G' #them o cung thu 6 - vdf - osd disk ssd	
+    end	  
+  end
+
+  # VM ceph03 
+  config.vm.define "ceph03" do |ceph03|
+    ceph03.vm.box = BOX_IMAGE
+    ceph03.vm.box_check_update  = false
+    ceph03.vm.hostname = "ceph03"
+    ceph03.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.163"
+    ceph03.vm.network "public_network", dev: "vlan2344", mode: "bridge", type: "bridge", ip: "172.16.73.163"
+    ceph03.vm.network "public_network", dev: "vlan2345", mode: "bridge", type: "bridge", ip: "172.16.74.163"
+    ceph03.vm.provider "libvirt" do |v|
+      v.memory = 4096
+      v.cpus = 2		
+      v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.
+      v.storage :file, :size => '60G' #them o cung thu 2 - vdb - disk cache		
+      v.storage :file, :size => '60G' #them o cung thu 3 - vdc - osd disk hdd
+      v.storage :file, :size => '60G' #them o cung thu 4 - vdd - osd disk hdd
+      v.storage :file, :size => '60G' #them o cung thu 5 - vde - osd disk ssd		
+      v.storage :file, :size => '60G' #them o cung thu 6 - vdf - osd disk ssd		
+    end	  
+  end
+  
+  # VM ceph04 
+  config.vm.define "ceph04" do |ceph04|
+    ceph04.vm.box = BOX_IMAGE
+    ceph04.vm.box_check_update  = false
+    ceph04.vm.hostname = "ceph04"
+    ceph04.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.164"
+    ceph04.vm.network "public_network", dev: "vlan2344", mode: "bridge", type: "bridge", ip: "172.16.73.164"
+    ceph04.vm.network "public_network", dev: "vlan2345", mode: "bridge", type: "bridge", ip: "172.16.74.164"
+    ceph04.vm.provider "libvirt" do |v|
+      v.memory = 4096
+      v.cpus = 2		
+      v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.
+      v.storage :file, :size => '60G' #them o cung thu 2 - vdb - disk cache		
+      v.storage :file, :size => '60G' #them o cung thu 3 - vdc - osd disk hdd
+      v.storage :file, :size => '60G' #them o cung thu 4 - vdd - osd disk hdd
+      v.storage :file, :size => '60G' #them o cung thu 5 - vde - osd disk ssd		
+      v.storage :file, :size => '60G' #them o cung thu 6 - vdf - osd disk ssd		
+    end	  
+  end
+
+  # # VM client01 
+  # config.vm.define "client01" do |client01|
+    # client01.vm.box = BOX_IMAGE
+    # client01.vm.box_check_update  = false
+    # client01.vm.hostname = "client01"
+    # client01.vm.network "public_network", dev: "vlan2341", mode: "bridge", type: "bridge", ip: "172.16.70.169"
+    # client01.vm.network "public_network", dev: "vlan2344", mode: "bridge", type: "bridge", ip: "172.16.73.169"
+    # client01.vm.provider "libvirt" do |v|
+      # v.memory = 2048
+      # v.cpus = 2			
+      # v.storage_pool_name = 'kvm2' # Cau hinh noi luu VM. Su dung lenh "virsh pool-list"  de lay ten cua pool.
+    # end	  
+  # end
+
+end

@@ -29,6 +29,7 @@ function sendtelegram() {
   curl -s --data-urlencode "text=$@" "https://api.telegram.org/bot$token/sendMessage?chat_id=$chatid" > /dev/null
 }
 
+
 function repo(){
   touch /etc/apt/apt.conf.d/99verify-peer.conf
   echo >>/etc/apt/apt.conf.d/99verify-peer.conf "Acquire { https::Verify-Peer false }"
@@ -46,17 +47,21 @@ deb https://172.16.70.131/repository/ubuntu2004 focal-security main restricted
 deb https://172.16.70.131/repository/ubuntu2004 focal-security universe
 deb https://172.16.70.131/repository/ubuntu2004 focal-security multiverse
 EOF
-
     apt clean
     apt-get update
 }
 
-sendtelegram "Thuc hien script $0 tren `hostname`"
-sendtelegram "Setup co ban tren node `hostname`"
+function install_ntp(){
+  sed -i 's/#NTP=/NTP=172.16.70.12/g' /etc/systemd/timesyncd.conf
+  timedatectl set-ntp off >/dev/null 2>&1
+  timedatectl set-ntp on >/dev/null 2>&1
+  timedatectl timesync-status >/dev/null 2>&1
+}
+
+# sendtelegram "Thuc hien script $0 tren `hostname`"
+# sendtelegram "Setup co ban tren node `hostname`"
 
 echo "[TASK 1]Khai bao repo node `hostname`"
-
-sendtelegram "Khai bao repo node `hostname`"
 repo
 
 # Enable ssh password authentication
@@ -71,23 +76,18 @@ echo -e "hcdadmin\nhcdadmin" | passwd root >/dev/null 2>&1
 
 # Install package
 echo "[TASK 4] Install package"
-apt update -qq -y >/dev/null 2>&1
-# apt dist-upgrade -qq -y >/dev/null 2>&1
-apt install -qq -y net-tools git curl vim byobu crudini >/dev/null 2>&1
+apt-get update -qq -y >/dev/null 2>&1
+# apt-get dist-upgrade -qq -y >/dev/null 2>&1
+apt-get install -qq -y net-tools git curl vim byobu crudini bc >/dev/null 2>&1
 
-echo "[TASK 5] Config timezone"
-apt-get install chrony -qq -y >/dev/null 2>&1
-ntpfile=/etc/chrony/chrony.conf
+# Config basic
+echo "[TASK 5] Config basic"
+systemctl disable ufw
+systemctl stop ufw
+timedatectl set-timezone Asia/Ho_Chi_Minh
 
-timedatectl set-timezone Asia/Ho_Chi_Minh >/dev/null 2>&1
-sed -i 's/pool 2.debian.pool.ntp.org offline iburst/ \
-pool 2.debian.pool.ntp.org offline iburst \
-server 0.asia.pool.ntp.org iburst \
-server 1.asia.pool.ntp.org iburst/g' $ntpfile -qq -y >/dev/null 2>&1
-
-echo "allow 172.16.70.212/24" >> $ntpfile  >/dev/null 2>&1
-service chrony restart  >/dev/null 2>&1
-
+echo "[TASK 6]Khai bao install_ntp node `hostname`"
+install_ntp
 
 TIME_END=`date +%s.%N`
 TIME_TOTAL_TEMP=$( echo "$TIME_END - $TIME_START" | bc -l )
@@ -98,4 +98,4 @@ echo "Tong thoi gian thuc hien $0 tren `hostname`: $TIME_TOTAL giay"
 
 sendtelegram "Da thuc hien script $0"
 sendtelegram "Tong thoi gian thuc hien $0 tren `hostname`: $TIME_TOTAL giay"
-notify
+# notify

@@ -46,7 +46,6 @@ sed -i 's/#ClientAliveCountMax 3/ClientAliveCountMax 60/g' /etc/ssh/sshd_config
 
 systemctl restart sshd 
 
-
 apt install sshpass -y
 
 ssh-keygen -N "" -f /root/.ssh/id_rsa
@@ -57,7 +56,6 @@ sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@controller03
 
 sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@compute01
 sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@compute02
-sshpass -p hcdadmin ssh-copy-id -o StrictHostKeyChecking=no root@compute03
 
 ## Copy hostname 
 scp /etc/hosts root@controller01:/etc/hosts
@@ -66,7 +64,7 @@ scp /etc/hosts root@controller03:/etc/hosts
 
 scp /etc/hosts root@compute01:/etc/hosts
 scp /etc/hosts root@compute02:/etc/hosts
-scp /etc/hosts root@compute03:/etc/hosts
+# scp /etc/hosts root@compute03:/etc/hosts
 
 ## Cai dat goi bo tro 
 

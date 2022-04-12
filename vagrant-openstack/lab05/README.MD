@@ -1,2 +1,3 @@
-# File vagrant cài đặt CEPH 
-Vgrantfile để cài đặt CEPH.
+# File vagrant cài đặt OpenStack bằng kolla-ansible
+
+Hướng dẫn tạo máy bảo bằng Vagrant và cài đặt OpenStack bằng kolla-ansible theo mô hình All in one
